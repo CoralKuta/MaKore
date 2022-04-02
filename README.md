@@ -1,1 +1,1 @@
-# MaKore
+# MaKore - Our Application to communicate
