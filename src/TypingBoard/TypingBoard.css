@@ -1,0 +1,41 @@
+  
+  .down-label {
+    top: 10%;
+    height: 80%;
+    width: 92%;
+    position:relative;
+    float: left;
+    align-items: center;
+    border: none;
+    outline: none;
+    border: 2px solid rgb(197, 197, 197);
+  }
+
+  .grey-low-panel .bi {
+    top: 20%;
+    height: 60%;
+    fill:gray;
+    cursor: pointer;
+    padding:1px;
+    display: inline-flexbox;
+    position:relative;
+    width: 4%;
+    float: left;
+  }
+  
+  .bi:hover {
+    background-color: #dbdbdb;
+    border: 0.5px solid #e6e6e6;
+    border-radius: 10px;
+  }
+
+  .grey-low-panel {
+    position:fixed;
+    bottom:0px;
+    align-items: center;
+    height: 7%;
+    width: 100%;
+    background-color: #e0e0e0;
+  }
+  
+  

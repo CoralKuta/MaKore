@@ -1,11 +1,10 @@
-import logo from './logo.svg';
+import TypingBoard from './TypingBoard/TypingBoard';
 import './App.css';
 
 function App() {
   return (
-    <div className="App-header">
-    Good luck
-    </div>
+    <TypingBoard/>
+  
   );
 }
 

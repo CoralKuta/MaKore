@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import TypingBoard from './TypingBoard';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <TypingBoard />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
