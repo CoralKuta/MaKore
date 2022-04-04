@@ -14,21 +14,86 @@ body{
   height: 600px;
   position:relative;
   top: 50px;
+  display: flex;
 }
-.bi-person-plus {
+
+.container .ContactScreen {
   position: relative;
-  left:250px;
+  flex: 30%;
 }
 
-.image img {
-  width: 25px;
-  margin-right: 5px;
+.container .ChatScreen {
+  position: relative;
+  flex: 70%;
+  background-color: #e5ddd5;
 }
 
-.font {
-  font-size: x-small;
+.MemmberInfo {
+  justify-content: center;
+  align-items: center;
+  margin: center;
+  float: left;
+  position: relative;
+  width: 100%;
+  height: 60px;
+  background-color: #ededed;
+  display: flex;
+  cursor: pointer;
 }
 
-.btn {
-
+.MemmberInfo .img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
+.Name{
+  float: left;
+  right: 90%;
+  color:rgb(12, 11, 11);
+}
+.Name h3{
+  float: left;
+  justify-content: center;
+  font-weight: 50;
+}
+.Name span{
+  float: left;
+  font-size: 15px;
+  color: rgb(17, 13, 13);
+}
+
+.searchChat {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchChat div{
+  width: 100%;
+}
+
+
+.searchChat div input{
+  width: 100%;
+  outline: none;
+  border: none;
+  background: #fff;
+  padding: 6px;
+  height: 38px;
+  border-radius: 30px;
+  font-size: 14px;
+  padding-left: 40px;
+}
+.searchChat div i{
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  font-size: 1.2em;
+}
+
