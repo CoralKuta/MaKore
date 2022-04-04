@@ -1,33 +1,30 @@
 body{
   background-color: rgba(226, 226, 226, 0.975);
 }
-
 .background {
   background-color: darkgreen;
-  width: 1600px;
+  width: 100%;
   height: 150px;  
 }
-
-
 .container {
   background-color: rgb(250, 250, 250);
   height: 600px;
   position:relative;
   top: 50px;
   display: flex;
+  padding: 0%;
 }
-
 .container .ContactScreen {
   position: relative;
   flex: 30%;
+  width: 30%;
 }
-
 .container .ChatScreen {
   position: relative;
   flex: 70%;
+  width: 70%;
   background-color: #e5ddd5;
 }
-
 .MemmberInfo {
   justify-content: center;
   align-items: center;
@@ -38,30 +35,25 @@ body{
   height: 60px;
   background-color: #ededed;
   display: flex;
-  cursor: pointer;
 }
-
 .MemmberInfo .img {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  margin: 0%;
+  right: 350px;
+  bottom: 15px;
   object-fit: cover;
 }
 
-.Name{
-  float: left;
-  right: 90%;
-  color:rgb(12, 11, 11);
+.Name {
+  position: relative;
+  right: 65px;
 }
-.Name h3{
-  float: left;
-  justify-content: center;
-  font-weight: 50;
-}
-.Name span{
-  float: left;
-  font-size: 15px;
-  color: rgb(17, 13, 13);
+
+.NickName {
+  position: relative;
+  top:20px;
+  right: 50px;
+  color:cadetblue;
 }
 
 .searchChat {
@@ -73,12 +65,9 @@ body{
   justify-content: center;
   align-items: center;
 }
-
 .searchChat div{
   width: 100%;
 }
-
-
 .searchChat div input{
   width: 100%;
   outline: none;
@@ -95,5 +84,61 @@ body{
   left: 12px;
   top: 10px;
   font-size: 1.2em;
+}
+.bi-person-plus {
+  position: absolute;
+  right: 16px;
+  top: 22px;
+  font-size: 1.5em;
+}
+
+.list-group-item {
+  height: 75px;
+  padding-left: 3px;
+}
+
+.ContractName {
+  position: relative;
+  left: 50px;
+  bottom: 55px;
+  font-size: larger;
+}
+
+.time {
+  position: relative;
+  bottom: 90px;
+  float: right;
+  font-size: 0.75em;
+  color: #aaa;
+}
+
+.list-group-item .img {
+  position: relative;
+  margin: 0%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.LastMassage {
+  position: relative;
+  text-align: center;
+  bottom: 55px;
+  color: #aaa;
+}
+
+.Notification {
+  position: relative;
+  bottom: 75px;
+  background-color: rgb(34, 228, 34);
+  color: #fff;
+  float: right;
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  font-size: 0.75em;
 }
 
