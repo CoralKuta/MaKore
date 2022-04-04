@@ -1,0 +1,12 @@
+.message-board {
+    top: 10%;
+    height: 80%;
+    width: 92%;
+    position:relative;
+    float: left;
+    align-items: center;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    border: 2px solid rgb(197, 197, 197);
+  }
