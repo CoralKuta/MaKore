@@ -8,9 +8,7 @@ import { useState } from 'react';
 
 function App() {
 
-  const [messageList, setMessageList] = useState(Message)
-  const send = function(newMessage)
-  {setMessageList([messageList, <Message content={newMessage}/>])}
+  const [messageList, setMessageList] = useState('')
 
   return (
     <div>
@@ -18,7 +16,7 @@ function App() {
       <div>
         {messageList}
       </div>
-      <TypingBoard setter = {send}/>
+      <TypingBoard setter = {(newMessage)=>setMessageList([messageList, <Message content={newMessage}/>])}/>
     </div>
       );
 }

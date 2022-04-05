@@ -8,7 +8,7 @@ import { useState } from 'react';
 function ConvBoard({messageList}) {
   return (
     <div className="chat-background">
-        
+        {messageList}
     </div>
   );
 }
