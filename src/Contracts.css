@@ -45,15 +45,17 @@ body{
 }
 
 .Name {
-  position: relative;
-  right: 65px;
+  position: absolute;
+  left: 13%;
+  top: 10%;
 }
 
 .NickName {
-  position: relative;
-  top:20px;
-  right: 50px;
-  color:cadetblue;
+  position: absolute;
+  left: 35%;
+  color: cadetblue;
+  text-align: center;
+  bottom: 4%;
 }
 
 .searchChat {

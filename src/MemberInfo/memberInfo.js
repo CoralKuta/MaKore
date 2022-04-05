@@ -6,7 +6,7 @@ function MemberInfo() {
           <div className="Name">
             <h4>Ido Tavron</h4>
           </div>
-          <div className="NickName"> Idodo</div>
+          <div className="NickName">Idodolklklklklklk</div>
           <button type="button" className="bi bi-person-plus"></button>
       </div>
     );
