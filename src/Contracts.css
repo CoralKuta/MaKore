@@ -90,6 +90,7 @@ body{
   right: 16px;
   top: 22px;
   font-size: 1.5em;
+  border: 0px;
 }
 
 .list-group-item {
