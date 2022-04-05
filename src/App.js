@@ -1,7 +1,7 @@
 import './Contracts.css';
 import contacts from './ContactItem/contactsList';
 import Search from './Search/Search.js'
-import img from './img.jpeg';
+import MemberInfo from './MemberInfo/memberInfo';
 import { useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 
@@ -17,13 +17,8 @@ function App() {
     <div className="background">
     <div className="container">
       <div className="ContactScreen">
-        <div className="MemmberInfo">
-          <div className="img"> <img src={img}  className="rounded-circle" width="40px" alt=""></img></div>
-          <div className="Name">
-            <h4>Ido Tavron</h4>
-          </div>
-          <div className="NickName"> Idodo</div>
-          <button type="button" className="bi bi-person-plus"></button>
+      <div className="MemmberInfo">
+        <MemberInfo />
         </div>
         <div className="searchChat">
           <Search doSearch={doSearch} />
