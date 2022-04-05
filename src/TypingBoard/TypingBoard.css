@@ -1,4 +1,4 @@
-.grey-low-panel {
+.gray-low-panel {
   position:fixed;
   bottom:0px;
   align-items: center;
@@ -8,9 +8,11 @@
 }
   
 .message-board {
-  top: 10%;
+  bottom: -10%;
+  left: 3%;
   height: 80%;
-  width: 92%;
+  max-height: 200%;
+  width: 94%;
   position:relative;
   float: left;
   align-items: center;
@@ -20,22 +22,35 @@
   border: 2px solid rgb(197, 197, 197);
 }
 
-  .grey-low-panel .bi {
-    bottom: -20%;
-    height: 60%;
+  .bi {
+    max-height: 40px;
     fill:gray;
     cursor: pointer;
-    padding:1px;
     display: inline-flexbox;
-    position:relative;
-    width: 4%;
-    float: left;
   }
-  
+
+  .bi-paperclip{
+    position:absolute;
+    bottom: 0px;
+    left: 0px;
+    margin:5px;
+    padding: 1px;
+    width: 2%;
+
+  }
+  .bi-send{
+    position:absolute;
+    bottom: 0px;
+    right: 0px;
+    margin:5px;
+    padding: 1px;
+    width: 2%;
+  }
+
   .bi:hover {
     background-color: #dbdbdb;
     border: 0.5px solid #e6e6e6;
-    border-radius: 10px;
+    border-radius: 5px;
   }
 
   
