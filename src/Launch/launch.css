@@ -1,56 +1,57 @@
 body {
     background-image: url('background.jpg');
     font-family: Monospace;
-    
-  }
-  
-.main-box{
-    width: 70%;
-    background-color: rgba(255, 255, 255, 0.663);
-    box-shadow: 0 0 5px 5px rgba(85, 2, 123, 0.503);
-    position:absolute;
-    left: 15%;
-    right: 20%;
-    top: 20%;
-    bottom: 20%;
 }
 
-.container {
-    position: absolute;
-    margin-left: 50%;
-    width:50%;
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.wrapper>* {
+    /* box-shadow: 0 0 5px 5px rgb(0, 170, 255); */
+    padding: 10px;
+    margin: 10px;
+    flex: 1 100%;
+    border-radius: 10px;
+}
+
+
+.logo-space {
+    height: 200px;
+    background-color: rgb(124, 124, 199);
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.side {
+    max-width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sign {
     background: rgb(255, 255, 255);
-    height: 100%;
+    height: 450px;
 }
-
 
 .logo {
-    float:left;
-    width: 50%;
-    left: 0px;
+    height: 130px;
+    display: block;
+    margin-left: auto;
+    margin-top: 30px;
+    margin-right: auto;
 }
 
-.splash {
-    position: absolute;
-    width: 50%;
-    left: -3%;
-    top: 20%;
-    bottom: 20%;
-    
+.menu {
+    background-color: rgb(255, 255, 255);
 }
 
-.MAKORE {
-    position: absolute;
-    width: 40%;
-    left: 2%;
-    right: 20%;
-    top: 35%;
-    bottom: 20%;
-}
-
-
-
-.form-control{
+.form-control {
     display: block;
     width: 100%;
     font-size: 100%;
@@ -65,7 +66,7 @@ body {
     background-clip: padding-box;
 }
 
-.form-control:focus{
+.form-control:focus {
     color: #7c64b8;
     background-color: #fff;
     border-color: #fff;
@@ -73,32 +74,29 @@ body {
     box-shadow: none;
 }
 
-.btn-class{
+.btn-class {
     border-color: #6d3db5;
     color: #412570;
     margin-bottom: 5%;
     border-radius: 0.5rem;
+    
 }
 
-.btn-class:hover{
-    background-color:  #6e3994;
+.btn-class:hover {
+    background-color: #6e3994;
     color: #fff;
 }
 
 
 .signin-text {
-    margin-top: 5%;
-    margin-bottom: 1% !important;
+    margin-top: 20px;
     font-size: 300%;
     text-align: center;
     text-decoration: underline;
-    font-style: normal;
     font-weight: bold !important;
 }
 
 .signup-text {
-    margin-top: 5%;
-    margin-bottom: 1% !important;
     font-size: 300%;
     text-align: center;
     text-decoration: underline;
@@ -107,22 +105,48 @@ body {
 }
 
 .signup-signin {
+    text-align: center;
     font-weight: bold;
-    margin-bottom: 1%; 
+    margin-bottom: 1%;
     font-size: larger;
 }
 
 
-.click-here{
-    font-weight: bold; 
-    margin-bottom: 15px; 
-    font-size: larger;
+
+.error {
+    color: rgb(189, 0, 0);
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: -5px;
+
 }
 
-.sign {
-    position: absolute;
-    right: 0px;
-    left: 50%;
-    padding-left: 5%;
-    padding-right: 5%;
+@media all and (min-width: 800px) {
+    .sign {
+        flex: 3;
+    }
+
+    .menu {
+        order: 1;
+    }
+
+    .sign {
+        order: 2;
+    }
+
+    .sign {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .side {
+        margin-top: 30px;
+        max-width: 350px;
+    }
+}
+
+@media all and (min-width: 600px) {
+    .menu {
+        flex: 1;
+    }
 }
