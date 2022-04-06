@@ -1,8 +1,8 @@
-.chat-background {
-    position:fixed;
-    align-items: center;
-    height: 92%;
-    width: 100%;
-    background-color: #a61d74;
-  }
-    
+
+    .chat-background {
+      position: absolute;
+      height: 90%;
+      width: 100%;
+      background-color: #c4a0e3;
+    }
+      

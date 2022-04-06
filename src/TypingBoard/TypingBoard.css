@@ -1,20 +1,17 @@
 .gray-low-panel {
-  position:fixed;
+  position: fixed;
   bottom:0px;
   align-items: center;
-  height: 8%;
+  height: 10%;
   width: 100%;
+  flex-direction: row;
   background-color: #e0e0e0;
 }
   
 .message-board {
-  bottom: -10%;
-  left: 3%;
   height: 80%;
   max-height: 200%;
   width: 94%;
-  position:relative;
-  float: left;
   align-items: center;
   border: none;
   outline: none;
@@ -30,7 +27,6 @@
   }
 
   .bi-paperclip{
-    position:absolute;
     bottom: 0px;
     left: 0px;
     margin:5px;
@@ -39,7 +35,6 @@
 
   }
   .bi-send{
-    position:absolute;
     bottom: 0px;
     right: 0px;
     margin:5px;

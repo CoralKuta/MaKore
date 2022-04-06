@@ -1,0 +1,7 @@
+.msg{
+    font-size: x-large;
+    background-color: rgb(175, 106, 239);
+    max-width: 30%;
+    margin: 7px;
+    border-radius: 5px;
+}

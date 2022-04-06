@@ -1,7 +1,7 @@
-
+import './Message.css'
 function Message({content}) {
   return (
-      <input placeholder={content}></input>
+      <p className='msg'>{content}</p>
   );
 }
 

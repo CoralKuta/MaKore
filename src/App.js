@@ -11,14 +11,15 @@ function App() {
   const [messageList, setMessageList] = useState('')
 
   return (
-    <div>
-      <ConvBoard messageList={messageList}/>
-      <div>
-        {messageList}
+    <div className="d-flex flex-column all">
+      <TypingBoard setter={(newMessage) => setMessageList([messageList, <Message content={newMessage} />])} />
+      <div className="d-flex flex-column flex-grow-1">
+        <div className="overflow-auto">
+          <ConvBoard messageList={messageList} />
+        </div>
       </div>
-      <TypingBoard setter = {(newMessage)=>setMessageList([messageList, <Message content={newMessage}/>])}/>
     </div>
-      );
+  );
 }
 
 export default App;
