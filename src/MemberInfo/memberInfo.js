@@ -1,6 +1,5 @@
 import img from './img.jpeg';
 
-
 function MemberInfo() {
 
     return (
