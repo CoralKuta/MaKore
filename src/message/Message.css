@@ -1,13 +1,27 @@
 .my-msg{
-    font-size: x-large;
     background-color: #9239e0;
-    max-width: 60%;
+    max-width: 55%;
     margin: 7px;
-    padding-left: 10px;
-    padding-right: 10px;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 4px 4px 5px #3e2952;
+    box-shadow: 3px 3px 3px #3e2952;
     overflow-wrap: break-word;
     white-space: pre-line;
+}
+
+.text-msg{
+    margin-right: 20px;
+    max-width: 90%;
+    margin-bottom: 0px;
+    font-size: x-large;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+    float: left;
+}
+
+.time-msg{
+    position: relative;
+    margin-bottom: 0px;
+    font-size:small;
+    float: right;
 }
