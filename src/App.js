@@ -13,13 +13,17 @@ function App() {
 
   return (
     <div className="all">
-            <div className="flex-column ">
-          <ConvBoard messageList={messageList} />
+      <div className="messageComp">
+        <ConvBoard messageList={messageList} />
       </div>
-      <TypingBoard setter={(newMessage) =>{
-          var today = new Date();
+      <TypingBoard setter={(newMessage) => {
+        var today = new Date();
+        if (today.getMinutes() < 10)
+          var time = today.getHours() + ":0" + today.getMinutes();
+        else
           var time = today.getHours() + ":" + today.getMinutes();
-           setMessageList([messageList, <Message content={[newMessage, time]} />]);}} />
+        setMessageList([messageList, <Message content={[newMessage, time]} />]);
+      }} />
     </div>
   );
 }

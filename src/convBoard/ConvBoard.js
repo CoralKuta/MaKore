@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 function ConvBoard({ messageList }) {
   return (
-      <div className="chat-background d-flex flex-column align-items-start justify-content-end">
+      <div className="chat-background d-flex flex-column align-items-start">
         {messageList}
       </div>
   );
