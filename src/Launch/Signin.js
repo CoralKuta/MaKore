@@ -2,12 +2,12 @@ import React from 'react';
 import './launch.css';
 import './contacts';
 import contacts from './contacts';
-import { useState } from 'react';   
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 
 
-function Signin(props) {
+function Signin() {
 
     // if there is an error message - store the name of the field
     const [errorMessages, setErrorMessages] = useState({});
@@ -15,7 +15,17 @@ function Signin(props) {
     // indicate if the form is successfully submitted
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const errors = { wrong: "Invalid details. Not registerd? Sign up for free now!"};
+    const errors = { wrong: "Invalid details. Not registerd? Sign up now!" };
+
+    // to hide the error messages
+    const [displayError, setdisplayError] = useState('none');
+
+
+
+    // When an error is displayed and the client tries again, he clicks on the form, and thus we want the errors to disapear.
+    const hideErrors = () => {
+        setdisplayError('none');
+    }
 
 
     const validate = event => {
@@ -40,6 +50,7 @@ function Signin(props) {
             // Username not found
             console.log("you dont exist");
             setErrorMessages({ name: "wrong", message: errors.wrong });
+            setdisplayError('block');
         }
 
     }
@@ -53,30 +64,39 @@ function Signin(props) {
 
 
     return (
-        <div className='sign'>
-            <h3 className='signin-text mb-3'>Sign In</h3>
+        <div className='sign'  onClick={hideErrors}>
+            <h3 className='signin-text'>Sign In</h3>
             <div className='signup-signin'>Not registered? <a href="/signup">Click here</a> to sign up!</div>
-            {renderErrorMessage("wrong")}
             <form onSubmit={validate}>
 
-                <div className='mb-3 c'>
-                    <label className="form-label">Username</label>
-                    <input type="text" className="form-control" name="username" required></input>
-
+                <div className='row'>
+                    <div className='mb-3 c'>
+                        <label className="form-label">Username</label>
+                        <input type="text" className="form-control" name="username" required></input>
+                    </div>
                 </div>
 
                 <br></br>
 
-                <div className='mb-3'>
-                    <label className='form-label'>Password</label>
-                    <input type="password" className="form-control" name="password" required></input>
+                <div className='row'>
+                    <div className='mb-3'>
+                        <label className='form-label'>Password</label>
+                        <input type="password" className="form-control" name="password" required></input>
+                    </div>
                 </div>
-                
+
                 <br></br>
 
                 <div className='d-grid'>
                     <button type="submit" className='btn btn-class'>Login</button>
                 </div>
+
+                <div className='row'>
+                    <div style={{ 'display': displayError }}>
+                        {renderErrorMessage("wrong")}
+                    </div>
+                </div>
+
             </form>
         </div>
     );

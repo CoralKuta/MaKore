@@ -1,5 +1,6 @@
 body {
     background-image: url('background.jpg');
+    background-color: rgba(124, 124, 199, 0.689);
     font-family: Monospace;
 }
 
@@ -11,7 +12,7 @@ body {
 }
 
 .wrapper>* {
-    /* box-shadow: 0 0 5px 5px rgb(0, 170, 255); */
+    box-shadow: 0 0 5px 5px rgba(89, 0, 255, 0.258);
     padding: 10px;
     margin: 10px;
     flex: 1 100%;
@@ -20,6 +21,7 @@ body {
 
 
 .logo-space {
+
     height: 200px;
     background-color: rgb(124, 124, 199);
     position: relative;
@@ -28,15 +30,22 @@ body {
 }
 
 .side {
-    max-width: 150px;
+    max-width: 100px;
+    display: block;
+    /* margin-left: 70px; */
+    margin-right: auto;
+}
+
+.footer {
+    max-width: 320px;
     display: block;
     margin-left: auto;
-    margin-right: auto;
+    margin-top: -110px;
 }
 
 .sign {
     background: rgb(255, 255, 255);
-    height: 450px;
+    height: 500px;
 }
 
 .logo {
@@ -77,9 +86,9 @@ body {
 .btn-class {
     border-color: #6d3db5;
     color: #412570;
-    margin-bottom: 5%;
+    margin-bottom: 25px;
     border-radius: 0.5rem;
-    
+
 }
 
 .btn-class:hover {
@@ -107,19 +116,35 @@ body {
 .signup-signin {
     text-align: center;
     font-weight: bold;
-    margin-bottom: 1%;
+    margin-bottom: 1px;
     font-size: larger;
+    margin-left: -14px;
+    margin-right: -14px;
 }
-
 
 
 .error {
     color: rgb(189, 0, 0);
     font-size: large;
     font-weight: bold;
-    margin-bottom: -5px;
-
+    margin-top: -20px;
 }
+
+
+@media all and (min-width: 800px) and (max-width: 856px){
+    .pic {
+        margin-top: -32px;
+    }
+}
+
+
+@media all and (min-width: 480px)  and (max-width: 799px){
+    .pic {
+        margin-top: 0px;
+    }
+}
+
+
 
 @media all and (min-width: 800px) {
     .sign {
@@ -143,10 +168,21 @@ body {
         margin-top: 30px;
         max-width: 350px;
     }
+
+    .footer {
+        opacity: 20%;
+        margin-left: 10px;
+    }
+
 }
 
 @media all and (min-width: 600px) {
     .menu {
         flex: 1;
+    }
+
+    .sign {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
