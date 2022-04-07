@@ -1,13 +1,13 @@
-.msg{
+.my-msg{
     font-size: x-large;
-    background-color: #c4a0e3;
+    background-color: #9239e0;
     max-width: 60%;
     margin: 7px;
     padding-left: 10px;
     padding-right: 10px;
+    padding: 10px;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px #a485c0;
+    box-shadow: 4px 4px 5px #3e2952;
     overflow-wrap: break-word;
     white-space: pre-line;
-
 }
