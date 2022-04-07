@@ -1,7 +1,13 @@
 .msg{
     font-size: x-large;
-    background-color: rgb(175, 106, 239);
-    max-width: 30%;
+    background-color: #c4a0e3;
+    max-width: 60%;
     margin: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
     border-radius: 5px;
+    box-shadow: 2px 2px 5px #a485c0;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+
 }

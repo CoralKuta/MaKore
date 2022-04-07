@@ -2,7 +2,10 @@
     .chat-background {
       position: absolute;
       height: 90%;
+      min-height: 60%;
       width: 100%;
-      background-color: #c4a0e3;
+      background-color: #dbc5ee;
+      overflow: auto;
+      padding: 20px;
     }
       

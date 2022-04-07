@@ -3,6 +3,7 @@
   bottom:0px;
   align-items: center;
   height: 10%;
+  max-height: 40%;
   width: 100%;
   flex-direction: row;
   background-color: #e0e0e0;
@@ -11,12 +12,14 @@
 .message-board {
   height: 80%;
   max-height: 200%;
-  width: 94%;
+  width: 90%;
   align-items: center;
   border: none;
   outline: none;
   border-radius: 10px;
   border: 2px solid rgb(197, 197, 197);
+  resize: none;
+  font-size: x-large;
 }
 
   .bi {
@@ -30,8 +33,9 @@
     bottom: 0px;
     left: 0px;
     margin:5px;
+    margin-left: 8px;
     padding: 1px;
-    width: 2%;
+    width: 5%;
 
   }
   .bi-send{
@@ -39,13 +43,15 @@
     right: 0px;
     margin:5px;
     padding: 1px;
-    width: 2%;
+    width: 5%;
   }
 
   .bi:hover {
     background-color: #dbdbdb;
     border: 0.5px solid #e6e6e6;
     border-radius: 5px;
+    fill: #a27bc5;
+
   }
 
   
