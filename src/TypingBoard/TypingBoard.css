@@ -7,6 +7,8 @@
   width: 100%;
   flex-direction: row;
   background-color: #e0e0e0;
+  box-shadow: 1px -3px #8a7f94;
+
 }
   
 .message-board {
@@ -14,16 +16,18 @@
   max-height: 200%;
   width: 90%;
   align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
   border: none;
   outline: none;
   border-radius: 10px;
   border: 2px solid rgb(197, 197, 197);
   resize: none;
-  font-size: x-large;
+  font-size: large;
 }
 
   .bi {
-    max-height: 40px;
+    max-height: 35px;
     fill:gray;
     cursor: pointer;
     display: inline-flexbox;
@@ -32,18 +36,22 @@
   .bi-paperclip{
     bottom: 0px;
     left: 0px;
-    margin:5px;
+    margin:7px;
+    margin-right: 0px;
     margin-left: 8px;
     padding: 1px;
-    width: 5%;
+    min-height: 5px;
+    width:3%;
 
   }
   .bi-send{
     bottom: 0px;
     right: 0px;
-    margin:5px;
+    margin:7px;
+    margin-left: 0px;
     padding: 1px;
-    width: 5%;
+    width: 3%;
+    min-height: 5px;
   }
 
   .bi:hover {

@@ -9,15 +9,17 @@ import { useState } from 'react';
 function App() {
 
   const [messageList, setMessageList] = useState('')
-  var today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes();
+
 
   return (
-    <div className="d-flex flex-column all">
-      <TypingBoard setter={(newMessage) => setMessageList([messageList, <Message content={[newMessage, time]} />])} />
-      <div className="d-flex flex-column flex-grow-1">
+    <div className="all">
+            <div className="flex-column ">
           <ConvBoard messageList={messageList} />
       </div>
+      <TypingBoard setter={(newMessage) =>{
+          var today = new Date();
+          var time = today.getHours() + ":" + today.getMinutes();
+           setMessageList([messageList, <Message content={[newMessage, time]} />]);}} />
     </div>
   );
 }
