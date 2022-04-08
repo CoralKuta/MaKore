@@ -19,7 +19,7 @@
     margin-right: 20px;
     max-width: 90%;
     margin-bottom: 0px;
-    font-size: large;
+    font-size: medium;
     overflow-wrap: break-word;
     white-space: pre-line;
     float: left;
@@ -28,6 +28,6 @@
 .time-msg{
     position: relative;
     margin-bottom: 0px;
-    font-size:small;
+    font-size:x-small;
     float: right;
 }
