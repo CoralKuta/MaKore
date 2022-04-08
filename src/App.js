@@ -1,5 +1,6 @@
 import './Contracts.css';
 import contacts from './ContactItem/contactsList';
+import members from './ContactItem/members';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
 import { useState } from 'react';
@@ -23,23 +24,34 @@ function App() {
   }
   const [nameId, setNameId] = useState("");
   const errors = {
-    uname: "Invalid contact identifier!",
-    pass: "You can not add your self as a new contact!"
+    inValid: "There is no such user! Please try again.",
+    yourSelf: "You can't add your self as a new contact!",
+    alreadyExists: "This contact already exists!"
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     const time = '';
     const LastMassage = '';
     const noti = 0;
-    const contactIdentifier = contacts.find((user) => user.nameCon === nameId);
+    const contactIdentifier = members.find((user) => user.nameCon === nameId);
+    const checkExists = contacts.find((user) => user.nameCon === nameId);
     const contact11 = { image: img, nameCon: nameId, time: time, massage: LastMassage, noti: noti };
-    if (contactIdentifier) {
-      setContractList(ls => [...ls, contact11])
+    const memberName = document.getElementById("MemberName");
+    if (contactIdentifier && !checkExists && (memberName.innerText !== nameId)) {
+      contacts.push(contact11);
       setNameId("");
       setButtonPopup(false);
     }
+    else if(!contactIdentifier){
+      setErrorMessages({ name: "uname", message: errors.inValid });
+      setdisplayError('block');
+    }
+    else if(checkExists){
+      setErrorMessages({ name: "uname", message: errors.alreadyExists });
+      setdisplayError('block');
+    }
     else {
-      setErrorMessages({ name: "uname", message: errors.uname });
+      setErrorMessages({ name: "uname", message: errors.yourSelf });
       setdisplayError('block');
     }
   }
@@ -63,20 +75,19 @@ function App() {
         </div>
         <div className="ChatScreen"></div>
       </div>
-        <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors = {hideErrors} setNameId= {setNameId} >
-          <span className="addContact">Add new contact</span>
-          <form onSubmit={handleSubmit}>
-            <div className="form-floating mb-3">
-              <input type="contact" className="form-control" value={nameId} onChange={(e) => setNameId(e.target.value)} id="floatingInput"></input>
-              <label htmlFor="floatingInput">Contact's identifier</label>
-              {renderErrorMessage("uname")}
-            </div>
-            <button type="submit" className="btn btn-primary">Add</button>
-            <div style={{ 'display': displayError, 'color': 'red', 'position': '12px' }}>
-              {renderErrorMessage("wrong")}
-            </div>
-          </form>
-        </PopUp>
+      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >
+        <span className="addContact">Add new contact</span>
+        <form onSubmit={handleSubmit}>
+          <div className="form-floating mb-3">
+            <input type="contact" className="form-control" value={nameId} onChange={(e) => setNameId(e.target.value)} id="floatingInput"></input>
+            <label htmlFor="floatingInput">Contact's identifier</label>
+            {renderErrorMessage("uname")}
+          </div>
+          <button type="submit" className="btn btn-primary">Add</button>
+          <div className="errorOnSubmit" style={{ 'display': displayError }}>
+            {renderErrorMessage("wrong")}</div>
+        </form>
+      </PopUp>
     </div>
   );
 }

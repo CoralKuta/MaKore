@@ -6,4 +6,6 @@ const contacts = [{image : img, nameCon : "Tal Dabran", time : "11:31", massage 
 {image : img, nameCon : "Hemi Leibobich", time : "00:31", massage : "", noti : 0 },
 {image : img, nameCon : "Elad Hemo", time: "14:32", massage: "Hello", noti: 3}];
 
+
+
 export default contacts;
