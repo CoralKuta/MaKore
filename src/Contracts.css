@@ -18,6 +18,7 @@ body{
   position: relative;
   flex: 30%;
   width: 30%;
+  height: 80%;
 }
 .container .ChatScreen {
   position: relative;
@@ -95,9 +96,19 @@ body{
   border: 0px;
 }
 
+.list-group {
+  position:relative;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x:hidden;
+  margin-left: 0;
+}
+
 .list-group-item {
+  position:relative;
   height: 75px;
   padding-left: 3px;
+
 }
 
 .ContractName {
