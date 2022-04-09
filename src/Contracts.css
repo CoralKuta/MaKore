@@ -178,3 +178,18 @@ body{
   text-align: center;
 }
 
+.chat-image {
+  width: 100%;
+  position: relative;
+  margin: 1%;
+  float:left;
+  bottom:5%;
+  object-fit: cover;
+}
+
+.chat-Name {
+  position: absolute;
+  left : 6%;
+  top: 9%;
+}
+
