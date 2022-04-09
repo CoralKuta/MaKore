@@ -4,46 +4,29 @@
   left:1%;
   align-items: center;
   height: 10vh;
-  max-height: 40%;
+  max-height: 150px;
   width: 98%;
   flex-direction: row;
   background-color: #e0e0e0;
   box-shadow: 0px 3px 3px #3e2952;
   border-radius: 30px;
 
-  /* Coral */
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-  /* Coral */
 }
-  
-/* .message-board {
-  height: 70%;
-  max-height: 200%;
-  width: 90%;
-  align-items: center;
-  margin-right: 1%;
-  margin-left: 1%;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  border: 2px solid rgb(197, 197, 197);
-  resize: none;
-  font-size:80%;
-} */
+
 
 /* Coral */
 .message-board {
-  height: 70%;
-  max-height: 300px;
+  height: 100%;
+  max-height: 150px;
   width: 90%;
   margin-right: 1%;
   margin-left: 1%;
   align-items: center;
   resize: none;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 2px solid rgb(197, 197, 197);
+  background-color: #e0e0e0;
+  font-size: 80%;
   border: none;
   outline: none;
   
@@ -54,7 +37,7 @@ textarea:is(:focus, :valid) {
 }
 
 textarea::-webkit-scrollbar {
-  width: 0px;
+  width: 2px;
 }
 
 /* Coral */
@@ -65,7 +48,7 @@ textarea::-webkit-scrollbar {
 
   .bi {
     max-height: 35px;
-    width: 3%;
+    width: 5%;
     min-height: 5px;
     bottom: 0px;
     margin:7px;

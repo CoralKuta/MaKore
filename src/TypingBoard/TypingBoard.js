@@ -14,28 +14,35 @@ function TypingBoard({ setter }) {
   const textBoard = useRef(null);
 
 
-  // Coral
-  // to change height of grayPanel
+  // // Coral
+  // // to change height of grayPanel
   const [height, setHeight] = useState('auto');
+  const [topBorderText, settopBorderText] = useState('52px');
 
 
-  function typing () {
+
+  function typing() {
     const textarea = document.querySelector("textarea");
     textarea.addEventListener("keyup", e => {
       textarea.style.height = "auto";
       let scHeight = e.target.scrollHeight;
       textarea.style.height = `${scHeight}px`;
       setHeight = scHeight;
+      let bot = e.target.scrollHeight + 10;
+      if (bot < 170) {
+        settopBorderText(`${bot}px`);
+      }
     })
   }
 
-  // Coral
+
 
   const send = function () {
 
     // Coral
     const textarea = document.querySelector("textarea");
-    textarea.style.height = "auto";   
+    textarea.style.height = "auto";
+    typing();
     // Coral
 
 
@@ -58,7 +65,7 @@ function TypingBoard({ setter }) {
 
   return (
     <div className="gray-low-panel d-flex" id="grayPanel" style={{ 'height': height }}>
-      <div id="attached" className="attached">
+      <div id="attached" className="attached" style={{ 'bottom': topBorderText }}>
         <AttachComponent />
       </div>
       <svg onClick={attach} xmlns="http://www.w3.org/2000/svg" className="bi bi-paperclip" viewBox="0 0 16 16">
