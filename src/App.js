@@ -10,7 +10,6 @@ import './PopUp.css';
 import img from './img.jpeg';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
-import ChatScreen from './ChatScreen';
 
 
 function App() {
@@ -42,6 +41,7 @@ function App() {
     const memberName = document.getElementById("MemberName");
     if (contactIdentifier && !checkExists && (memberName.innerText !== nameId)) {
       contacts.push(contact11);
+      console.log(contacts);
       setNameId("");
       setButtonPopup(false);
     }
