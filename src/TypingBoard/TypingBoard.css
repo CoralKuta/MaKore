@@ -11,9 +11,14 @@
   box-shadow: 0px 3px 3px #3e2952;
   border-radius: 30px;
 
+  /* Coral */
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  /* Coral */
 }
   
-.message-board {
+/* .message-board {
   height: 70%;
   max-height: 200%;
   width: 90%;
@@ -26,7 +31,37 @@
   border: 2px solid rgb(197, 197, 197);
   resize: none;
   font-size:80%;
+} */
+
+/* Coral */
+.message-board {
+  height: 70%;
+  max-height: 300px;
+  width: 90%;
+  margin-right: 1%;
+  margin-left: 1%;
+  align-items: center;
+  resize: none;
+  border-radius: 10px;
+  border: 2px solid rgb(197, 197, 197);
+  border: none;
+  outline: none;
+  
 }
+
+textarea:is(:focus, :valid) {
+  border-width: 2px;
+}
+
+textarea::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Coral */
+
+
+
+
 
   .bi {
     max-height: 35px;
@@ -68,5 +103,3 @@
     bottom: 12vh;
     left: 2vh;
   }
-
-  

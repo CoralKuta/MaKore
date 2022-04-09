@@ -1,4 +1,4 @@
-import TypingBoard from './typingBoard/TypingBoard';
+import TypingBoard from './TypingBoard/TypingBoard';
 import './App.css';
 import ConvBoard from './convBoard/ConvBoard';
 import Message from './message/Message'
