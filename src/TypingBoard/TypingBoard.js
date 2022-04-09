@@ -41,6 +41,7 @@ function TypingBoard({ setter }) {
 
     // Coral
     const textarea = document.querySelector("textarea");
+    textarea.style.height = "auto";
     // Coral
 
 
