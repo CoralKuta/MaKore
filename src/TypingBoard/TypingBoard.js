@@ -27,7 +27,7 @@ function TypingBoard({ setter }) {
       textarea.style.height = "auto";
       let scHeight = e.target.scrollHeight;
       textarea.style.height = `${scHeight}px`;
-      setHeight = scHeight;
+      setHeight (scHeight);
       let bot = e.target.scrollHeight + 10;
       if (bot < 170) {
         settopBorderText(`${bot}px`);
@@ -41,8 +41,6 @@ function TypingBoard({ setter }) {
 
     // Coral
     const textarea = document.querySelector("textarea");
-    textarea.style.height = "auto";
-    typing();
     // Coral
 
 
