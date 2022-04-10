@@ -131,14 +131,15 @@ body {
 }
 
 
-@media all and (min-width: 800px) and (max-width: 856px){
+@media all and (min-width: 800px) and (max-width: 856px) {
     .pic {
         margin-top: -32px;
     }
+
 }
 
 
-@media all and (min-width: 480px)  and (max-width: 799px){
+@media all and (min-width: 480px) and (max-width: 799px) {
     .pic {
         margin-top: 0px;
     }
@@ -184,5 +185,13 @@ body {
     .sign {
         padding-left: 20px;
         padding-right: 20px;
+    }
+}
+
+
+@media all and (min-width: 940px) {
+
+    .sign {
+        height: 450px;
     }
 }

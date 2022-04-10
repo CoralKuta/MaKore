@@ -3,11 +3,16 @@ import './launch.css';
 import './contacts';
 import contacts from './contacts';
 import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import Stam from './Stam';
 
 
 
 function Signin() {
+
+    
+    const navigate = useNavigate();
+
 
     // if there is an error message - store the name of the field
     const [errorMessages, setErrorMessages] = useState({});
@@ -44,7 +49,9 @@ function Signin() {
                 setErrorMessages({ name: "wrong", message: errors.wrong });
             } else {
                 setIsSubmitted(true);
-                console.log("You made it !");
+                navigate('../ido', { replace: true })
+                console.log("yas"); 
+                
             }
         } else {
             // Username not found
@@ -54,6 +61,8 @@ function Signin() {
         }
 
     }
+
+
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
@@ -66,7 +75,7 @@ function Signin() {
     return (
         <div className='sign'  onClick={hideErrors}>
             <h3 className='signin-text'>Sign In</h3>
-            <div className='signup-signin'>Not registered? <a href="/signup">Click here</a> to sign up!</div>
+            <div className='signup-signin'>Not registered? <a href="/">Click here</a> to sign up!</div>
             <form onSubmit={validate}>
 
                 <div className='row'>

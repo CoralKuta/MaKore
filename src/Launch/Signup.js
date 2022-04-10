@@ -52,6 +52,7 @@ function Signup() {
         } else {
             // validate username not empty, and contains letters and digits only
             var regex = /^[A-Za-z0-9]*$/;
+            var passRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
 
             // remove empty spaces from beginning and end
             var newUsername = username.value.trim();
@@ -64,7 +65,7 @@ function Signup() {
                 setdisplayError('block');
 
                 // validate characters of password
-            } else if ((!regex.test(newPass1)) || (newPass1.length < 8)) {
+            } else if ((!passRegex.test(newPass1)) || (newPass1.length < 8)) {
                 setErrorMessages({ name: "invalidPass", message: errors.invalidPass });
                 setdisplayError('block');
             }
@@ -94,7 +95,9 @@ function Signup() {
                     pic = null;
                 }
 
-                contacts[contacts.length] = { Username, Nickname, password, pic };
+                var friends = [];
+
+                contacts[contacts.length] = { Username, Nickname, password, pic, friends};
                 setIsSubmitted(true);
             }
         }
