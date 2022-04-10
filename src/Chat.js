@@ -1,6 +1,5 @@
 import './Contracts.css';
-import contacts from './ContactItem/contactsList';
-import members from './ContactItem/members';
+import members from './Launch/contacts';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
 import { useState } from 'react';
@@ -8,11 +7,17 @@ import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import './PopUp.css';
 import img from './img.jpeg';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
 function Chat() {
+  const data = useLocation();
+  const contacts = data.state.data.friends;
+  var member = data.state.data;
+  console.log(contacts);
+  console.log(member)
+  console.log(members);
   const [contractList, setContractList] = useState(contacts);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
@@ -35,9 +40,9 @@ function Chat() {
     const time = '';
     const LastMassage = '';
     const noti = 0;
-    const contactIdentifier = members.find((user) => user.nameCon === nameId);
-    const checkExists = contacts.find((user) => user.nameCon === nameId);
-    const contact11 = { image: img, nameCon: nameId, time: time, massage: LastMassage, noti: noti };
+    const contactIdentifier = members.find((user) => user.Username === nameId);
+    const checkExists = contacts.find((user) => user.Username === nameId);
+    const contact11 = { pic: img, Username: nameId, time: time, massage: LastMassage, noti: noti };
     const memberName = document.getElementById("MemberName");
     if (contactIdentifier && !checkExists && (memberName.innerText !== nameId)) {
       contacts.push(contact11);
@@ -68,13 +73,13 @@ function Chat() {
       <div className="container">
         <div className="ContactScreen" >
           <div className="MemmberInfo">
-            <MemberInfo />
+            <MemberInfo member = {member}/>
             <button onClick={() => setButtonPopup(true)} type="button" className="bi bi-person-plus"></button>
           </div>
           <div className="searchChat">
             <Search doSearch={doSearch} />
           </div>
-          <ContactsListResult contacts={contractList} />
+          <ContactsListResult contacts={contacts} />
         </div>
         <div className="ChatScreen">
           <Routes>
