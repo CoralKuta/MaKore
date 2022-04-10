@@ -1,5 +1,5 @@
 .gray-low-panel {
-  position: fixed;
+  position: relative;
   bottom:1vh;
   left:1%;
   align-items: center;

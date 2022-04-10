@@ -12,7 +12,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
-function App() {
+function ChatScreen() {
   const [contractList, setContractList] = useState(contacts);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
@@ -41,7 +41,6 @@ function App() {
     const memberName = document.getElementById("MemberName");
     if (contactIdentifier && !checkExists && (memberName.innerText !== nameId)) {
       contacts.push(contact11);
-      console.log(contacts);
       setNameId("");
       setButtonPopup(false);
     }
@@ -64,7 +63,6 @@ function App() {
     );
 
   return (
-    <Router>
       <div className="background" >
         <div className="container">
           <div className="ContactScreen" >
@@ -97,8 +95,8 @@ function App() {
           </form>
         </PopUp>
       </div>
-      </Router>
   );
 }
 
-export default App;
+export default ChatScreen;
+

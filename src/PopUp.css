@@ -1,0 +1,51 @@
+
+.popUp {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backdrop-filter: brightness(70%);
+}
+
+.popUp-inner {
+  height: 25%;
+  width: 40%;
+  background-color: white;
+  border: 1px solid black;
+  display: block;
+  position: fixed; 
+  padding-left: 10px;
+  margin: auto;
+  left: 40%;
+  bottom: 50%;
+  width: 28%;
+  border-radius: 10px;
+}
+
+.addContact {
+    position: relative;
+    float: left;
+    font-size: x-large;
+    font-weight: bold;
+    top: 5%;
+}
+
+form {
+    position: relative;
+    top: 6%;
+    margin-right: 2%;
+}
+
+.popUp-inner .bi-x {
+    position:relative;
+    top: 0%;
+    left: 43%;
+    background-color: white;
+    border: 0;
+    font-size: 2em;
+}
+
+.btn-primary {
+    position: absolute;
+}
