@@ -3,7 +3,7 @@ import './launch.css';
 import './contacts';
 import contacts from './contacts';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stam from './Stam';
 
 
@@ -49,9 +49,9 @@ function Signin() {
                 setErrorMessages({ name: "wrong", message: errors.wrong });
             } else {
                 setIsSubmitted(true);
-                navigate('../ido', { replace: true })
-                console.log("yas"); 
-                
+                console.log('ta');
+                navigate('../ido', {state:{data:userData}});
+                // <Link to='/ido' state={{data : userData}}></Link>
             }
         } else {
             // Username not found
