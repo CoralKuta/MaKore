@@ -5,8 +5,7 @@ import { useState } from 'react';
 
 
 function AttachComponent({ setter }) {
-    const [isRec, setIsrec] = useState('false')
-    const [mediaRecorder, setMedia] = useState('')
+    const [isRec, setIsRec] = useState(false)
 
 
     const browseFiles = function (type) {
@@ -43,67 +42,73 @@ function AttachComponent({ setter }) {
     // function showPosition(position) {
     //     setter([4, "(" + position.coords.latitude + ", " + position.coords.longitude + ")"]);
     // }
-    var audio = [];
-    const startRec = function () {
-        navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-            .then(stream => {
-                setMedia(new MediaRecorder(stream));
-                mediaRecorder.start();
-                mediaRecorder.addEventListener("data", event => { audio.push(event.data); });
-                setIsrec('true');
-            }
-            );
-    }
 
-
-const stopRec = function () {
-    mediaRecorder.stop();
-    mediaRecorder.addEventListener("stop", () => {
-        const fullaudio = new Blob(audio);
-        const audioUrl = URL.createObjectURL(fullaudio);
-        setter([3, audioUrl])
-        setIsrec('false');
-    });
-}
-
-const addaudio = function () {
-    if (navigator.getUserMedia) {
-        var btn = document.getElementById("audioBtn");
-        if (isRec == 'true') {
-            btn.style.fill = "gray";
-            btn.style.border = "none";
-            stopRec();
-        } else {
-            audio = [];
+    const addaudio = function () {
+        if (navigator.getUserMedia) {
+            var mediaRecorder = '';
+            const audio = [];
+            var btn = document.getElementById("audiobtn");
             btn.style.fill = "red"
             btn.style.border = " 3px solid red"
-            startRec();
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    var mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.start();
+                    mediaRecorder.addEventListener("data", event => { audio.push(event.data); });
+                }
+                );
+            if (isRec) {
+                setTimeout(addaudio, 500);
+            } else {
+                btn.style.fill = "gray"
+                btn.style.border = "none"
+                mediaRecorder.stop();
+                mediaRecorder.addEventListener("stop", () => {
+                    const fullaudio = new Blob(audio);
+                    const audioUrl = URL.createObjectURL(fullaudio);
+                    setter([3, audioUrl])
+                });
+            }
+
         }
-    } else {
-        console.log("your browser is not support recording audio");
+
+        else {
+            console.log("your browser is not support recording audio");
+        }
     }
-}
+
+    const rec = function () {
+        if (!isRec) {
+            setIsRec(true)
+            addaudio();
+        } else {
+            setIsRec(false)
+        }
+    }
 
 
-return (
-    <div id="attpanel" className="attach-panel">
-        <svg onClick={addimage} xmlns="http://www.w3.org/2000/svg" class="bi bi-camera-fill" viewBox="0 0 16 16">
-            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-            <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
-        </svg>
-        <svg onClick={addvideo} xmlns="http://www.w3.org/2000/svg" class="bi bi-camera-video-fill" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
-        </svg>
-        <svg id="audioBtn" onClick={addaudio} xmlns="http://www.w3.org/2000/svg" class="bi bi-mic-fill" viewBox="0 0 16 16">
-            <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
-            <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
-        </svg>
-        {/* <svg onClick={addlocation} xmlns="http://www.w3.org/2000/svg" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+
+
+
+    return (
+        <div id="attpanel" className="attach-panel">
+            <svg onClick={addimage} xmlns="http://www.w3.org/2000/svg" class="bi bi-camera-fill" viewBox="0 0 16 16">
+                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
+            </svg>
+            <svg onClick={addvideo} xmlns="http://www.w3.org/2000/svg" class="bi bi-camera-video-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
+            </svg>
+            <svg id="audiobtn" onClick={rec} xmlns="http://www.w3.org/2000/svg" class="bi bi-mic-fill" viewBox="0 0 16 16">
+                <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
+                <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
+            </svg>
+            {/* <svg onClick={addlocation} xmlns="http://www.w3.org/2000/svg" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                 <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
             </svg> */}
-    </div>
+        </div>
 
-);
+    );
 }
 
 export default AttachComponent;

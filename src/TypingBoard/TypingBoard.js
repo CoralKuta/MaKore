@@ -5,11 +5,6 @@ import { useRef } from 'react';
 import { useState } from 'react';
 
 
-//TODO - 
-//       1. validity check before sending (don't send message with blank chars)
-//       2. flexible textarea when breakline comes without damaging the icons size
-
-
 function TypingBoard({ setter }) {
   const textBoard = useRef(null);
 
