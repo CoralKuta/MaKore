@@ -15,7 +15,7 @@
 
 .text-msg{
     margin-right: 20px;
-    max-width: 80%;
+    max-width: 95%;
     margin-bottom: 0px;
     font-size: medium;
     overflow-wrap: break-word;
@@ -24,11 +24,11 @@
 }
 
 .img-msg{
-    height: 12vh;
+    max-width: 25vh;
 }
 
 .video-msg{
-    height: 20vh;
+    max-width: 25vh;
 }
 
 .time-msg{

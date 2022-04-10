@@ -4,6 +4,9 @@ function Message({ content }) {
   const type = content[0];
   const text = content[1];
   const time = content[2];
+
+  
+  // case the user send text message
   if (type == 0) {
     return (
       <div className='my-msg'>
@@ -14,6 +17,7 @@ function Message({ content }) {
       </div>
     );
   }
+  // case the user send image
   if (type == 1) {
     return (
       <div className='my-msg'>
@@ -25,6 +29,7 @@ function Message({ content }) {
       </div>
     );
   }
+  // case the user send video
   if (type == 2) {
     return (
       <div className='my-msg'>
@@ -35,6 +40,11 @@ function Message({ content }) {
 
       </div>
     );
+  }
+  // case the user send location
+  if (type == 4) {
+
+
   }
 }
 export default Message;

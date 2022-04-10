@@ -52,8 +52,9 @@ const cleanTextarea = function(){
 
 
     //send message if it isn't empty
-    if (textBoard.current.value != "") {
-      setter([0,textBoard.current.value]);
+    var userInput = textBoard.current.value.trim();
+    if (userInput != "") {
+      setter([0,userInput]);
       cleanTextarea();
 
     }
