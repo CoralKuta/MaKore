@@ -1,3 +1,4 @@
+
 .my-msg{
     background-color: #9239e0;
     max-width: 55%;
@@ -9,15 +10,12 @@
     white-space: pre-line;
     margin: 5px;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-
-
+    flex-direction: column;
 }
 
 .text-msg{
     margin-right: 20px;
-    max-width: 90%;
+    max-width: 80%;
     margin-bottom: 0px;
     font-size: medium;
     overflow-wrap: break-word;
@@ -25,9 +23,19 @@
     float: left;
 }
 
+.img-msg{
+    height: 12vh;
+}
+
+.video-msg{
+    height: 20vh;
+}
+
 .time-msg{
     position: relative;
     margin-bottom: 0px;
-    font-size:x-small;
+    font-size:xx-small;
     float: right;
+    overflow-wrap:normal;
+
 }
