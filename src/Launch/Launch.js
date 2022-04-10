@@ -4,7 +4,8 @@ import Signup from './Signup';
 import New from './MKTRAN.png'
 import Talking from './talking1.png'
 import MK from './footer.png'
-import Stam from './Stam';
+import Chat from '../Chat';
+import MessageHead from '../MessageHead/MessageHead';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function Launch() {
@@ -18,7 +19,8 @@ function Launch() {
                         <Routes>
                             <Route path="/" element={<Signin />}></Route>
                             <Route path="/signup" element={<Signup />}></Route>
-                            <Route path="/ido" element={<Stam />}></Route>
+                            <Route path="/chat" element={<Chat />}></Route>
+                            <Route exact path="/chats/:name" element={<MessageHead />} />
                         </Routes>
                     </div>
                 </div>

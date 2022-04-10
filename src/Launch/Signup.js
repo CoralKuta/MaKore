@@ -3,10 +3,11 @@ import './launch.css';
 import './contacts';
 import contacts from './contacts';
 import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
 
+    const navigate = useNavigate();
 
     // if there is an error message - store the name of the field
     const [errorMessages, setErrorMessages] = useState({});
@@ -99,6 +100,7 @@ function Signup() {
 
                 contacts[contacts.length] = { Username, Nickname, password, pic, friends};
                 setIsSubmitted(true);
+                navigate('../chat', {state:{data:userData}});
             }
         }
 
@@ -116,7 +118,7 @@ function Signup() {
     return (
         <div className='sign' onClick={hideErrors}>
             <h3 className="signup-text">Sign Up</h3>
-            <div className='signup-signin'>Already registered? <a href="/signin">Click here</a> to login</div>
+            <div className='signup-signin'>Already registered? <a href="/">Click here</a> to login</div>
 
 
             <form onSubmit={register}>

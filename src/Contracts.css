@@ -1,0 +1,211 @@
+body{
+  background-color: rgba(226, 226, 226, 0.975);
+}
+.background {
+  background-color: darkgreen;
+  width: 100%;
+  height: 150px;  
+}
+.container {
+  background-color: rgb(250, 250, 250);
+  height: 90vh;
+  position:relative;
+  top: 50px;
+  display: flex;
+  padding: 0%;
+}
+.container .ContactScreen {
+  position: relative;
+  flex: 30%;
+  width: 30%;
+  height: 80%;
+}
+.container .ChatScreen {
+  position: relative;
+  flex: 70%;
+  width: 70%;
+  background-color: #e5ddd5;
+}
+.MemmberInfo {
+  justify-content: center;
+  align-items: center;
+  margin: center;
+  float: left;
+  position: relative;
+  width: 100%;
+  height: 8vh;
+  background-color: #ededed;
+  display: flex;
+}
+.MemmberInfo .img {
+  position: absolute;
+  margin: 0%;
+  right: 350px;
+  bottom: 15px;
+  object-fit: cover;
+}
+
+.Name {
+  position: absolute;
+  left: 13%;
+  top: 10%;
+}
+
+.NickName {
+  position: absolute;
+  left: 35%;
+  color: cadetblue;
+  text-align: center;
+  bottom: 4%;
+}
+
+.searchChat {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.searchChat div{
+  width: 100%;
+}
+.searchChat div input{
+  width: 100%;
+  outline: none;
+  border: none;
+  background: #fff;
+  padding: 6px;
+  height: 38px;
+  border-radius: 30px;
+  font-size: 14px;
+  padding-left: 40px;
+}
+.searchChat div i{
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  font-size: 1.2em;
+}
+.bi-person-plus {
+  position: absolute;
+  right: 16px;
+  top: 22px;
+  font-size: 1.5em;
+  border: 0px;
+}
+
+.list-group {
+  position:relative;
+  height: 100%;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  margin-left: 0;
+}
+
+.list-group-item  {
+  position:relative;
+  height: 15%;
+  overflow: hidden;
+  padding-left: 3px;
+  cursor: pointer;
+}
+
+.list-group-item-action:hover {
+  z-index: 1 !important;
+  color: #495057 !important;
+  text-decoration: none !important;
+  background-color: #f8f9fa !important;
+}
+
+
+.list-group-item-action a {
+  position:relative;
+  height: 15%;
+  padding-left: 3px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ContractName {
+  position: relative;
+  left: 50px;
+  bottom: 80px;
+  font-size: larger;
+  color: black;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+
+.time {
+  position: relative;
+  bottom: 115px;
+  float: right;
+  font-size: 0.75em;
+  color: #aaa;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.list-group-item .img {
+  position: relative;
+  margin: 0%;
+  width: 100%;
+  height: 100%;
+  bottom: 32px;
+  object-fit: cover;
+  white-space: nowrap;
+}
+
+.LastMassage {
+  position: relative;
+  text-align: center;
+  bottom: 80px;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+.Notification {
+  position: relative;
+  bottom: 100px;
+  background-color: rgb(34, 228, 34);
+  color: #fff;
+  float: right;
+  width: 20px;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  font-size: 0.75em;
+  white-space: nowrap;
+}
+
+.error {
+  position:absolute;
+  color: rgb(189, 0, 0);
+  font-size: large;
+  font-weight: bold;
+  top: 70px;
+  left: 70px;
+  text-align: center;
+}
+
+.chat-image {
+  width: 100%;
+  position: relative;
+  margin: 1%;
+  float:left;
+  bottom:5%;
+  object-fit: cover;
+}
+
+.chat-Name {
+  position: absolute;
+  left : 6%;
+  top: 9%;
+}
+
+

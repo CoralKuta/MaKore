@@ -1,0 +1,88 @@
+.gray-low-panel {
+  position: relative;
+  bottom:1vh;
+  left:1%;
+  align-items: center;
+  height: 10vh;
+  max-height: 150px;
+  width: 98%;
+  flex-direction: row;
+  background-color: #e0e0e0;
+  box-shadow: 0px 3px 3px #3e2952;
+  border-radius: 30px;
+
+}
+
+
+/* Coral */
+.message-board {
+  height: 90%;
+  max-height: 150px;
+  width: 90%;
+  margin-right: 1%;
+  margin-left: 1%;
+  align-items: center;
+  resize: none;
+  border-radius: 5px;
+  border: 2px solid rgb(197, 197, 197);
+  background-color: #e0e0e0;
+  font-size: 80%;
+  border: none;
+  outline: none;
+  
+}
+
+textarea:is(:focus, :valid) {
+  border-width: 2px;
+}
+
+textarea::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Coral */
+
+
+
+
+
+  .bi {
+    max-height: 35px;
+    width: 5%;
+    min-height: 5px;
+    bottom: 0px;
+    margin:7px;
+    fill:gray;
+    cursor: pointer;
+    display: inline-flexbox;
+    padding: 1px;
+  }
+
+  .bi-paperclip{
+    left: 0px;
+    margin-right: 0px;
+    margin-left: 8px;
+
+  }
+  .bi-arrow-right-circle-fill{
+    right: 0px;
+    margin-left: 0px;
+
+  }
+
+  .bi:hover {
+    background-color: #dbdbdb;
+    border: 0.5px solid #d8d8d8;
+    border-radius: 10px;
+    fill: #a27bc5 !important;
+
+  }
+
+  .attached{
+    height: 8vh;
+    border-radius: 100px;
+    position: absolute;
+    display: none;
+    bottom: 12vh;
+    left: 2vh;
+  }

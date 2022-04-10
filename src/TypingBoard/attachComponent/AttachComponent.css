@@ -1,0 +1,18 @@
+.attach-panel {
+  float: left;
+  height: 80%;
+  }
+
+  .attach-panel .bi {
+    height: 100%;
+    width: fit-content;
+    bottom: 0px;
+    margin:7px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    display: inline-flexbox;
+    padding: 1px;
+    box-shadow: 2px 3px #8a7f94;
+    border-radius: 20px;
+
+  }
