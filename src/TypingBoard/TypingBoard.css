@@ -74,12 +74,12 @@ textarea::-webkit-scrollbar {
     background-color: #dbdbdb;
     border: 0.5px solid #d8d8d8;
     border-radius: 10px;
-    fill: #a27bc5;
+    fill: #a27bc5 !important;
 
   }
 
   .attached{
-    height: 7vh;
+    height: 8vh;
     border-radius: 100px;
     position: absolute;
     display: none;
