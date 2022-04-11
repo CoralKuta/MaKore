@@ -7,13 +7,15 @@ import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import './PopUp.css';
 import img from './img.jpeg';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, Outlet} from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
 function Chat() {
+
+  const [name, setName] = useState('');
+
   const data = useLocation();
-  const navigate = useNavigate();
   const contacts = data.state.data.friends;
   var member = data.state.data;
   const [contactList, setcontactList] = useState(contacts);
@@ -82,10 +84,10 @@ function Chat() {
           <div className="searchChat">
             <Search doSearch={doSearch} />
           </div>
-          <ContactsListResult contacts={contactList} />
+          <ContactsListResult contacts={contactList} changeName={setName} />
         </div>
         <div className="ChatScreen">
-        
+            <MessageHead name={name}/>
         </div>
       </div>
       <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >
