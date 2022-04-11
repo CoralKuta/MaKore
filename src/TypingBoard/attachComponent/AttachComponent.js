@@ -1,13 +1,10 @@
 import './AttachComponent.css';
-import { useState } from 'react';
-
-
-
 
 function AttachComponent({ setter }) {
-    const [isRec, setIsRec] = useState(false)
 
-
+    const audioBtn = document.querySelector('.bi-mic-fill');
+    const stopBtn = document.querySelector('.bi-stop-fill');
+    //opens file dialog box and able to send files just if the file appropriate the button who has been clicked
     const browseFiles = function (type) {
         var input = document.createElement('input');
         input.type = 'file';
@@ -27,66 +24,45 @@ function AttachComponent({ setter }) {
         input.click();
     }
 
-
     const addimage = function () { browseFiles(1); }
     const addvideo = function () { browseFiles(2); }
-    // const addlocation = function () {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(showPosition)
-    //     }
-    //     else {
-    //         console.log("your browser is not support sharing your location");
-    //     }
-    // }
 
-    // function showPosition(position) {
-    //     setter([4, "(" + position.coords.latitude + ", " + position.coords.longitude + ")"]);
-    // }
-
-    const addaudio = function () {
-        if (navigator.getUserMedia) {
-            var mediaRecorder = '';
-            const audio = [];
-            var btn = document.getElementById("audiobtn");
-            btn.style.fill = "red"
-            btn.style.border = " 3px solid red"
-            navigator.mediaDevices.getUserMedia({ audio: true })
-                .then(stream => {
-                    var mediaRecorder = new MediaRecorder(stream);
-                    mediaRecorder.start();
-                    mediaRecorder.addEventListener("data", event => { audio.push(event.data); });
-                }
-                );
-            if (isRec) {
-                setTimeout(addaudio, 500);
-            } else {
-                btn.style.fill = "gray"
-                btn.style.border = "none"
-                mediaRecorder.stop();
-                mediaRecorder.addEventListener("stop", () => {
-                    const fullaudio = new Blob(audio);
-                    const audioUrl = URL.createObjectURL(fullaudio);
-                    setter([3, audioUrl])
-                });
+    if (navigator.mediaDevices.getUserMedia) {
+        const prem = { audio: true };
+        var audios = [];
+        let onSuccess = function (stream) {
+            const mediaRecorder = new MediaRecorder(stream);
+            audioBtn.onclick = function () {
+                mediaRecorder.start();
+                audioBtn.style.fill = "green";
+                audioBtn.style.border = " 3px solid green";
+                stopBtn.style.display = "inline"
             }
 
-        }
+            stopBtn.onclick = function () {
+                mediaRecorder.stop();
+                audioBtn.style.fill = "gray"
+                audioBtn.style.border = "none"
+                stopBtn.style.display = "none"
+            }
 
-        else {
-            console.log("your browser is not support recording audio");
+            mediaRecorder.onstop = function (e) {
+                const fullaudio = new Blob(audios, { 'type': 'audio/ogg; codecs=opus' });
+                audios = [];
+                const audioURL = window.URL.createObjectURL(fullaudio);
+                setter([3, audioURL]);
+            }
+            mediaRecorder.ondataavailable = function (e) {
+                audios.push(e.data);
+            }
         }
+        let onError = function (err) {
+            console.log(' ERROR : ' + err);
+        }
+        navigator.mediaDevices.getUserMedia(prem).then(onSuccess, onError);
+    } else {
+        console.log('sharing audio is not aloud!');
     }
-
-    const rec = function () {
-        if (!isRec) {
-            setIsRec(true)
-            addaudio();
-        } else {
-            setIsRec(false)
-        }
-    }
-
-
 
 
 
@@ -99,15 +75,14 @@ function AttachComponent({ setter }) {
             <svg onClick={addvideo} xmlns="http://www.w3.org/2000/svg" class="bi bi-camera-video-fill" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2V5z" />
             </svg>
-            <svg id="audiobtn" onClick={rec} xmlns="http://www.w3.org/2000/svg" class="bi bi-mic-fill" viewBox="0 0 16 16">
+            <svg id="audioBtn" xmlns="http://www.w3.org/2000/svg" class="bi bi-mic-fill" viewBox="0 0 16 16">
                 <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
                 <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" />
             </svg>
-            {/* <svg onClick={addlocation} xmlns="http://www.w3.org/2000/svg" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-            </svg> */}
+            <svg id="stopBtn" xmlns="http://www.w3.org/2000/svg" class="bi bi-stop-fill" viewBox="0 0 16 16">
+                <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
+            </svg>
         </div>
-
     );
 }
 
