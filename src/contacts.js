@@ -1,4 +1,4 @@
-import img from '../ContactItem/img.jpeg';
+import img from './ContactItem/img.jpeg';
 
 
 let Yoni = { Username: "Yoni", Nickname: "Tal!", password: "1234567890", pic: img, friends: [], time : "11:31", massage : "Hey there! im using MaKore", noti : 3  }

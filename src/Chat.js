@@ -1,5 +1,5 @@
 import './Contracts.css';
-import members from './Launch/contacts';
+import members from './contacts';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
 import { useState } from 'react';
@@ -15,26 +15,28 @@ function Chat() {
   const data = useLocation();
   const contacts = data.state.data.friends;
   var member = data.state.data;
-  console.log(contacts);
-  console.log(member)
-  console.log(members);
-  const [contractList, setContractList] = useState(contacts);
+  const [contactList, setcontactList] = useState(contacts);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
+
   const doSearch = function (searchName) {
-    setContractList(contacts.filter((contact) => contact.nameCon.includes(searchName)));
+    setcontactList(contacts.filter((contact) => contact.Username.includes(searchName)));
+    console.log(contacts.filter((contact) => contact.Username.includes(searchName)));
   }
+  
   const [displayError, setdisplayError] = useState('none');
 
   const hideErrors = function () {
     setErrorMessages({});
   }
+
   const [nameId, setNameId] = useState("");
   const errors = {
     inValid: "There is no such user! Please try again.",
     yourSelf: "You can't add your self as a new contact!",
     alreadyExists: "This contact already exists!"
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const time = '';
@@ -79,7 +81,7 @@ function Chat() {
           <div className="searchChat">
             <Search doSearch={doSearch} />
           </div>
-          <ContactsListResult contacts={contacts} />
+          <ContactsListResult contacts={contactList} />
         </div>
         <div className="ChatScreen">
           <Routes>
