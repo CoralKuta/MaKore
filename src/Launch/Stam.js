@@ -7,7 +7,7 @@ function Stam() {
 
     return (
         <div className='wrapper'>
-            {console.log(data.state.data)}
+            {console.log("idooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")}
         </div>
     );
 }

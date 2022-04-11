@@ -1,9 +1,9 @@
 import ContactsComp from "../ContactItem/Contacts.js";
 
 
-function ContactsListResult({contacts}) {
+function ContactsListResult(props) {
 
-    const contactList = contacts.map((contact, key) => {
+    const contactList = props.contacts.map((contact, key) => {
         
         return <ContactsComp {...contact} key = {key} />
       });

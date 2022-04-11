@@ -1,6 +1,5 @@
 import './Contracts.css';
-import contacts from './ContactItem/contactsList';
-import members from './ContactItem/members';
+import members from './contacts';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
 import { useState } from 'react';
@@ -8,40 +7,48 @@ import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import './PopUp.css';
 import img from './img.jpeg';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
 function Chat() {
-  const [contractList, setContractList] = useState(contacts);
+  const data = useLocation();
+  const navigate = useNavigate();
+  const contacts = data.state.data.friends;
+  var member = data.state.data;
+  const [contactList, setcontactList] = useState(contacts);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
+
   const doSearch = function (searchName) {
-    setContractList(contacts.filter((contact) => contact.nameCon.includes(searchName)));
+    setcontactList(contacts.filter((contact) => contact.Username.includes(searchName)));
+    console.log(contacts.filter((contact) => contact.Username.includes(searchName)));
   }
+
   const [displayError, setdisplayError] = useState('none');
 
   const hideErrors = function () {
     setErrorMessages({});
   }
+
   const [nameId, setNameId] = useState("");
   const errors = {
     inValid: "There is no such user! Please try again.",
     yourSelf: "You can't add your self as a new contact!",
     alreadyExists: "This contact already exists!"
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const time = '';
     const LastMassage = '';
     const noti = 0;
-    const contactIdentifier = members.find((user) => user.nameCon === nameId);
-    const checkExists = contacts.find((user) => user.nameCon === nameId);
-    const contact11 = { image: img, nameCon: nameId, time: time, massage: LastMassage, noti: noti };
+    const contactIdentifier = members.find((user) => user.Username === nameId);
+    const checkExists = contacts.find((user) => user.Username === nameId);
+    const contact11 = { pic: img, Username: nameId, time: time, massage: LastMassage, noti: noti };
     const memberName = document.getElementById("MemberName");
     if (contactIdentifier && !checkExists && (memberName.innerText !== nameId)) {
       contacts.push(contact11);
-      console.log(contacts);
       setNameId("");
       setButtonPopup(false);
     }
@@ -64,22 +71,21 @@ function Chat() {
     );
 
   return (
+    
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
           <div className="MemmberInfo">
-            <MemberInfo />
-            <button onClick={() => setButtonPopup(true)} type="button" className="bi bi-person-plus"></button>
+            <MemberInfo member={member} />
+            <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button>
           </div>
           <div className="searchChat">
             <Search doSearch={doSearch} />
           </div>
-          <ContactsListResult contacts={contractList} />
+          <ContactsListResult contacts={contactList} />
         </div>
         <div className="ChatScreen">
-          <Routes>
-            <Route exact path="/chats/:name" element={<MessageHead />} />
-          </Routes>
+        
         </div>
       </div>
       <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >

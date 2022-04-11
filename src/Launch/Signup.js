@@ -1,9 +1,12 @@
 import React from 'react';
 import './launch.css';
-import './contacts';
-import contacts from './contacts';
+import '../contacts';
+import contacts from '../contacts';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import New from './MKTRAN.png'
+import Talking from './talking1.png'
+import MK from './footer.png'
 
 function Signup() {
 
@@ -43,7 +46,7 @@ function Signup() {
         // if there is a user with this user name
         if (userData) {
             if (userData.Username !== null) {
-                
+
                 console.log("user name taken");
                 setErrorMessages({ name: "usernameTaken", message: errors.usernameTaken });
                 setdisplayError('block');
@@ -98,9 +101,9 @@ function Signup() {
 
                 var friends = [];
 
-                contacts[contacts.length] = { Username, Nickname, password, pic, friends};
+                contacts[contacts.length] = { Username, Nickname, password, pic, friends };
                 setIsSubmitted(true);
-                navigate('../chat', {state:{data:userData}});
+                navigate('../chats', { state: { data: userData } });
             }
         }
 
@@ -116,58 +119,70 @@ function Signup() {
 
 
     return (
-        <div className='sign' onClick={hideErrors}>
-            <h3 className="signup-text">Sign Up</h3>
-            <div className='signup-signin'>Already registered? <a href="/">Click here</a> to login</div>
+
+        <div className='wrapper'>
+            <div className="logo-space"><img className='logo' src={New}></img></div>
+            <div className='sign' onClick={hideErrors}>
+                <h3 className="signup-text">Sign Up</h3>
+                <div className='signup-signin'>Already registered? <a href="/">Click here</a> to login</div>
 
 
-            <form onSubmit={register}>
-                <div className="row">
-                    <div className="mb-3 col">
-                        <label className="form-label">Username</label>
-                        <input type="text" className="form-control" name="username" required></input>
+                <form onSubmit={register}>
+                    <div className="row">
+                        <div className="mb-3 col">
+                            <label className="form-label">Username</label>
+                            <input type="text" className="form-control" name="username" required></input>
+                        </div>
+
+                        <div className="mb-3 col">
+                            <label className="form-label">Nickname</label>
+                            <input type="text" className="form-control" name="nickname"></input>
+                        </div>
                     </div>
 
-                    <div className="mb-3 col">
-                        <label className="form-label">Nickname</label>
-                        <input type="text" className="form-control" name="nickname"></input>
+                    <div className="row">
+                        <div className="mb-3 col">
+                            <label className="form-label">Password</label>
+                            <input type="password" className="form-control" name="password1" required></input>
+                        </div>
+
+
+                        <div className="mb-3 col">
+                            <label className="form-label">Confirm Password</label>
+                            <input type="password" className="form-control" name="password2" required></input>
+                        </div>
                     </div>
-                </div>
 
-                <div className="row">
-                    <div className="mb-3 col">
-                        <label className="form-label">Password</label>
-                        <input type="password" className="form-control" name="password1" required></input>
+                    <div className='row'>
+                        <div className="mb-3 pic">
+                            <label className="form-label">Picture</label>
+                            <input className="form-control" accept="image/png, image/gif, image/jpeg" type="file" name="pic"></input>
+                        </div>
                     </div>
 
-
-                    <div className="mb-3 col">
-                        <label className="form-label">Confirm Password</label>
-                        <input type="password" className="form-control" name="password2" required></input>
+                    <div className="d-grid gap-2">
+                        <button className="btn btn-class">Sign Up</button>
                     </div>
-                </div>
-
-                <div className='row'>
-                    <div className="mb-3 pic">
-                        <label className="form-label">Picture</label>
-                        <input className="form-control" accept="image/png, image/gif, image/jpeg" type="file" name="pic"></input>
+                    <div className='row'>
+                        <div style={{ 'display': displayError }}>
+                            {renderErrorMessage("usernameTaken")}
+                            {renderErrorMessage("emptyName")}
+                            {renderErrorMessage("wrongPassword2")}
+                            {renderErrorMessage("invalidPass")}
+                        </div>
                     </div>
-                </div>
 
-                <div className="d-grid gap-2">
-                    <button className="btn btn-class">Sign Up</button>
-                </div>
-                <div className='row'>
-                    <div style={{'display': displayError}}>
-                        {renderErrorMessage("usernameTaken")}
-                        {renderErrorMessage("emptyName")}
-                        {renderErrorMessage("wrongPassword2")}
-                        {renderErrorMessage("invalidPass")}
-                    </div>
-                </div>
+                </form>
+            </div>
 
-            </form>
+            <div className='menu'>
+                <img className='side' src={Talking}></img>
+                <img className='footer' src={MK}></img>
+            </div>
         </div>
+
+
+
     );
 }
 

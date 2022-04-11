@@ -9,7 +9,7 @@ function Search ({doSearch}) {
     return (
         <div>
         <input ref={searchBox} onKeyUp={search} type="text" placeholder="Search for a chat"></input>
-        <i className="bi bi-search"></i>
+        <i className="bi-search"></i>
       </div>
     );
 }
