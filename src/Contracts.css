@@ -112,9 +112,6 @@ body{
   overflow-x: hidden; 
 } 
  
-.list-group :hover { 
-  background-color: #f6f6f6; 
-} 
  
 .list-group .block { 
   position: relative; 
@@ -124,8 +121,14 @@ body{
   padding: 15px; 
   border-bottom: 1px solid rgba(0, 0, 0,0.06); 
   cursor: pointer; 
-   
 } 
+
+.list-group .block:hover {
+  z-index: 1 !important;
+  text-decoration: none !important;
+  background-color: #f8f9fa !important;
+}
+
  
 .list-group .block .img { 
   position: relative; 

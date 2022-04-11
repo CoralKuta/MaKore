@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
-import MessageHead from "../MessageHead/MessageHead";
 
 function ContactsComp(props) {
 
     const change = () => {
-        props.changeName(props.Username)
+        props.changeFriend(props)
     }
 
     return (
@@ -17,7 +15,7 @@ function ContactsComp(props) {
             </div> 
             <div className="LastMassage"> 
                 {props.massage !== "" ? <p>{props.massage}</p> : null} 
-                {props.noti !== 0 ? <b>{props.noti}</b> : null} 
+                {props.noti !== 0 ? <b className ="notification">{props.noti}</b> : null} 
             </div> 
         </div> 
         </div>

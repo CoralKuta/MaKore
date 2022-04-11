@@ -100,14 +100,14 @@ function Signup() {
                 }
 
                 var friends = [];
-
-                contacts[contacts.length] = { Username, Nickname, password, pic, friends };
+                var time = 0;
+                var massage = "";
+                var noti = 0;
+                contacts[contacts.length] = { Username, Nickname, password, pic, friends, time, massage, noti };
                 setIsSubmitted(true);
                 navigate('../chats', { state: { data: userData } });
             }
         }
-
-        console.log(contacts);
     }
 
     // Generate JSX code for error message

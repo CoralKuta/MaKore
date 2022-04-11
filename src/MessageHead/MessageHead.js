@@ -1,26 +1,22 @@
-import { useLocation } from "react-router-dom";
+
 import ConversationComponent from "../conversationComponent/ConversationComponet";
 
 
 const MessageHead = (props) => {
-    const contact = props.name;
-
-    if (contact === '') {
+    const contact = props.friend;
+    if(typeof contact.Username === "undefined") {
         return (<div></div>);
     }
-
     for (let i = 0; i < document.getElementsByClassName("ContractName").length; i++) {
-        if (contact.Username === document.getElementsByClassName("ContractName")[i].innerText) {
-            document.getElementsByClassName("block")[i].style.background = "#ededed";
-            if (document.getElementsByClassName("block")[i].getElementsByClassName('.LastMassage')[1] != null) {
-                document.getElementsByClassName("block")[i].getElementsByClassName('.LastMassage')[1].innerText = 0;
-                document.getElementsByClassName("block")[i].getElementsByClassName('.LastMassage')[1].style.display = "none";
+        if(contact.Username === document.getElementsByClassName("ContractName")[i].innerText) {
+            document.getElementsByClassName("block")[i].style.background = "#f4f4f4";
+            if(typeof document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMassage")[0].getElementsByClassName("notification")[0] !== "undefined") {
+                document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMassage")[0].getElementsByClassName("notification")[0].innerText = 0;
+                document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMassage")[0].getElementsByClassName("notification")[0].style.display = "none";
             }
-
         }
-        else {
+        else
             document.getElementsByClassName("block")[i].style.background = "white";
-        }
     }
 
     return (
