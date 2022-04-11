@@ -3,6 +3,7 @@ import ConversationComponent from "../conversationComponent/ConversationComponet
 const MessageHead = () => {
     const { contact } = useLocation().state;
     
+    
     for (let i = 0; i< document.getElementsByClassName("ContractName").length; i++) {
         if(contact.Username === document.getElementsByClassName("ContractName")[i].innerText){
             document.getElementsByClassName("list-group-item")[i].style.background = "#ededed";

@@ -7,13 +7,13 @@ import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import './PopUp.css';
 import img from './img.jpeg';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
 function Chat() {
   const data = useLocation();
-  const contacts = data.state.data.friends;
+  var contacts = data.state.data.friends;
   var member = data.state.data;
   const [contactList, setcontactList] = useState(contacts);
   const [buttonPopup, setButtonPopup] = useState(false);
@@ -76,7 +76,7 @@ function Chat() {
         <div className="ContactScreen" >
           <div className="MemmberInfo">
             <MemberInfo member = {member}/>
-            <button onClick={() => setButtonPopup(true)} type="button" className="bi bi-person-plus"></button>
+            <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button>
           </div>
           <div className="searchChat">
             <Search doSearch={doSearch} />

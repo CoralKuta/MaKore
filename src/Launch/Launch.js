@@ -13,8 +13,7 @@ function Launch() {
             <Routes>
                 <Route path="/" element={<Signin />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
-                <Route path="/chat" element={<Chat />}></Route>
-                <Route exact path="/chats/:name" element={<MessageHead />} />
+                <Route path="/chat/*" element={<Chat />}></Route>
             </Routes>
         </Router>
     );
