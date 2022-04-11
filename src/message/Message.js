@@ -45,7 +45,7 @@ function Message({ content }) {
   if (type == 3) {
     return (
       <div className='my-msg'>
-        <audio className='video-msg' src={text} controls></audio>
+        <audio className='audio-msg' src={text} controls></audio>
         <div>
           <p className='time-msg'>{time}</p>
         </div>
@@ -53,18 +53,5 @@ function Message({ content }) {
       </div>
     );
   }
-
-
-  // // case the user send location
-  // if (type == 4) {
-  //   return (
-  //     <div className='my-msg'>
-  //       <p className='text-msg'>{text}</p>
-  //       <div>
-  //         <p className='time-msg'>{time}</p>
-  //       </div>
-  //     </div>
-  //   );
-  //}
 }
 export default Message;
