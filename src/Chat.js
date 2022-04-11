@@ -7,12 +7,13 @@ import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import './PopUp.css';
 import img from './img.jpeg';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
 function Chat() {
   const data = useLocation();
+  const navigate = useNavigate();
   const contacts = data.state.data.friends;
   var member = data.state.data;
   const [contactList, setcontactList] = useState(contacts);
@@ -23,7 +24,7 @@ function Chat() {
     setcontactList(contacts.filter((contact) => contact.Username.includes(searchName)));
     console.log(contacts.filter((contact) => contact.Username.includes(searchName)));
   }
-  
+
   const [displayError, setdisplayError] = useState('none');
 
   const hideErrors = function () {
@@ -48,7 +49,6 @@ function Chat() {
     const memberName = document.getElementById("MemberName");
     if (contactIdentifier && !checkExists && (memberName.innerText !== nameId)) {
       contacts.push(contact11);
-      console.log(contacts);
       setNameId("");
       setButtonPopup(false);
     }
@@ -71,12 +71,13 @@ function Chat() {
     );
 
   return (
+    
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
           <div className="MemmberInfo">
-            <MemberInfo member = {member}/>
-            <button onClick={() => setButtonPopup(true)} type="button" className="bi bi-person-plus"></button>
+            <MemberInfo member={member} />
+            <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button>
           </div>
           <div className="searchChat">
             <Search doSearch={doSearch} />
@@ -84,9 +85,7 @@ function Chat() {
           <ContactsListResult contacts={contactList} />
         </div>
         <div className="ChatScreen">
-          <Routes>
-            <Route exact path="/chats/:name" element={<MessageHead />} />
-          </Routes>
+        
         </div>
       </div>
       <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >

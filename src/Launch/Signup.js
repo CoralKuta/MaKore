@@ -103,7 +103,7 @@ function Signup() {
 
                 contacts[contacts.length] = { Username, Nickname, password, pic, friends };
                 setIsSubmitted(true);
-                navigate('../chat', { state: { data: userData } });
+                navigate('../chats', { state: { data: userData } });
             }
         }
 

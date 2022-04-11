@@ -51,7 +51,7 @@ function Signin() {
                 setErrorMessages({ name: "wrong", message: errors.wrong });
             } else {
                 setIsSubmitted(true);
-                navigate('../chat', { state: { data: userData } });
+                navigate('../chats', { state: { data: userData } });
             }
         } else {
             // Username not found

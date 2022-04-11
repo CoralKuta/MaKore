@@ -88,13 +88,17 @@ body{
   top: 10px;
   font-size: 1.2em;
 }
+
+
 .bi-person-plus {
   position: absolute;
   right: 16px;
   top: 22px;
   font-size: 1.5em;
   border: 0px;
+  
 }
+
 
 .list-group {
   position:relative;
@@ -208,4 +212,8 @@ body{
   top: 9%;
 }
 
+
+.ChatScreen {
+  position: relative;
+}
 
