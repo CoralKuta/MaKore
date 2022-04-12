@@ -46,8 +46,6 @@ function Signup() {
         // if there is a user with this user name
         if (userData) {
             if (userData.Username !== null) {
-
-                console.log("user name taken");
                 setErrorMessages({ name: "usernameTaken", message: errors.usernameTaken });
                 setdisplayError('block');
             }
@@ -63,7 +61,6 @@ function Signup() {
             var newPass1 = password1.value.trim();
             var newPass2 = password2.value.trim();
 
-            console.log(newUsername);
             if ((!regex.test(newUsername)) || (newUsername === '')) {
                 setErrorMessages({ name: "emptyName", message: errors.emptyName });
                 setdisplayError('block');
@@ -76,7 +73,6 @@ function Signup() {
 
             // validate same passwords
             else if (newPass1 !== newPass2) {
-                console.log("not the same pass");
                 setErrorMessages({ name: "wrongPassword2", message: errors.wrongPassword2 });
                 setdisplayError('block');
 
@@ -105,7 +101,7 @@ function Signup() {
                 var noti = 0;
                 contacts[contacts.length] = { Username, Nickname, password, pic, friends, time, massage, noti };
                 setIsSubmitted(true);
-                navigate('../chats', { state: { data: userData } });
+                navigate('../chats', { state: { data: contacts[contacts.length - 1] } });
             }
         }
     }
@@ -113,7 +109,7 @@ function Signup() {
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
-            <div className="error">{errorMessages.message}</div>
+            <div className="errors">{errorMessages.message}</div>
         );
 
 
@@ -156,7 +152,7 @@ function Signup() {
                     <div className='row'>
                         <div className="mb-3 pic">
                             <label className="form-label">Picture</label>
-                            <input className="form-control" accept="image/png, image/gif, image/jpeg" type="file" name="pic"></input>
+                            <input className="form-control" accept="image/*" type="file" name="pic"></input>
                         </div>
                     </div>
 

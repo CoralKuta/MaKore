@@ -30,6 +30,9 @@
 .video-msg{
     max-width: 25vh;
 }
+.audio-msg{
+    max-width: 100%;
+}
 
 .time-msg{
     position: relative;
