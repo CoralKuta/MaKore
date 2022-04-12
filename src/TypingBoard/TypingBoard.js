@@ -19,16 +19,20 @@ function TypingBoard({ setter }) {
   function typing() {
     const textarea = document.querySelector("textarea");
     textarea.addEventListener("keyup", e => {
-      textarea.style.height = "auto";
-      let scHeight = e.target.scrollHeight;
-      textarea.style.height = `${scHeight}px`;
-      setHeight (scHeight);
-      let bot = e.target.scrollHeight + 10;
-      if (bot < 170) {
-        settopBorderText(`${bot}px`);
-      }
+      if (e.key = 'Enter' && textarea.current.value == ''){return}
+
+        textarea.style.height = "auto";
+        let scHeight = e.target.scrollHeight;
+        textarea.style.height = `${scHeight}px`;
+        setHeight(scHeight);
+        let bot = e.target.scrollHeight + 10;
+        if (bot < 170) {
+          settopBorderText(`${bot}px`);
+        }
     })
   }
+
+
 
 const cleanTextarea = function(){
   const textarea = document.querySelector("textarea");
@@ -62,6 +66,13 @@ const cleanTextarea = function(){
       document.getElementById("attached").style.display = "none"
   }
 
+  const handleKeypress = e => {
+    //it triggers by pressing the enter key
+  if (e.key == 'Enter') {
+    send();
+    document.querySelector("textarea").value='';
+  }
+};
 
   return (
     <div className="gray-low-panel d-flex" id="grayPanel" style={{ 'height': height }}>
@@ -71,8 +82,8 @@ const cleanTextarea = function(){
       <svg onClick={attach} xmlns="http://www.w3.org/2000/svg" className="bi bi-paperclip" viewBox="0 0 16 16">
         <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
       </svg>
-      <textarea onChange={typing} ref={textBoard} className="message-board w-80" placeholder="New message here..."></textarea>
-      <svg onClick={send} xmlns="http://www.w3.org/2000/svg" className="bi  bi-arrow-right-circle-fill" viewBox="0 0 16 16" >
+      <textarea onKeyPress={handleKeypress} onChange={typing} ref={textBoard} className="message-board w-80" placeholder="New message here..."></textarea>
+      <svg  onClick={send} xmlns="http://www.w3.org/2000/svg" className="bi  bi-arrow-right-circle-fill" viewBox="0 0 16 16" >
         <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
       </svg>
     </div>
