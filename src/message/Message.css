@@ -18,6 +18,7 @@
     max-width: 95%;
     margin-bottom: 0px;
     font-size: large;
+    font-family:'Segoe UI Semibold';
     overflow-wrap: break-word;
     white-space: pre-line;
     float: left;
@@ -32,10 +33,12 @@
 .video-msg{
     max-width: 25vh;
 }
-.audio-msg{
+.audio-msg {
     max-width: 100%;
+    --player-button-width: 3em;
+    --sound-button-width: 2em;
+    --space: .5em;
 }
-
 .time-msg{
     position: relative;
     margin-bottom: 0px;
