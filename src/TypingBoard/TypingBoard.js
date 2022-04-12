@@ -14,30 +14,31 @@ function TypingBoard({ setter }) {
   const [height, setHeight] = useState('43px');
   const [topBorderText, settopBorderText] = useState('52px');
 
-
-
   function typing() {
     const textarea = document.querySelector("textarea");
     textarea.addEventListener("keyup", e => {
       textarea.style.height = "auto";
       let scHeight = e.target.scrollHeight;
       textarea.style.height = `${scHeight}px`;
-      setHeight (scHeight);
+      setHeight(scHeight);
       let bot = e.target.scrollHeight + 10;
       if (bot < 170) {
         settopBorderText(`${bot}px`);
       }
     })
+
+
+
+
   }
 
-const cleanTextarea = function(){
-  const textarea = document.querySelector("textarea");
-  document.getElementById("attached").style.display = "none"
-  //clean the text board (input field)
-  textBoard.current.value = '';
-  setHeight('43px');
-  settopBorderText('52px');
-}
+  const cleanTextarea = function () {
+    document.getElementById("attached").style.display = "none"
+    //clean the text board (input field)
+    textBoard.current.value = '';
+    setHeight('43px');
+    settopBorderText('52px');
+  }
 
   const send = function () {
     // Coral
@@ -49,7 +50,7 @@ const cleanTextarea = function(){
     //send message if it isn't empty
     var userInput = textBoard.current.value.trim();
     if (userInput != "") {
-      setter([0,userInput]);
+      setter([0, userInput]);
       cleanTextarea();
 
     }
@@ -66,7 +67,7 @@ const cleanTextarea = function(){
   return (
     <div className="gray-low-panel d-flex" id="grayPanel" style={{ 'height': height }}>
       <div id="attached" className="attached" style={{ 'bottom': topBorderText }}>
-        <AttachComponent setter={setter}/>
+        <AttachComponent setter={setter} />
       </div>
       <svg onClick={attach} xmlns="http://www.w3.org/2000/svg" className="bi bi-paperclip" viewBox="0 0 16 16">
         <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />

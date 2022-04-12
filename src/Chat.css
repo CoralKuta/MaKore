@@ -9,13 +9,22 @@ body{
   top: 50px; 
   display: flex; 
   padding: 0%; 
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.258);
+  border-radius: 10px;
 } 
+
+.container * { 
+  border-radius: 10px;
+} 
+
 .container .ContactScreen { 
   position: relative; 
   flex: 30%; 
   width: 30%; 
   height: 80%; 
+
 } 
+
 .container .ChatScreen { 
   position: relative; 
   flex: 70%; 
@@ -120,6 +129,7 @@ body{
   align-items: center; 
   padding: 15px; 
   border-bottom: 1px solid rgba(0, 0, 0,0.06); 
+  border-radius: 10px;
   cursor: pointer; 
 } 
 

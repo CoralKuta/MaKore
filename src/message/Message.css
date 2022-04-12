@@ -1,6 +1,6 @@
 
 .my-msg{
-    background-color: #9239e0;
+    background-color: #d7d5d9;
     max-width: 55%;
     margin: 7px;
     padding: 10px;
@@ -17,10 +17,12 @@
     margin-right: 20px;
     max-width: 95%;
     margin-bottom: 0px;
-    font-size: medium;
+    font-size: large;
     overflow-wrap: break-word;
     white-space: pre-line;
     float: left;
+    font-family: Segoe UI;
+    color: black;
 }
 
 .img-msg{

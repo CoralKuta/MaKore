@@ -1,4 +1,4 @@
-import './Contracts.css';
+import './Chat.css';
 import members from './contacts';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
@@ -7,8 +7,9 @@ import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import './PopUp.css';
 import img from './img.jpeg';
-import {useLocation} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
+import { render } from '@testing-library/react';
 
 
 function Chat() {
@@ -26,6 +27,9 @@ function Chat() {
 
   const [displayError, setdisplayError] = useState('none');
 
+
+  const [message, setMessage] = useState(friend.massage);
+
   const hideErrors = function () {
     setErrorMessages({});
   }
@@ -39,13 +43,15 @@ function Chat() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const time = '';
+    var today = new Date();
+    const time = today.getHours() + ":" + today.getMinutes();
     const LastMassage = '';
     const noti = 0;
     const contactIdentifier = members.find((user) => user.Username === nameId);
     const checkExists = contacts.find((user) => user.Username === nameId);
-    for(var i = 0; i < members.length; i++) {
-      if(members[i].Username == nameId) {
+
+    for (var i = 0; i < members.length; i++) {
+      if (members[i].Username == nameId) {
         var newContactName = members[i].Username;
         var NewContactNickName = members[i].Nickname;
         var NewContactPassword = members[i].password;
@@ -53,12 +59,16 @@ function Chat() {
         var newContactFriends = members[i].friends;
       }
     }
-    const contact11 = { Username: newContactName, Nickname: NewContactNickName, password: NewContactPassword,
-      pic: NewContactPic, friends: newContactFriends, time: time, massage: LastMassage, noti: noti};
+
+    const newFriend = {
+      Username: newContactName, Nickname: NewContactNickName, password: NewContactPassword,
+      pic: NewContactPic, friends: newContactFriends, time: time, massage: LastMassage, noti: noti
+    };
+
     const memberName = document.getElementById("MemberName");
-    console.log(contact11);
+
     if (contactIdentifier && !checkExists && (memberName.innerText !== nameId)) {
-      contacts.push(contact11);
+      contacts.push(newFriend);
       setNameId("");
       setButtonPopup(false);
     }
@@ -75,12 +85,24 @@ function Chat() {
       setdisplayError('block');
     }
   }
+
   const renderErrorMessage = (name) =>
     name === errorMessages.name && (
       <div className="error">{errorMessages.message}</div>
     );
+
+
+
+  function setLastMassage(massage) {
+    const user = contacts.find((user) => user.Username === friend.Username);
+    user.massage = massage;
+    setMessage(massage);
+  }
+
+
+
   return (
-    
+
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
@@ -94,7 +116,7 @@ function Chat() {
           <ContactsListResult contacts={contactList} changeFriend={setFriend} />
         </div>
         <div className="ChatScreen">
-            <MessageHead friend={friend}/>
+          <MessageHead friend={friend} setLastMassage={setLastMassage}/>
         </div>
       </div>
       <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >
