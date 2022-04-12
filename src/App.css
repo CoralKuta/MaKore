@@ -5,8 +5,7 @@
   flex-direction: column;
   justify-content: flex-end;
   background-image: url(conversation-background-fade.jpg);
-  background-size: cover;
-
+  background-size:cover;
 }
 .messageComp{
   padding-bottom: 10vh;

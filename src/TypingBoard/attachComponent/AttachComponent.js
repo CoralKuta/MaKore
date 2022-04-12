@@ -5,8 +5,6 @@ function AttachComponent({ setter }) {
 
     const [firstOn, setfirstOn] = useState(true)
 
-    const audioBtn = document.querySelector('.bi-mic-fill');
-    const stopBtn = document.querySelector('.bi-stop-fill');
     //opens file dialog box and able to send files just if the file appropriate the button who has been clicked
     const imagesBrowseFiles = function () {
         var input = document.createElement('input');
@@ -46,20 +44,19 @@ function AttachComponent({ setter }) {
         input.click();
     }
 
-
     const startRec = async () => {
         const stream = await navigator.mediaDevices.getUserMedia(
             { audio: true }
         );
         const audios = [];
         const mediaRecorder = new MediaRecorder(stream);
+        const audioBtn = document.querySelector('.bi-mic-fill');
+        const stopBtn = document.querySelector('.bi-stop-fill');
         mediaRecorder.start();
         mediaRecorder.onstart = function () {
-            if (!firstOn) {
                 audioBtn.style.fill = "green";
                 audioBtn.style.border = " 3px solid green";
                 stopBtn.style.display = "inline";
-            }
         }
         const promise = new Promise((resolve) => {
             stopBtn.addEventListener('click', resolve);
@@ -68,34 +65,37 @@ function AttachComponent({ setter }) {
             return await promise
                 .then((ev) => {
                     mediaRecorder.stop();
+                    console.log("here")
                 })
-                .catch(() => mediaRecorder.stop())
+                .catch((ev) => {
+                    // mediaRecorder.stop();
+                    stream.getTracks().forEach(function (track) {
+                        track.stop();
+                    });
+                    console.log(ev)
+                })
         }
         waitClick()
         mediaRecorder.onstop = function (e) {
             const fullaudio = new Blob(audios, { 'type': 'audio/ogg; codecs=opus' });
             const audioURL = URL.createObjectURL(fullaudio);
-            if (!firstOn) {
                 setter([3, audioURL]);
                 audioBtn.style.fill = "gray";
                 audioBtn.style.border = "none";
                 stopBtn.style.display = "none";
-            } else {
-                setfirstOn(false);
-            }
-            stream.getTracks().forEach(function (track) {
-                track.stop();
-            });
+                stream.getTracks().forEach(function (track) {
+                    track.stop();
+                });
         }
         mediaRecorder.ondataavailable = function (e) {
             audios.push(e.data);
         };
     }
 
-    if (firstOn) {
-        startRec();
-    }
-
+    // if (firstOn) {
+    //     startRec();
+    // }
+    
     return (
         <div>
             <div id="attpanel" className="attach-panel">
