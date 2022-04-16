@@ -98,7 +98,6 @@ function Chat() {
   // }
 
 
-
   return (
 
     <div className="background" >

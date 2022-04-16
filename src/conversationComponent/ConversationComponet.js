@@ -48,7 +48,10 @@ function ConversationComponent({friend}) {
         <ConvBoard messageList={messageList} />
       </div>
       <TypingBoard setter={(props) => {
-        setMessageList([messageList, <Message content={[props[0], props[1], time]} />]);
+        // setMessageList([messageList, <Message content={[props[0], props[1], time]} />]);
+        var temp = <Message content={[props[0], props[1], time]} />;
+        setMessageList(friendChat.push(temp));
+        console.log(messageList);
       }} />
     </div>
 
