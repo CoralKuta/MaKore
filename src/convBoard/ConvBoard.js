@@ -5,10 +5,12 @@ import { useState } from 'react';
 
 
 
-function ConvBoard({ messageList }) {
+function ConvBoard(props) {
+  const friend = props.friend;
+  
   return (
       <div className="chat-background d-flex flex-column align-items-start">
-        {messageList}
+        {props.messageList}
       </div>
   );
 }

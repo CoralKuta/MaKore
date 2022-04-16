@@ -6,10 +6,8 @@ import { useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import './PopUp.css';
-import img from './img.jpeg';
 import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
-import { render } from '@testing-library/react';
 
 
 function Chat() {
@@ -28,8 +26,6 @@ function Chat() {
   const [displayError, setdisplayError] = useState('none');
 
 
-  const [message, setMessage] = useState(friend.massage);
-
   const hideErrors = function () {
     setErrorMessages({});
   }
@@ -45,7 +41,7 @@ function Chat() {
     e.preventDefault();
     var today = new Date();
     const time = today.getHours() + ":" + today.getMinutes();
-    const LastMassage = '';
+    const LastMessage = '';
     const noti = 0;
     const contactIdentifier = members.find((user) => user.Username === nameId);
     const checkExists = contacts.find((user) => user.Username === nameId);
@@ -62,7 +58,7 @@ function Chat() {
 
     const newFriend = {
       Username: newContactName, Nickname: NewContactNickName, password: NewContactPassword,
-      pic: NewContactPic, friends: newContactFriends, time: time, massage: LastMassage, noti: noti
+      pic: NewContactPic, friends: newContactFriends, lastTime: 0, lastMessage: LastMessage, noti: noti
     };
 
     const memberName = document.getElementById("MemberName");
@@ -92,11 +88,16 @@ function Chat() {
     );
 
 
+  const [message, setMessage] = useState(friend.lastMessage);
+  const [time, setTime] = useState(friend.lastTime);
 
-  function setLastMassage(massage) {
+  function setLast(message, time) {
     const user = contacts.find((user) => user.Username === friend.Username);
-    user.massage = massage;
-    setMessage(massage);
+    user.lastMessage = message;
+    user.lastTime = time;
+    setMessage(message);
+    setTime(time);
+    console.log(user);
   }
 
 
@@ -116,7 +117,7 @@ function Chat() {
           <ContactsListResult contacts={contactList} changeFriend={setFriend} />
         </div>
         <div className="ChatScreen">
-          <MessageHead friend={friend} setLastMassage={setLastMassage}/>
+          <MessageHead friend={friend} setLast={setLast}/>
         </div>
       </div>
       <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >

@@ -11,10 +11,10 @@ function ContactsComp(props) {
         <div className="details"> 
             <div className="Head"> 
                 <h4 className="ContractName">{props.Username} </h4> 
-                {props.time !== 0 ? <p className="time">{props.time}</p> : null} 
+                {props.lastTime !== 0 ? <p className="time">{props.lastTime}</p> : null} 
             </div> 
-            <div className="LastMassage"> 
-                {props.massage !== "" ? <p>{props.massage}</p> : null} 
+            <div className="LastMessage"> 
+                {props.lastMessage !== "" ? <p>{props.lastMessage}</p> : null} 
                 {props.noti !== 0 ? <b className ="notification">{props.noti}</b> : null} 
             </div> 
         </div> 

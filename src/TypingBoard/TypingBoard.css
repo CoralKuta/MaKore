@@ -14,7 +14,6 @@
 }
 
 
-/* Coral */
 .message-board {
   height: 90%;
   max-height: 150px;
@@ -39,9 +38,6 @@ textarea:is(:focus, :valid) {
 textarea::-webkit-scrollbar {
   width: 2px;
 }
-
-/* Coral */
-
 
   .bi {
     max-height: 35px;

@@ -96,10 +96,10 @@ function Signup() {
                 }
 
                 var friends = [];
-                var time = 0;
-                var massage = "";
+                var lastTime = 0;
+                var lastMessage = "";
                 var noti = 0;
-                contacts[contacts.length] = { Username, Nickname, password, pic, friends, time, massage, noti };
+                contacts[contacts.length] = { Username, Nickname, password, pic, friends, lastTime, lastMessage, noti };
                 setIsSubmitted(true);
                 navigate('../chats', { state: { data: contacts[contacts.length - 1] } });
             }

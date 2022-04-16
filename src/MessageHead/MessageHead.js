@@ -13,9 +13,9 @@ const MessageHead = (props) => {
     for (let i = 0; i < document.getElementsByClassName("ContractName").length; i++) {
         if(friend.Username === document.getElementsByClassName("ContractName")[i].innerText) {
             document.getElementsByClassName("block")[i].style.background = "#f4f4f4";
-            if(typeof document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMassage")[0].getElementsByClassName("notification")[0] !== "undefined") {
-                document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMassage")[0].getElementsByClassName("notification")[0].innerText = 0;
-                document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMassage")[0].getElementsByClassName("notification")[0].style.display = "none";
+            if(typeof document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMessage")[0].getElementsByClassName("notification")[0] !== "undefined") {
+                document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMessage")[0].getElementsByClassName("notification")[0].innerText = 0;
+                document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMessage")[0].getElementsByClassName("notification")[0].style.display = "none";
             }
         }
         else
@@ -31,7 +31,7 @@ const MessageHead = (props) => {
                 </div>
                 <div className="NickName">{friend.Nickname}</div>
             </div>
-            <ConversationComponent friend={friend} setLastMassage={props.setLastMassage}/>
+            <ConversationComponent friend={friend} setLast={props.setLast}/>
         </div>
     );
 }
