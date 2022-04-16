@@ -1,9 +1,7 @@
 import './AttachComponent.css';
-import { useState } from 'react'
 
 function AttachComponent({ setter }) {
 
-    const [firstOn, setfirstOn] = useState(true)
 
     //opens file dialog box and able to send files just if the file appropriate the button who has been clicked
     const imagesBrowseFiles = function () {
@@ -12,7 +10,6 @@ function AttachComponent({ setter }) {
         input.accept = "image/*";
 
         input.onchange = e => {
-
             var file = e.target.files[0];
             var url = URL.createObjectURL(file);
             // setting up the reader
