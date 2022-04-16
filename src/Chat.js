@@ -1,5 +1,5 @@
 import './Chat.css';
-import members from './contacts';
+import users from './users';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
 import { useState } from 'react';
@@ -11,16 +11,16 @@ import MessageHead from './MessageHead/MessageHead';
 
 
 function Chat() {
-  const member = useLocation().state.data;
-  const contacts = member.friends;
+  const user = useLocation().state.data;
+  const friends = user.friends;
 
   const [friend, setFriend] = useState({});
-  const [contactList, setcontactList] = useState(contacts);
+  const [friendsList, setFriendsList] = useState(friends);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
 
   const doSearch = function (searchName) {
-    setcontactList(contacts.filter((contact) => contact.Username.includes(searchName)));
+    setFriendsList(users.filter((friend) => friend.Username.includes(searchName)));
   }
 
   const [displayError, setdisplayError] = useState('none');
@@ -39,32 +39,30 @@ function Chat() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    var today = new Date();
-    const time = today.getHours() + ":" + today.getMinutes();
-    const LastMessage = '';
     const noti = 0;
-    const contactIdentifier = members.find((user) => user.Username === nameId);
-    const checkExists = contacts.find((user) => user.Username === nameId);
+    const contactIdentifier = users.find((user) => user.Username === nameId);
+    const checkExists = users.find((user) => user.Username === nameId);
 
-    for (var i = 0; i < members.length; i++) {
-      if (members[i].Username == nameId) {
-        var newContactName = members[i].Username;
-        var NewContactNickName = members[i].Nickname;
-        var NewContactPassword = members[i].password;
-        var NewContactPic = members[i].pic;
-        var newContactFriends = members[i].friends;
+    // we want to add a friend to our user. we find the user in "users" and add the new friend.
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].Username == nameId) {
+        var newContactName = users[i].Username;
+        var NewContactNickName = users[i].Nickname;
+        var NewContactPassword = users[i].password;
+        var NewContactPic = users[i].pic;
+        var newContactFriends = users[i].friends;
       }
     }
 
     const newFriend = {
       Username: newContactName, Nickname: NewContactNickName, password: NewContactPassword,
-      pic: NewContactPic, friends: newContactFriends, lastTime: 0, lastMessage: LastMessage, noti: noti
+      pic: NewContactPic, friends: newContactFriends, noti: noti
     };
 
-    const memberName = document.getElementById("MemberName");
+    const friendName = document.getElementById("friendName");
 
-    if (contactIdentifier && !checkExists && (memberName.innerText !== nameId)) {
-      contacts.push(newFriend);
+    if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
+      users.push(newFriend);
       setNameId("");
       setButtonPopup(false);
     }
@@ -87,18 +85,17 @@ function Chat() {
       <div className="error">{errorMessages.message}</div>
     );
 
+  // const [message, setMessage] = useState(friend.lastMessage);
+  // const [time, setTime] = useState(friend.lastTime);
 
-  const [message, setMessage] = useState(friend.lastMessage);
-  const [time, setTime] = useState(friend.lastTime);
-
-  function setLast(message, time) {
-    const user = contacts.find((user) => user.Username === friend.Username);
-    user.lastMessage = message;
-    user.lastTime = time;
-    setMessage(message);
-    setTime(time);
-    console.log(user);
-  }
+  // function setLast(message, time) {
+  //   const user = users.find((user) => user.Username === friend.Username);
+  //   user.lastMessage = message;
+  //   user.lastTime = time;
+  //   setMessage(message);
+  //   setTime(time);
+  //   console.log(user);
+  // }
 
 
 
@@ -108,16 +105,16 @@ function Chat() {
       <div className="container">
         <div className="ContactScreen" >
           <div className="MemmberInfo">
-            <MemberInfo member={member} />
+            <MemberInfo user={user} />
             <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button>
           </div>
           <div className="searchChat">
             <Search doSearch={doSearch} />
           </div>
-          <ContactsListResult contacts={contactList} changeFriend={setFriend} />
+          <ContactsListResult friends={friendsList} changeFriend={setFriend} />
         </div>
         <div className="ChatScreen">
-          <MessageHead friend={friend} setLast={setLast}/>
+          <MessageHead friend={friend}/>
         </div>
       </div>
       <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >

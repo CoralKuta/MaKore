@@ -1,7 +1,7 @@
 import React from 'react';
 import './launch.css';
-import '../contacts';
-import contacts from '../contacts';
+import '../users';
+import users from '../users';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import New from './MKTRAN.png'
@@ -40,8 +40,8 @@ function Signup() {
         var { username, nickname, password1, password2, pic } = document.forms[0];
         var newUsername = username.value.trim();
 
-        // find if the userbame already exists in "contacts"
-        const userData = contacts.find((user) => user.Username === newUsername);
+        // find if the userbame already exists in "users"
+        const userData = users.find((user) => user.Username === newUsername);
 
         // if there is a user with this user name
         if (userData) {
@@ -96,12 +96,10 @@ function Signup() {
                 }
 
                 var friends = [];
-                var lastTime = 0;
-                var lastMessage = "";
                 var noti = 0;
-                contacts[contacts.length] = { Username, Nickname, password, pic, friends, lastTime, lastMessage, noti };
+                users[users.length] = { Username, Nickname, password, pic, friends, noti };
                 setIsSubmitted(true);
-                navigate('../chats', { state: { data: contacts[contacts.length - 1] } });
+                navigate('../chats', { state: { data: users[users.length - 1] } });
             }
         }
     }

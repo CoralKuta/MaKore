@@ -1,17 +1,19 @@
-import ContactsComp from "../ContactItem/Contacts.js";
+import ContactsComp from "../ContactItem/DisplayFriendList.js";
 
 
 function ContactsListResult(props) {
 
+  const changeFriend = (friend) => {
 
-  const changeFriend = (contact) => {
-    props.changeFriend(contact);
+    props.changeFriend(friend);
   }
 
 
-    const contactList = props.contacts.map((contact, key) => {
+
+
+    const contactList = props.friends.map((friend, key) => {
         
-        return <ContactsComp {...contact} key = {key} changeFriend = {changeFriend} />
+        return <ContactsComp {...friend} key = {key} changeFriend = {changeFriend} />
       });
 
     return (

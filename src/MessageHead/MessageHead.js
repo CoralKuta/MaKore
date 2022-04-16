@@ -3,13 +3,14 @@ import ConversationComponent from "../conversationComponent/ConversationComponet
 
 
 const MessageHead = (props) => {
-    const friend = props.friend;
+    var friend = props.friend; 
+    var friendData = friend[0];
 
-
-    if(typeof friend.Username === "undefined") {
+    if ((friendData == null) || (typeof friendData.Username === "undefined")) {
         return (<div></div>);
     }
 
+     
     for (let i = 0; i < document.getElementsByClassName("ContractName").length; i++) {
         if(friend.Username === document.getElementsByClassName("ContractName")[i].innerText) {
             document.getElementsByClassName("block")[i].style.background = "#f4f4f4";
@@ -25,13 +26,13 @@ const MessageHead = (props) => {
     return (
         <div>
             <div className="MemmberInfo">
-                <div className="chat-image"> <img src={friend.pic} className="rounded-circle" width="40px" alt=""></img></div>
+                <div className="chat-image"> <img src={friendData.pic} className="rounded-circle" width="40px" alt=""></img></div>
                 <div className="chat-Name" id="MemberName">
-                    <h4>{friend.Username}</h4>
+                    <h4>{friendData.Username}</h4>
                 </div>
-                <div className="NickName">{friend.Nickname}</div>
+                <div className="NickName">{friendData.Nickname}</div>
             </div>
-            <ConversationComponent friend={friend} setLast={props.setLast}/>
+            <ConversationComponent friend={friend}/>
         </div>
     );
 }

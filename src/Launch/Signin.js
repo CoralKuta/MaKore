@@ -1,7 +1,7 @@
 import React from 'react';
 import './launch.css';
-import '../contacts';
-import contacts from '../contacts';
+import '../users';
+import users from '../users';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import New from './MKTRAN.png'
@@ -41,8 +41,8 @@ function Signin() {
 
         var { username, password } = document.forms[0];
 
-        // find if the user exists in "contacts" - search by Username
-        const userData = contacts.find((user) => user.Username === username.value);
+        // find if the user exists in "users" - search by Username
+        const userData = users.find((user) => user.Username === username.value);
 
         // Compare user info
         if (userData != null) {

@@ -120,6 +120,7 @@ body{
   position: relative; 
   overflow: scroll; 
   height: 72vh; 
+  
   overflow-y: auto; 
   overflow-x: hidden; 
 } 
@@ -135,6 +136,7 @@ body{
   border-radius: 10px;
   cursor: pointer; 
 } 
+
 
 .list-group .block:hover {
   z-index: 1 !important;
@@ -153,8 +155,8 @@ body{
 } 
  
 .list-group .block .details { 
-   position: relative; 
-   width: 100%; 
+  position: relative; 
+  overflow-wrap: break-word;
 } 
  
 .list-group .block .details .Head{ 
@@ -178,7 +180,7 @@ body{
 } 
 .LastMessage { 
   display: flex; 
-  max-width: 30vh;
+  max-width: 70vh;
   justify-content: space-between; 
   align-items: center; 
   text-decoration: none; 
@@ -186,7 +188,8 @@ body{
  
 .LastMessage p { 
   color: #aaa; 
-  max-width: 100vh;
+  width: 30vh;
+  max-width: 50%;
   overflow-wrap: break-word;
   display: -webkit-box; 
   -webkit-line-clamp: 1; 
