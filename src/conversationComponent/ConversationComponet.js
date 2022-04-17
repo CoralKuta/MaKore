@@ -10,7 +10,10 @@ function ConversationComponent({friend}) {
   var friendChat = friend[1];
 
 
-  const [messageList, setMessageList] = useState(friendChat);
+
+  const [messageList, setMessageList] = useState('');
+  const [reply, setReply] = useState(false);
+  const [alredyReply, setAlredyReply] = useState(false);
 
   var today = new Date();
   if (today.getMinutes() < 10)
@@ -19,27 +22,23 @@ function ConversationComponent({friend}) {
     var time = today.getHours() + ":" + today.getMinutes();
 
 
-  // if (messageList[messageList.length - 1] != null) {
-  //   var type = messageList[messageList.length - 1].props.content[0];
-
-  //   if (type == 0) {
-  //     // text
-  //     properties.setLast(messageList[messageList.length - 1].props.content[1], time);
-
-  //   } else if (type == 1) {
-  //     //image
-  //     properties.setLast("Photo", time);
-
-  //   } else if (type == 2) {
-  //     //video
-  //     properties.setLast("Video", time);
-
-  //   } else {
-  //     // audio
-  //     properties.setLast("Voice message", time);
-  //   }
-  // }
-
+  
+    const autoReply = function () {
+      var today = new Date();
+          if (today.getMinutes() < 10)
+            var time = today.getHours() + ":0" + today.getMinutes();
+          else
+            var time = today.getHours() + ":" + today.getMinutes();
+      setMessageList([messageList, <Message content={[4, 'nothing', time]} />]);
+    }
+    if (reply){
+      setTimeout(() => {autoReply();console.log("this is the first message")}, 2000);
+      setReply(false);
+      setAlredyReply(true);
+    }
+  
+  
+  
 
 
   return (
@@ -51,7 +50,11 @@ function ConversationComponent({friend}) {
         //setMessageList([messageList, <Message content={[props[0], props[1], time]} />]);
         setMessageList(friendChat.push(<Message content={[props[0], props[1], time]} />));
         console.log(friendChat);
-      }} />
+        let element = document.querySelector('.chat-background');
+        element.scrollTop = element.scrollHeight;
+        if(!alredyReply){
+        setReply(true);
+      }}} />
     </div>
 
   );

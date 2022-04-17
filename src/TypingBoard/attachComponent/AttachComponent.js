@@ -17,9 +17,11 @@ function AttachComponent({ setter }) {
             reader.readAsDataURL(file)
             reader.onload = readerEvent => {
                 setter([1, url]);
+                document.getElementById("attached").style.display = "none"
             }
         }
         input.click();
+
     }
 
     const videosBrowseFiles = function () {
@@ -36,6 +38,7 @@ function AttachComponent({ setter }) {
             reader.readAsDataURL(file)
             reader.onload = readerEvent => {
                 setter([2, url]);
+                document.getElementById("attached").style.display = "none"
             }
         }
         input.click();
@@ -77,6 +80,7 @@ function AttachComponent({ setter }) {
             const fullaudio = new Blob(audios, { 'type': 'audio/ogg; codecs=opus' });
             const audioURL = URL.createObjectURL(fullaudio);
                 setter([3, audioURL]);
+                document.getElementById("attached").style.display = "none"
                 audioBtn.style.fill = "gray";
                 audioBtn.style.border = "none";
                 stopBtn.style.display = "none";
@@ -89,9 +93,6 @@ function AttachComponent({ setter }) {
         };
     }
 
-    // if (firstOn) {
-    //     startRec();
-    // }
     
     return (
         <div>
