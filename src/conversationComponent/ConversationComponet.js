@@ -49,8 +49,10 @@ function ConversationComponent({ friend }) {
         // setMessageList([messageList, <Message content={[props[0], props[1], time]} />]);
         setMessageList(friendChat.push(<Message key={props[0] + fullTime} content={[props[0], props[1], time]} />));
         console.log(friendChat);
-        let element = document.querySelector('.chat-background');
-        element.scrollTop = element.scrollHeight + 70;
+        let messages = document.querySelectorAll('.time-msg');
+        let element = messages[messages.length-1];
+        console.log(element);
+        element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
         if (!alredyReply) {
           autoReply();
         }
