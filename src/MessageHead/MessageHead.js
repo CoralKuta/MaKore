@@ -10,9 +10,9 @@ const MessageHead = (props) => {
         return (<div></div>);
     }
 
-     
+     console.log(friendData.Username);
     for (let i = 0; i < document.getElementsByClassName("ContractName").length; i++) {
-        if(friend.Username === document.getElementsByClassName("ContractName")[i].innerText) {
+        if(friendData.Username === document.getElementsByClassName("ContractName")[i].innerText) {
             document.getElementsByClassName("block")[i].style.background = "#f4f4f4";
             if(typeof document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMessage")[0].getElementsByClassName("notification")[0] !== "undefined") {
                 document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMessage")[0].getElementsByClassName("notification")[0].innerText = 0;

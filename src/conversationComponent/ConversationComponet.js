@@ -45,13 +45,12 @@ function ConversationComponent({friend}) {
   return (
     <div className="all-conv-board">
       <div className="messageComp">
-        <ConvBoard messageList={messageList} />
+        <ConvBoard messageList={friendChat} />
       </div>
       <TypingBoard setter={(props) => {
-        // setMessageList([messageList, <Message content={[props[0], props[1], time]} />]);
-        var temp = <Message content={[props[0], props[1], time]} />;
-        setMessageList(friendChat.push(temp));
-        console.log(messageList);
+        //setMessageList([messageList, <Message content={[props[0], props[1], time]} />]);
+        setMessageList(friendChat.push(<Message content={[props[0], props[1], time]} />));
+        console.log(friendChat);
       }} />
     </div>
 

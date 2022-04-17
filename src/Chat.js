@@ -40,8 +40,20 @@ function Chat() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const noti = 0;
-    const contactIdentifier = users.find((user) => user.Username === nameId);
-    const checkExists = users.find((user) => user.Username === nameId);
+    var contactIdentifier = /*users.find((user) => user.Username === nameId);*/ (1 === 0);
+
+    for (var k = 0; k < users.length; k++) {
+      if(users[k].Username == nameId) {
+        contactIdentifier = (1===1);
+      }
+    }
+    var checkExists = (1 === 0);
+    for (var j = 0; j < friends.length; j++) {
+      if(friends[j][0].Username == nameId) {
+        checkExists = (1===1);
+      }
+    }
+
 
     // we want to add a friend to our user. we find the user in "users" and add the new friend.
     for (var i = 0; i < users.length; i++) {
@@ -59,10 +71,12 @@ function Chat() {
       pic: NewContactPic, friends: newContactFriends, noti: noti
     };
 
-    const friendName = document.getElementById("friendName");
-
+    const friendName = document.getElementById("MemberName");
+  
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
-      users.push(newFriend);
+      console.log(newFriend);
+      console.log(friends);
+      friends.push([newFriend,[]]);
       setNameId("");
       setButtonPopup(false);
     }
