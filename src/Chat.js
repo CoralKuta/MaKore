@@ -117,32 +117,21 @@ function Chat() {
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
-          <div className="MemmberInfo">
-            <MemberInfo user={user} />
-            <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button>
-          </div>
-          <div className="searchChat">
+          {/* <div className="MemmberInfo"> */}
+            <MemberInfo user={user} setButtonPopup = {setButtonPopup} />
+            {/* <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button> */}
+          {/* </div> */}
+          {/* <div className="searchChat"> */}
             <Search doSearch={doSearch} />
-          </div>
+          {/* </div> */}
           <ContactsListResult friends={friendsList} changeFriend={setFriend} />
         </div>
         <div className="ChatScreen">
           <MessageHead friend={friend}/>
         </div>
       </div>
-      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >
-        <span className="addContact">Add new contact</span>
-        <form onSubmit={handleSubmit}>
-          <div className="form-floating mb-3">
-            <input type="contact" className="form-control" value={nameId} onChange={(e) => setNameId(e.target.value)} id="floatingInput"></input>
-            <label htmlFor="floatingInput">Contact's identifier</label>
-            {renderErrorMessage("uname")}
-          </div>
-          <button type="submit" className="btn btn-primary">Add</button>
-          <div className="errorOnSubmit" style={{ 'display': displayError }}>
-            {renderErrorMessage("wrong")}</div>
-        </form>
-      </PopUp>
+      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} nameID ={nameId}
+              displayError = {displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>
     </div>
   );
 }
