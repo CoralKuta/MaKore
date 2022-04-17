@@ -1,18 +1,16 @@
 .all-conv-board {
-    width: 100%;
-    height: 82vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    background-image: url(conversation-background-fade.jpg);
-    background-size: cover;
-  
-  }
-  .messageComp{
-    padding-bottom: 1vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    overflow: auto;
-  }
-  
+  width: 100%;
+  height: 82vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image: url(conversation-background-fade.jpg);
+  background-size:cover;
+}
+.messageComp{
+  padding-bottom: 1vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: auto;
+}

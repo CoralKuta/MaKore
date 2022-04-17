@@ -9,12 +9,11 @@
   flex-direction: row;
   background-color: #e0e0e0;
   box-shadow: 0px 3px 3px #3e2952;
-  border-radius: 30px;
+  border-radius: 10px;
 
 }
 
 
-/* Coral */
 .message-board {
   height: 90%;
   max-height: 150px;
@@ -40,12 +39,6 @@ textarea::-webkit-scrollbar {
   width: 2px;
 }
 
-/* Coral */
-
-
-
-
-
   .bi {
     max-height: 35px;
     width: 5%;
@@ -61,7 +54,7 @@ textarea::-webkit-scrollbar {
   .bi-paperclip{
     left: 0px;
     margin-right: 0px;
-    margin-left: 8px;
+    margin-left: 1px;
 
   }
   .bi-arrow-right-circle-fill{

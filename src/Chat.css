@@ -1,0 +1,249 @@
+body{ 
+  background-color: rgba(226, 226, 226, 0.975); 
+} 
+ 
+.container { 
+  background-color: rgb(250, 250, 250); 
+  height: 90vh; 
+  position:relative; 
+  top: 50px; 
+  display: flex; 
+  padding: 0%; 
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.258);
+  border-radius: 10px;
+} 
+
+.container * { 
+  border-radius: 10px;
+} 
+
+.container .ContactScreen { 
+  position: relative; 
+  flex: 30vh; 
+  width: 30vh; 
+  height: 90vh; 
+
+} 
+
+.container .ChatScreen { 
+  position: relative; 
+  flex: 70vh; 
+  width: 70vh; 
+  height: 90vh;
+  background-color: #e5ddd5; 
+} 
+
+.MemmberInfo { 
+  justify-content: center; 
+  align-items: center; 
+  margin: center; 
+  float: left; 
+  position: relative; 
+  width: 100%; 
+  height: 8vh; 
+  background-color: #ededed; 
+  display: flex; 
+} 
+
+.MemmberInfo .img { 
+  position: absolute; 
+  margin: 0%; 
+  right: 350px; 
+  bottom: 15px; 
+  object-fit: cover; 
+} 
+ 
+.Name { 
+  position: absolute; 
+  left: 13%; 
+  top: 10%; 
+} 
+ 
+.NickName { 
+  position: absolute; 
+  left: 35%; 
+  color: cadetblue; 
+  text-align: center; 
+  bottom: 4%; 
+} 
+ 
+.searchChat { 
+  position: relative; 
+  width: 100%; 
+  height: 10vh; 
+  background-color: #f6f6f6; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+} 
+.searchChat div{ 
+  width: 100%; 
+} 
+.searchChat div input{ 
+  width: 100%; 
+  outline: none; 
+  border: none; 
+  background: #fff; 
+  padding: 6px; 
+  height: 38px; 
+  border-radius: 10px; 
+  font-size: 14px; 
+  padding-left: 40px; 
+} 
+.searchChat div i{ 
+  position: absolute; 
+  left: 12px; 
+  top: 10px; 
+  font-size: 1.2em; 
+  cursor:auto; 
+  pointer-events: none; 
+ 
+} 
+ 
+.bi-person-plus { 
+  display:inline; 
+  position: absolute; 
+  right: 16px; 
+  top: 22px; 
+  font-size: 1.5em; 
+  border: 0px; 
+  margin: 0; 
+  outline: none; 
+} 
+ 
+.bbbbbbbbb { 
+  text-decoration: none; 
+} 
+ 
+.list-group { 
+  background-color: white; 
+  position: relative; 
+  overflow: scroll; 
+  height: 72vh; 
+  
+  overflow-y: auto; 
+  overflow-x: hidden; 
+} 
+ 
+ 
+.list-group .block { 
+  position: relative; 
+  width: 100%; 
+  display: flex; 
+  align-items: center; 
+  padding: 15px; 
+  border-bottom: 1px solid rgba(0, 0, 0,0.06); 
+  border-radius: 10px;
+  cursor: pointer; 
+} 
+
+
+.list-group .block:hover {
+  z-index: 1 !important;
+  text-decoration: none !important;
+  background-color: #f8f9fa !important;
+}
+
+ 
+.list-group .block .img { 
+  position: relative; 
+  min-width: 45px; 
+  height: 45px; 
+  overflow: hidden; 
+  border-radius: 50%; 
+  margin-right: 10px; 
+} 
+ 
+.list-group .block .details { 
+  position: relative; 
+  overflow-wrap: break-word;
+} 
+ 
+.list-group .block .details .Head{ 
+  display: flex; 
+  justify-content: space-between; 
+  margin-bottom: 5px; 
+ 
+} 
+ 
+.list-group .block .details .Head h4{ 
+  font-size: 1.1em; 
+  font-weight: 600; 
+  color: #111; 
+  text-decoration: none; 
+} 
+ 
+.list-group .block .details .Head .time { 
+  font-size: 0.75em; 
+  color: #aaa; 
+  text-decoration: none; 
+} 
+.LastMessage { 
+  display: flex; 
+  max-width: 70vh;
+  justify-content: space-between; 
+  align-items: center; 
+  text-decoration: none; 
+} 
+ 
+.LastMessage p { 
+  color: #aaa; 
+  width: 30vh;
+  max-width: 50%;
+  overflow-wrap: break-word;
+  display: -webkit-box; 
+  -webkit-line-clamp: 1; 
+  font-size: 0.9em; 
+  -webkit-box-orient: vertical; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  text-decoration: none; 
+   
+} 
+ 
+.LastMessage b { 
+  background-color: #06d755; 
+  color: #fff; 
+  min-width: 20px; 
+  height: 20px; 
+  border-radius: 50%; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  font-size: 0.75em; 
+  text-decoration: none; 
+} 
+ 
+ 
+ 
+.list-group-item-action:hover { 
+  z-index: 1 !important; 
+  color: #495057 !important; 
+  text-decoration: none !important; 
+  background-color: #f4f4f4 !important; 
+} 
+ 
+.error { 
+  position:absolute; 
+  color: rgb(189, 0, 0); 
+  font-size: large; 
+  font-weight: bold; 
+  top: 70px; 
+  left: 70px; 
+  text-align: center; 
+} 
+ 
+.chat-image { 
+  width: 100%; 
+  position: relative; 
+  margin: 1%; 
+  float:left; 
+  bottom:5%; 
+  object-fit: cover; 
+} 
+ 
+.chat-Name { 
+  position: absolute; 
+  left : 6%; 
+  top: 9%; 
+}

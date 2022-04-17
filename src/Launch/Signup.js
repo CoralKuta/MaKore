@@ -1,7 +1,7 @@
 import React from 'react';
 import './launch.css';
-import '../contacts';
-import contacts from '../contacts';
+import '../users';
+import users from '../users';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import New from './MKTRAN.png'
@@ -40,14 +40,12 @@ function Signup() {
         var { username, nickname, password1, password2, pic } = document.forms[0];
         var newUsername = username.value.trim();
 
-        // find if the userbame already exists in "contacts"
-        const userData = contacts.find((user) => user.Username === newUsername);
+        // find if the userbame already exists in "users"
+        const userData = users.find((user) => user.Username === newUsername);
 
         // if there is a user with this user name
         if (userData) {
             if (userData.Username !== null) {
-
-                console.log("user name taken");
                 setErrorMessages({ name: "usernameTaken", message: errors.usernameTaken });
                 setdisplayError('block');
             }
@@ -63,7 +61,6 @@ function Signup() {
             var newPass1 = password1.value.trim();
             var newPass2 = password2.value.trim();
 
-            console.log(newUsername);
             if ((!regex.test(newUsername)) || (newUsername === '')) {
                 setErrorMessages({ name: "emptyName", message: errors.emptyName });
                 setdisplayError('block');
@@ -76,7 +73,6 @@ function Signup() {
 
             // validate same passwords
             else if (newPass1 !== newPass2) {
-                console.log("not the same pass");
                 setErrorMessages({ name: "wrongPassword2", message: errors.wrongPassword2 });
                 setdisplayError('block');
 
@@ -100,20 +96,18 @@ function Signup() {
                 }
 
                 var friends = [];
-
-                contacts[contacts.length] = { Username, Nickname, password, pic, friends };
+                var noti = 0;
+                users[users.length] = { Username, Nickname, password, pic, friends, noti };
                 setIsSubmitted(true);
-                navigate('../chat', { state: { data: userData } });
+                navigate('../chats', { state: { data: users[users.length - 1] } });
             }
         }
-
-        console.log(contacts);
     }
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
-            <div className="error">{errorMessages.message}</div>
+            <div className="errors">{errorMessages.message}</div>
         );
 
 
@@ -156,7 +150,7 @@ function Signup() {
                     <div className='row'>
                         <div className="mb-3 pic">
                             <label className="form-label">Picture</label>
-                            <input className="form-control" accept="image/png, image/gif, image/jpeg" type="file" name="pic"></input>
+                            <input className="form-control" accept="image/*" type="file" name="pic"></input>
                         </div>
                     </div>
 

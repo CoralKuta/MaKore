@@ -1,14 +1,13 @@
 import './ConvBoard.css';
-import React, { Component } from 'react';
-import { useRef } from 'react';
-import { useState } from 'react';
+import React from 'react';
 
-
-
-function ConvBoard({ messageList }) {
+function ConvBoard(props) {
+  
   return (
+    <div>
       <div className="chat-background d-flex flex-column align-items-start">
-        {messageList}
+        {props.messageList}
+      </div>
       </div>
   );
 }

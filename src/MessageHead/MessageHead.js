@@ -1,33 +1,38 @@
-import {  useLocation } from "react-router-dom";
+
 import ConversationComponent from "../conversationComponent/ConversationComponet";
-const MessageHead = () => {
-    const { contact } = useLocation().state;
-    
-    
-    for (let i = 0; i< document.getElementsByClassName("ContractName").length; i++) {
-        if(contact.Username === document.getElementsByClassName("ContractName")[i].innerText){
-            document.getElementsByClassName("list-group-item")[i].style.background = "#ededed";
-            if( document.getElementsByClassName("list-group-item")[i].querySelector('.Notification') != null) {
-            document.getElementsByClassName("list-group-item")[i].querySelector('.Notification').innerText = 0;
-            document.getElementsByClassName("list-group-item")[i].querySelector('.Notification').style.display = "none";
-            }
-            
-        }
-        else {
-            document.getElementsByClassName("list-group-item")[i].style.background = "white";
-        }
+
+
+const MessageHead = (props) => {
+    var friend = props.friend; 
+    var friendData = friend[0];
+
+    if ((friendData == null) || (typeof friendData.Username === "undefined")) {
+        return (<div></div>);
     }
-    
+
+     console.log(friendData.Username);
+    for (let i = 0; i < document.getElementsByClassName("ContractName").length; i++) {
+        if(friendData.Username === document.getElementsByClassName("ContractName")[i].innerText) {
+            document.getElementsByClassName("block")[i].style.background = "#f4f4f4";
+            if(typeof document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMessage")[0].getElementsByClassName("notification")[0] !== "undefined") {
+                document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMessage")[0].getElementsByClassName("notification")[0].innerText = 0;
+                document.getElementsByClassName("block")[i].getElementsByClassName("details")[0].getElementsByClassName("LastMessage")[0].getElementsByClassName("notification")[0].style.display = "none";
+            }
+        }
+        else
+            document.getElementsByClassName("block")[i].style.background = "white";
+    }
+
     return (
         <div>
-        <div className="MemmberInfo">
-            <div className="chat-image"> <img src={contact.pic} className="rounded-circle" width="40px" alt=""></img></div>
-            <div className="chat-Name" id="MemberName">
-                <h4>{contact.Username}</h4>
+            <div className="MemmberInfo">
+                <div className="chat-image"> <img src={friendData.pic} className="rounded-circle" width="40px" alt=""></img></div>
+                <div className="chat-Name" id="MemberName">
+                    <h4>{friendData.Username}</h4>
+                </div>
+                <div className="NickName">{friendData.Nickname}</div>
             </div>
-            <div className="NickName">{contact.Nickname}</div>
-        </div>
-        <ConversationComponent/>
+            <ConversationComponent friend={friend}/>
         </div>
     );
 }

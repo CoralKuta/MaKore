@@ -20,12 +20,12 @@ function Message({ content }) {
   // case the user send image
   if (type == 1) {
     return (
-      <div className='my-msg'>
-        <img className='img-msg' src={text}></img>
-        <div>
-          <p className='time-msg'>{time}</p>
+        <div className='my-msg'>
+          <img className='img-msg' src={text}></img>
+          <div>
+            <p className='time-msg'>{time}</p>
+          </div>
         </div>
-      </div>
     );
   }
   // case the user send video
@@ -45,7 +45,7 @@ function Message({ content }) {
   if (type == 3) {
     return (
       <div className='my-msg'>
-        <audio className='video-msg' src={text} controls></audio>
+        <audio className='audio-msg' src={text} controls></audio>
         <div>
           <p className='time-msg'>{time}</p>
         </div>
@@ -53,18 +53,17 @@ function Message({ content }) {
       </div>
     );
   }
-
-
-  // // case the user send location
-  // if (type == 4) {
-  //   return (
-  //     <div className='my-msg'>
-  //       <p className='text-msg'>{text}</p>
-  //       <div>
-  //         <p className='time-msg'>{time}</p>
-  //       </div>
-  //     </div>
-  //   );
-  //}
+  if (type == 4) {
+    return (
+      <div className = "reply-div">
+      <div className='reply-msg'>
+        <p className='text-msg'> Nice app,<br></br> I'm still an automatic reply </p>
+        <div>
+          <p className='time-msg'>{time}</p>
+        </div>
+      </div>
+      </div>
+    )
+  }
 }
 export default Message;
