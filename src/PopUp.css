@@ -1,4 +1,3 @@
-
 .popUp {
   height: 100%;
   width: 100%;
@@ -9,7 +8,7 @@
 }
 
 .popUp-inner {
-  height: 25%;
+  height: 30%;
   width: 40%;
   background-color: white;
   border: 1px solid black;
@@ -33,18 +32,22 @@
 
 form {
     position: relative;
-    top: 6%;
-    margin-right: 2%;
+    top: 20%;
+    margin: 1vh;
+    max-height: 70%;
 }
 
 .popUp-inner .bi-x {
     position:relative;
     top: 0%;
-    left: 43%;
+    margin: 1vh;
+    float: right;
     background-color: white;
     border: 0;
     font-size: 2em;
+    cursor: pointer;
 }
+
 
 .btn-primary {
     position: absolute;

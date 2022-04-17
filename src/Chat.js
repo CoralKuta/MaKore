@@ -31,8 +31,8 @@ function Chat() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
 
-  const doSearch = function (searchName) {
-    setFriendsList(users.filter((friend) => friend.Username.includes(searchName)));
+  const doSearch = function (searchName) {    
+    setFriendsList(friendsList.filter((friend) => friend.Username.includes(searchName)));  
   }
 
   const [displayError, setdisplayError] = useState('none');
@@ -55,14 +55,14 @@ function Chat() {
     var contactIdentifier = /*users.find((user) => user.Username === nameId);*/ (1 === 0);
 
     for (var k = 0; k < users.length; k++) {
-      if(users[k].Username == nameId) {
-        contactIdentifier = (1===1);
+      if (users[k].Username == nameId) {
+        contactIdentifier = (1 === 1);
       }
     }
     var checkExists = (1 === 0);
     for (var j = 0; j < friends.length; j++) {
-      if(friends[j][0].Username == nameId) {
-        checkExists = (1===1);
+      if (friends[j][0].Username == nameId) {
+        checkExists = (1 === 1);
       }
     }
 
@@ -84,11 +84,9 @@ function Chat() {
     };
 
     const friendName = document.getElementById("MemberName");
-  
+
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
-      console.log(newFriend);
-      console.log(friends);
-      friends.push([newFriend,[]]);
+      friends.push([newFriend, []]);
       setNameId("");
       setButtonPopup(false);
     }
@@ -111,24 +109,19 @@ function Chat() {
       <div className="error">{errorMessages.message}</div>
     );
 
-  // const [message, setMessage] = useState(friend.lastMessage);
-  // const [time, setTime] = useState(friend.lastTime);
+  const [message, setMessage] = useState(friend.lastMessage);
 
-  // function setLast(message, time) {
-  //   const user = users.find((user) => user.Username === friend.Username);
-  //   user.lastMessage = message;
-  //   user.lastTime = time;
-  //   setMessage(message);
-  //   setTime(time);
-  //   console.log(user);
-  // }
-
+  function setLast(message) {
+      friend[0].lastMessage = message;
+      setMessage(message);
+  }
 
   return (
 
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
+<<<<<<< HEAD
           <div className="MemmberInfo">
 <<<<<<< HEAD
             <MemberInfo member = {member}/>
@@ -138,27 +131,23 @@ function Chat() {
             <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button>
           </div>
           <div className="searchChat">
+=======
+          {/* <div className="MemmberInfo"> */}
+            <MemberInfo user={user} setButtonPopup = {setButtonPopup} />
+            {/* <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button> */}
+          {/* </div> */}
+          {/* <div className="searchChat"> */}
+>>>>>>> 9264fe69858e4e0e1438f2d7a46077546110ca05
             <Search doSearch={doSearch} />
-          </div>
+          {/* </div> */}
           <ContactsListResult friends={friendsList} changeFriend={setFriend} />
         </div>
         <div className="ChatScreen">
-          <MessageHead friend={friend}/>
+          <MessageHead friend={friend} setLast={setLast} />
         </div>
       </div>
-      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >
-        <span className="addContact">Add new contact</span>
-        <form onSubmit={handleSubmit}>
-          <div className="form-floating mb-3">
-            <input type="contact" className="form-control" value={nameId} onChange={(e) => setNameId(e.target.value)} id="floatingInput"></input>
-            <label htmlFor="floatingInput">Contact's identifier</label>
-            {renderErrorMessage("uname")}
-          </div>
-          <button type="submit" className="btn btn-primary">Add</button>
-          <div className="errorOnSubmit" style={{ 'display': displayError }}>
-            {renderErrorMessage("wrong")}</div>
-        </form>
-      </PopUp>
+      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} nameID ={nameId}
+              displayError = {displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>
     </div>
   );
 }
