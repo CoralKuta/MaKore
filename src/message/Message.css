@@ -6,6 +6,7 @@
     border-top-right-radius: 15px;
     border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 0px;
     box-shadow: 3px 3px 3px #3e2952;
     overflow-wrap: break-word;
     white-space: pre-line;
@@ -24,6 +25,7 @@
     border-top-right-radius: 15px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 0px;
     box-shadow: 3px 3px 3px #3e2952;
     overflow-wrap: break-word;
     white-space: pre-line;

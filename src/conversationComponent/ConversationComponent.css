@@ -8,7 +8,6 @@
   background-size:cover;
 }
 .messageComp{
-  max-height: 100%;
   padding-bottom: 1vh;
   display: flex;
   flex-direction: column;
