@@ -29,7 +29,8 @@ const MessageHead = (props) => {
     return (
         <div>
             <div className="MemmberInfo">
-                <div className="chat-image"> <img src={friendData.pic} className="rounded-circle" width="40px" alt=""></img></div>
+                {/* <div className="chat-image"> <img src={friendData.pic} className="rounded-circle" width="40px" alt=""></img></div> */}
+                <img src={friendData.pic} className="rounded-circle" width="40px" alt=""></img>
                 <div className="chat-Name" id="MemberName">
                     <h4>{friendData.Username}</h4>
                 </div>

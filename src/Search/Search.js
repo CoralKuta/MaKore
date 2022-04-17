@@ -1,16 +1,16 @@
-import {useRef} from 'react';
+import { useRef } from 'react';
 
-function Search ({doSearch}) {
+function Search({ doSearch }) {
     const searchBox = useRef(null);
-    const search = function() {
+    const search = function () {
         doSearch(searchBox.current.value);
     }
 
     return (
-        <div>
-        <input ref={searchBox} onKeyUp={search} type="text" placeholder="Search for a chat"></input>
-        <i className="bi-search"></i>
-      </div>
+        <div className="searchChat">
+            <i className="bi-search"></i>
+            <input ref={searchBox} onKeyUp={search} type="text" placeholder="Search for a chat"></input>
+        </div>
     );
 }
 

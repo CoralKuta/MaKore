@@ -3,24 +3,23 @@ body{
 } 
  
 .container { 
-  background-color: rgb(250, 250, 250); 
+  background-color: transparent; 
   height: 90vh; 
   position:relative; 
   top: 50px; 
   display: flex; 
-  padding: 0%; 
-  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.258);
-  border-radius: 10px;
+  padding: 0%;
+  border-radius: 20px;
+  box-shadow: -2px 4px 1px #747474;
+
 } 
 
-.container * { 
-  border-radius: 10px;
-} 
+
 
 .container .ContactScreen { 
   position: relative; 
   flex: 30vh; 
-  width: 30vh; 
+  width: 30vh;
   height: 90vh; 
 
 } 
@@ -30,41 +29,56 @@ body{
   flex: 70vh; 
   width: 70vh; 
   height: 90vh;
-  background-color: #e5ddd5; 
+  background-color: #d7c6dc; 
+  border-radius: 0px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: -2px 0px 4px #e3cff7;
 } 
 
+.ChatScreen .MemmberInfo{
+  border-top-left-radius: 0px;
+  box-shadow: -1px 0px 1px #e3cff7;
+  border-radius: 0px;
+  border-top-right-radius: 20px;
+}
+
 .MemmberInfo { 
-  justify-content: center; 
+  justify-content: flex-start; 
   align-items: center; 
   margin: center; 
   float: left; 
   position: relative; 
   width: 100%; 
   height: 8vh; 
-  background-color: #ededed; 
+  background-color: #ededed;
+  border-radius: 0px;
+  border-top-left-radius: 20px;
   display: flex; 
 } 
 
 .MemmberInfo .img { 
-  position: absolute; 
-  margin: 0%; 
-  right: 350px; 
-  bottom: 15px; 
+  position: relative; 
+  margin: 2vh;
+  margin-right: 1vh; 
   object-fit: cover; 
 } 
  
 .Name { 
-  position: absolute; 
-  left: 13%; 
-  top: 10%; 
+  position: relative; 
+  margin: 2vh;
+  margin-right: 1vh; 
 } 
  
 .NickName { 
-  position: absolute; 
-  left: 35%; 
+  position: relative; 
   color: cadetblue; 
-  text-align: center; 
-  bottom: 4%; 
+  text-align: left; 
+  margin: 1vh;
+  overflow-wrap: break-word;
+  max-width: 60%;
+  width: 60%;
+  min-width: 30%;
 } 
  
 .searchChat { 
@@ -73,27 +87,27 @@ body{
   height: 10vh; 
   background-color: #f6f6f6; 
   display: flex; 
-  justify-content: center; 
+  justify-content:flex-start; 
   align-items: center; 
 } 
-.searchChat div{ 
+.searchChat{ 
   width: 100%; 
 } 
-.searchChat div input{ 
-  width: 100%; 
+
+.searchChat input{ 
+  position: relative;
+  width: 88%; 
   outline: none; 
   border: none; 
-  background: #fff; 
-  padding: 6px; 
-  height: 38px; 
-  border-radius: 10px; 
+  background: transparent; 
+  box-shadow: 0px 3px 1px #ededed;
+  height: 40%; 
+  border-radius: 4px; 
   font-size: 14px; 
-  padding-left: 40px; 
 } 
-.searchChat div i{ 
-  position: absolute; 
-  left: 12px; 
-  top: 10px; 
+.searchChat i{ 
+  position: relative;
+  margin: 1vh;
   font-size: 1.2em; 
   cursor:auto; 
   pointer-events: none; 
@@ -101,10 +115,8 @@ body{
 } 
  
 .bi-person-plus { 
-  display:inline; 
-  position: absolute; 
+  position:relative; 
   right: 16px; 
-  top: 22px; 
   font-size: 1.5em; 
   border: 0px; 
   margin: 0; 
@@ -120,7 +132,8 @@ body{
   position: relative; 
   overflow: scroll; 
   height: 72vh; 
-  
+  border-radius: 0px;
+  border-bottom-left-radius: 20px;
   overflow-y: auto; 
   overflow-x: hidden; 
 } 
@@ -241,9 +254,15 @@ body{
   bottom:5%; 
   object-fit: cover; 
 } 
+
+.rounded-circle {
+  position: relative; 
+  margin: 2vh;
+  margin-right: 1vh;
+}
  
 .chat-Name { 
-  position: absolute; 
-  left : 6%; 
-  top: 9%; 
+  position: relative; 
+  margin: 2vh;
+  margin-right: 1vh;
 }
