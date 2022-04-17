@@ -6,11 +6,14 @@ const MessageHead = (props) => {
     var friend = props.friend; 
     var friendData = friend[0];
 
+    const setLast = (message) => {
+        props.setLast(message);
+    }
+
     if ((friendData == null) || (typeof friendData.Username === "undefined")) {
         return (<div></div>);
     }
 
-     console.log(friendData.Username);
     for (let i = 0; i < document.getElementsByClassName("ContractName").length; i++) {
         if(friendData.Username === document.getElementsByClassName("ContractName")[i].innerText) {
             document.getElementsByClassName("block")[i].style.background = "#f4f4f4";
@@ -32,7 +35,7 @@ const MessageHead = (props) => {
                 </div>
                 <div className="NickName">{friendData.Nickname}</div>
             </div>
-            <ConversationComponent friend={friend}/>
+            <ConversationComponent friend={friend} setLast={props.setLast}/>
         </div>
     );
 }

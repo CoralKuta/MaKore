@@ -8,8 +8,6 @@ import { useState } from 'react';
 function TypingBoard({ setter }) {
   const textBoard = useRef(null);
 
-
-  // // Coral
   // // to change height of grayPanel
   const [height, setHeight] = useState('43px');
   const [topBorderText, settopBorderText] = useState('52px');
@@ -26,10 +24,6 @@ function TypingBoard({ setter }) {
         settopBorderText(`${bot}px`);
       }
     })
-
-
-
-
   }
 
 
@@ -44,11 +38,8 @@ const cleanTextarea = function(){
 }
 
   const send = function () {
-    // Coral
     const textarea = document.querySelector("textarea");
     textarea.style.height = "auto";
-    // Coral
-
 
     //send message if it isn't empty
     var userInput = textBoard.current.value.trim();

@@ -43,14 +43,14 @@ function Chat() {
     var contactIdentifier = /*users.find((user) => user.Username === nameId);*/ (1 === 0);
 
     for (var k = 0; k < users.length; k++) {
-      if(users[k].Username == nameId) {
-        contactIdentifier = (1===1);
+      if (users[k].Username == nameId) {
+        contactIdentifier = (1 === 1);
       }
     }
     var checkExists = (1 === 0);
     for (var j = 0; j < friends.length; j++) {
-      if(friends[j][0].Username == nameId) {
-        checkExists = (1===1);
+      if (friends[j][0].Username == nameId) {
+        checkExists = (1 === 1);
       }
     }
 
@@ -72,11 +72,11 @@ function Chat() {
     };
 
     const friendName = document.getElementById("MemberName");
-  
+
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
       console.log(newFriend);
       console.log(friends);
-      friends.push([newFriend,[]]);
+      friends.push([newFriend, []]);
       setNameId("");
       setButtonPopup(false);
     }
@@ -99,18 +99,17 @@ function Chat() {
       <div className="error">{errorMessages.message}</div>
     );
 
-  // const [message, setMessage] = useState(friend.lastMessage);
-  // const [time, setTime] = useState(friend.lastTime);
+  const [message, setMessage] = useState(friend.lastMessage);
 
-  // function setLast(message, time) {
-  //   const user = users.find((user) => user.Username === friend.Username);
-  //   user.lastMessage = message;
-  //   user.lastTime = time;
-  //   setMessage(message);
-  //   setTime(time);
-  //   console.log(user);
-  // }
 
+  function setLast(message) {
+    const user = friends.find((user) => user.Username === friend.Username);
+    if (user) {
+      console.log(message);
+      user.lastMessage = message;
+      setMessage(message);
+    }
+  }
 
   return (
 
@@ -127,7 +126,7 @@ function Chat() {
           <ContactsListResult friends={friendsList} changeFriend={setFriend} />
         </div>
         <div className="ChatScreen">
-          <MessageHead friend={friend}/>
+          <MessageHead friend={friend} setLast={setLast} />
         </div>
       </div>
       <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} >
