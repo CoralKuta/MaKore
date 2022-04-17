@@ -19,8 +19,8 @@ function Chat() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
 
-  const doSearch = function (searchName) {
-    setFriendsList(users.filter((friend) => friend.Username.includes(searchName)));
+  const doSearch = function (searchName) {    
+    setFriendsList(friendsList.filter((friend) => friend.Username.includes(searchName)));  
   }
 
   const [displayError, setdisplayError] = useState('none');
@@ -74,8 +74,6 @@ function Chat() {
     const friendName = document.getElementById("MemberName");
 
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
-      console.log(newFriend);
-      console.log(friends);
       friends.push([newFriend, []]);
       setNameId("");
       setButtonPopup(false);
@@ -101,14 +99,9 @@ function Chat() {
 
   const [message, setMessage] = useState(friend.lastMessage);
 
-
   function setLast(message) {
-    const user = friends.find((user) => user.Username === friend.Username);
-    if (user) {
-      console.log(message);
-      user.lastMessage = message;
+      friend[0].lastMessage = message;
       setMessage(message);
-    }
   }
 
   return (

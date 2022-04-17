@@ -2,11 +2,10 @@ import './ConversationComponent.css';
 import TypingBoard from '../typingBoard/TypingBoard';
 import ConvBoard from '../convBoard/ConvBoard';
 import Message from '../message/Message'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function ConversationComponent({ friend, setLast }) {
 
-  const friendData = friend[0];
   var friendChat = friend[1];
 
   const [messageList, setMessageList] = useState(friendChat);
@@ -14,13 +13,14 @@ function ConversationComponent({ friend, setLast }) {
   const [alredyReply, setAlredyReply] = useState(false);
 
 
-
-  if (messageList[messageList.length - 1] != null) {
-    var type = messageList[messageList.length - 1].props.content[0];
+  useEffect(() => {
+    if (friendChat[friendChat.length - 1] != null) {
+    // Update the document title using the browser API
+    var type = friendChat[friendChat.length - 1].props.content[0];
 
     if (type == 0) {
       // text
-      setLast(messageList[messageList.length - 1].props.content[1]);
+      setLast(friendChat[friendChat.length - 1].props.content[1]);
     } else if (type == 1) {
       //image
       setLast("Photo");
@@ -31,7 +31,8 @@ function ConversationComponent({ friend, setLast }) {
       // audio
       setLast("Voice message");
     }
-  }
+    }
+  });
 
 
   var today = new Date();
@@ -51,9 +52,6 @@ function ConversationComponent({ friend, setLast }) {
     setReply(false);
     setAlredyReply(true);
   }
-
-
-
 
 
   return (

@@ -35,7 +35,7 @@ const MessageHead = (props) => {
                 </div>
                 <div className="NickName">{friendData.Nickname}</div>
             </div>
-            <ConversationComponent friend={friend} setLast={props.setLast}/>
+            <ConversationComponent friend={friend} setLast={setLast}/>
         </div>
     );
 }
