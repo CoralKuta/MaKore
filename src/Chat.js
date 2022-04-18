@@ -5,7 +5,7 @@ import MemberInfo from './MemberInfo/memberInfo';
 import { useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
-import './PopUp.css';
+import './PopUpComponent/PopUp.css';
 import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
@@ -40,6 +40,7 @@ function Chat() {
   }
 
   const [nameId, setNameId] = useState("");
+
   const errors = {
     inValid: "There is no such user! Please try again.",
     yourSelf: "You can't add your self as a new contact!",
@@ -49,7 +50,7 @@ function Chat() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const noti = 0;
-    var contactIdentifier = /*users.find((user) => user.Username === nameId);*/ (1 === 0);
+    var contactIdentifier = (1 === 0);
 
     for (var k = 0; k < users.length; k++) {
       if (users[k].Username == nameId) {
@@ -62,7 +63,6 @@ function Chat() {
         checkExists = (1 === 1);
       }
     }
-
 
     // we want to add a friend to our user. we find the user in "users" and add the new friend.
     for (var i = 0; i < users.length; i++) {
@@ -84,8 +84,8 @@ function Chat() {
 
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
       friends.push([newFriend, []]);
+      setDisplayFriendsList(friendsList);
       setNameId("");
-      setButtonPopup(false);
     }
     else if (!contactIdentifier) {
       setErrorMessages({ name: "uname", message: errors.inValid });
@@ -118,17 +118,15 @@ function Chat() {
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
-          <MemberInfo user={user} setButtonPopup={setButtonPopup} />
-          <Search doSearch={doSearch} />
+        <MemberInfo user={user} setNameId = {setNameId} />
+            <Search doSearch={doSearch} />
           <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} setOriginFriendsList={setFriend} originFriendsList={friendsList} />
-          {/* <ContactsListResult friends={friendsList} changeFriend={setFriend} setDisplayFriendsList={setDisplayFriendsList} displayFriendsList = {displayFriendsList}/> */}
         </div>
         <div className="ChatScreen">
           <MessageHead friend={friend} setLast={setLast} />
         </div>
       </div>
-      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} nameID={nameId}
-        displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit} />
+      <PopUp hideErrors={hideErrors} setNameId={setNameId} nameId={nameId} displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>
     </div>
   );
 }

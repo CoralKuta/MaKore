@@ -1,32 +1,43 @@
 import React from 'react'
-import '../PopUp.css'
+import './PopUp.css'
 
 
 function PopUp(props) {
+
+
 
     const renderErrorMessage = (name) =>
         name === props.errorMessages.name && (
             <div className="error">{props.errorMessages.message}</div>
         );
 
-    return (props.trigger) ? (
-        <div className="popUp">
-            <div className="popUp-inner" onClick={props.hideErrors}>
-                <button onClick={() => { props.setTrigger(false); props.setNameId(""); }} type="button" className="bi-x"></button>
-                <span className="addContact">Add new contact</span>
-                <form onSubmit={props.handleSubmit}>
-                    <div className="form-floating mb-3">
-                        <label htmlFor="floatingInput" className='form-label'>Contact's identifier</label>
-                        <input type="contact" className="form-control" value={props.nameId} onChange={(e) => props.setNameId(e.target.value)} id="floatingInput"></input>
-                        {renderErrorMessage("uname")}
+    return (
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" onClick={props.hideErrors}>
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Add Contact</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => { props.setNameId(""); }}></button>
                     </div>
-                    <button type="submit" className="btn btn-primary">Add</button>
-                    <div className="errorOnSubmit" style={{ 'display': props.displayError }}>
-                        {renderErrorMessage("wrong")}</div>
-                </form>
+                    <div className="modal-body">
+                        <form className="form" onSubmit={props.handleSubmit}>
+                            <div className="form-floating mb-3">
+                                <div className="form-floating mb-3">
+                                    <input type="contact" className="form-control" id="floatingInput" value={props.nameId} onChange={(e) => props.setNameId(e.target.value)}></input>
+                                    <label htmlFor="floatingInput">Contact's identifier</label>
+                                </div>
+                                {renderErrorMessage("uname")}
+                            </div>
+                            <button type="submit" className="btn btn-primary">Add</button>
+                            <div className="errorOnSubmit" style={{ 'display': props.displayError }}>
+                                {renderErrorMessage("wrong")}</div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    ) : "";
+
+    );
 }
 
 export default PopUp;

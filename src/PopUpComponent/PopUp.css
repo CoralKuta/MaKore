@@ -1,40 +1,43 @@
-.popUp {
+/* .popUp {
   height: 100%;
   width: 100%;
-  position: absolute;
-  top: 0;
+  position: fixed;
   left: 0;
+  top: 0;
   backdrop-filter: brightness(70%);
 }
 
 .popUp-inner {
-  height: 30%;
-  width: 40%;
+  height: 200px;
+  width: 350px;
   background-color: white;
   border: 1px solid black;
   display: block;
-  position: fixed; 
+  position: absolute; 
+  overflow: none;
   padding-left: 10px;
-  margin: auto;
-  left: 40%;
-  bottom: 50%;
-  width: 28%;
+  left: 30%;
+  right: 30%;
+  bottom: 25%;
+  top: 25%;
   border-radius: 10px;
 }
 
 .addContact {
     position: relative;
-    float: left;
     font-size: x-large;
     font-weight: bold;
     top: 5%;
+    text-align: center;
 }
 
-form {
+.form {
     position: relative;
-    top: 20%;
-    margin: 1vh;
-    max-height: 70%;
+}
+
+
+.popup-input{ 
+  color: black;
 }
 
 .popUp-inner .bi-x {
@@ -51,4 +54,4 @@ form {
 
 .btn-primary {
     position: absolute;
-}
+} */

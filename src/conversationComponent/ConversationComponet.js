@@ -52,7 +52,7 @@ function ConversationComponent({ friend, setLast }) {
     let messages = document.querySelectorAll('.time-msg');
     if (messages.length !== 0) {
       let element = messages[messages.length - 1];
-      element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+      element.scrollIntoView();
     }
   })
 

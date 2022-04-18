@@ -1,7 +1,7 @@
-import img from './Launch/image.png';
+import img from './Launch/avatar.png';
 
 
-    let Tal = {lastMessage: "", Username: "Tal", Nickname: "tal (:", password: "1234567890", pic: img, friends: [], noti: 1 }
+    let Tal = {lastMessage: "Hey coral", Username: "Tal", Nickname: "tal (:", password: "1234567890", pic: img, friends: [], noti: 1 }
     let Coral = {lastMessage: "",  Username: "Coral", Nickname: "Kuta", password: "12345678", pic: img, friends: [[Tal, []]], noti: 3 }
     let Ido = {lastMessage: "",  Username: "Ido", Nickname: "Idota", password: "12341234", pic: img, friends: [[Coral, []], [Tal, []]], noti: 2 }
 
