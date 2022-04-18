@@ -6,10 +6,10 @@ function DisplayFriendList(props) {
 
     var friend = [props[0], props[1]];
     var friendData = friend[0];
-
     var originFriendsList = props.originFriendsList[0];
 
     const change = () => {
+        friendData.noti = 0;
         props.changeFriend(friend);
     }
 

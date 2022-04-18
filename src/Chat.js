@@ -101,11 +101,6 @@ function Chat() {
     }
   }
 
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
-
   const [message, setMessage] = useState(friend.lastMessage);
 
   function setLast(message) {

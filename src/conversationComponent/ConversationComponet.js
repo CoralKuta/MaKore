@@ -9,7 +9,6 @@ function ConversationComponent({ friend, setLast }) {
   var friendChat = friend[1];
 
   const [messageList, setMessageList] = useState(friendChat);
-  const [reply, setReply] = useState(false);
   const [alredyReply, setAlredyReply] = useState(false);
 
 
@@ -53,7 +52,7 @@ function ConversationComponent({ friend, setLast }) {
     if (messages.length !== 0) {
       let element = messages[messages.length - 1];
       setTimeout(() => {
-        element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });}, 500);
+        element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });}, 0);
       
     }
   })
