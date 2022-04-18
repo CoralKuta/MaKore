@@ -3,7 +3,7 @@ import './launch.css';
 import '../users';
 import users from '../users';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import New from './MKTRAN.png'
 import Talking from './talking1.png'
 import MK from './footer.png'
@@ -47,15 +47,12 @@ function Signin() {
         // Compare user info
         if (userData != null) {
             if (userData.password !== password.value) {
-                console.log("wrong pass");
                 setErrorMessages({ name: "wrong", message: errors.wrong });
             } else {
                 setIsSubmitted(true);
                 navigate('../chats', { state: { data: userData } });
             }
         } else {
-            // Username not found
-            console.log("you dont exist");
             setErrorMessages({ name: "wrong", message: errors.wrong });
             setdisplayError('block');
         }
@@ -81,9 +78,7 @@ function Signin() {
             <div className="logo-space"><img className='logo' src={New}></img></div>
             <div className='sign' onClick={hideErrors}>
                 <h3 className='signin-text'>Sign In</h3>
-                <div className='signup-signin'>Not registered? <a href="/signup">Click here</a> to sign up!</div>
-
-                
+                <div className='signup-signin'>Not registered? <Link to="/signup">Click here</Link> to sign up!</div>
                 <form onSubmit={validate}>
 
                     <div className='row'>
@@ -92,40 +87,29 @@ function Signin() {
                             <input type="text" className="form-control" name="username" required></input>
                         </div>
                     </div>
-
                     <br></br>
-
                     <div className='row'>
                         <div className='mb-3'>
                             <label className='form-label'>Password</label>
                             <input type="password" className="form-control" name="password" required></input>
                         </div>
                     </div>
-
                     <br></br>
-
                     <div className='d-grid'>
                         <button type="submit" className='btn btn-class'>Login</button>
                     </div>
-
                     <div className='row'>
                         <div style={{ 'display': displayError }}>
                             {renderErrorMessage("wrong")}
                         </div>
                     </div>
-
                 </form>
             </div>
-
             <div className='menu'>
                 <img className='side' src={Talking}></img>
                 <img className='footer' src={MK}></img>
             </div>
         </div>
-
-
-
-
     );
 }
 
