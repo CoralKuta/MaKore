@@ -5,7 +5,7 @@ import MemberInfo from './MemberInfo/memberInfo';
 import { useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
-import './PopUp.css';
+import './PopUpComponent/PopUp.css';
 import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../PopUp.css'
+import './PopUp.css'
 
 
 function PopUp(props) {
@@ -14,7 +14,7 @@ function PopUp(props) {
             <div className="popUp-inner" onClick={props.hideErrors}>
                 <button onClick={() => { props.setTrigger(false); props.setNameId(""); }} type="button" className="bi-x"></button>
                 <span className="addContact">Add new contact</span>
-                <form onSubmit={props.handleSubmit}>
+                <form className="form" onSubmit={props.handleSubmit}>
                     <div className="form-floating mb-3">
                         <label htmlFor="floatingInput" className='form-label'>Contact's identifier</label>
                         <input type="contact" className="form-control" value={props.nameId} onChange={(e) => props.setNameId(e.target.value)} id="floatingInput"></input>

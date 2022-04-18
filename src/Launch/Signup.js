@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import New from './MKTRAN.png'
 import Talking from './talking1.png'
 import MK from './footer.png'
+import deafultImg from './avatar.png'
 
 function Signup() {
 
@@ -92,7 +93,7 @@ function Signup() {
                 if (pic.value) {
                     pic = pic.value;
                 } else {
-                    pic = null;
+                    pic = deafultImg;
                 }
 
                 var friends = [];
