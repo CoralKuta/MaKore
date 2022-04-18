@@ -7,6 +7,7 @@ function DisplayFriendList(props) {
     var friend = [props[0], props[1]];
     var friendData = friend[0];
 
+    var originFriendsList = props.originFriendsList[0];
 
     const change = () => {
         props.changeFriend(friend);
@@ -19,10 +20,10 @@ function DisplayFriendList(props) {
             <div className="details">
                 <div className="Head">
                     <h4 className="ContractName">{friendData.Username} </h4>
-                    {(((friend[1] != null) || (typeof friend[1] !== "undefined")) && (friend[1].length >= 1)) ? <p>{friend[1][friend[1].length - 1].props.content[2]}</p> : null}
+                    {(((originFriendsList[1] != null) || (typeof originFriendsList[1] !== "undefined")) && (originFriendsList[1].length >= 1)) ? <p>{originFriendsList[1][originFriendsList[1].length - 1].props.content[2]}</p> : null}
                 </div>
                 <div className="LastMessage">
-                {friendData.lastMessage !== "" ? <p> {friendData.lastMessage}</p> : null}
+                    {friendData.lastMessage !== "" ? <p> {friendData.lastMessage}</p> : null}
                     {friendData.noti !== 0 ? <b className="notification">{friendData.noti}</b> : null}
                 </div>
             </div>

@@ -15,12 +15,21 @@ function Chat() {
   const friends = user.friends;
 
   const [friend, setFriend] = useState({});
+  const [displayFriendsList, setDisplayFriendsList] = useState(friends);
   const [friendsList, setFriendsList] = useState(friends);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
 
-  const doSearch = function (searchName) {    
-    setFriendsList(friendsList.filter((friend) => friend.Username.includes(searchName)));  
+  const doSearch = function (searchName) {
+    // setFriendsList(friendsList.filter((friend) => friend.Username.includes(searchName)));
+    let filtered = [];
+    for (let i = 0; i < friendsList.length; i++) {
+      console.log(friendsList[i][0].Username);
+      if (friendsList[i][0].Username.includes(searchName)) {
+        filtered.push(friendsList[i]);
+      }
+    }
+    setDisplayFriendsList(filtered);
   }
 
   const [displayError, setdisplayError] = useState('none');
@@ -109,16 +118,17 @@ function Chat() {
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
-            <MemberInfo user={user} setButtonPopup = {setButtonPopup} />
-            <Search doSearch={doSearch} />
-          <ContactsListResult friends={friendsList} changeFriend={setFriend} />
+          <MemberInfo user={user} setButtonPopup={setButtonPopup} />
+          <Search doSearch={doSearch} />
+          <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} setOriginFriendsList={setFriend} originFriendsList={friendsList} />
+          {/* <ContactsListResult friends={friendsList} changeFriend={setFriend} setDisplayFriendsList={setDisplayFriendsList} displayFriendsList = {displayFriendsList}/> */}
         </div>
         <div className="ChatScreen">
           <MessageHead friend={friend} setLast={setLast} />
         </div>
       </div>
-      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} nameID ={nameId}
-              displayError = {displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>
+      <PopUp trigger={buttonPopup} setTrigger={setButtonPopup} hideErrors={hideErrors} setNameId={setNameId} nameID={nameId}
+        displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit} />
     </div>
   );
 }

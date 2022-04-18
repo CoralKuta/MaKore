@@ -27,6 +27,9 @@ function ConversationComponent({ friend, setLast }) {
       } else if (type == 2) {
         //video
         setLast("Video");
+      } else if (type == 4) {
+        //video
+        setLast("Auto reply");
       } else {
         // audio
         setLast("Voice message");

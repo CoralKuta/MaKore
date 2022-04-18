@@ -11,7 +11,7 @@ function ContactsListResult(props) {
 
     const contactList = props.friends.map((friend, key) => {
         
-        return <DisplayFriendList {...friend} key = {key} changeFriend = {changeFriend} />
+        return <DisplayFriendList {...friend} key = {key} changeFriend = {changeFriend}  originFriendsList = {props.originFriendsList} />
       });
 
     return (
