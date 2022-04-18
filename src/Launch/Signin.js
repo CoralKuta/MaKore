@@ -75,11 +75,15 @@ function Signin() {
 
     return (
 
+        
+
         <div className='wrapper'>
             <div className="logo-space"><img className='logo' src={New}></img></div>
             <div className='sign' onClick={hideErrors}>
                 <h3 className='signin-text'>Sign In</h3>
                 <div className='signup-signin'>Not registered? <a href="/signup">Click here</a> to sign up!</div>
+
+                
                 <form onSubmit={validate}>
 
                     <div className='row'>

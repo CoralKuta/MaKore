@@ -1,5 +1,5 @@
 body {
-  background-color: rgba(226, 226, 226, 0.975);
+  background-color: rgba(0, 0, 0, 0.975);
 }
 
 .background {
@@ -169,10 +169,9 @@ body {
 .list-group .block .img {
   position: relative;
   min-width: 45px;
-  height: 45px;
-  overflow: hidden;
+  height: 80px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 18px;
 }
 
 .list-group .block .details {
@@ -180,11 +179,13 @@ body {
   overflow-wrap: break-word;
 }
 
+div .details {
+  max-width: 50vh;
+}
+
 .list-group .block .details .Head {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
-
 }
 
 .list-group .block .details .Head h4 {
@@ -206,14 +207,13 @@ body {
 
 .LastMessage {
   display: flex;
-  max-width: 70vh;
   justify-content: space-between;
   text-decoration: none;
 }
 
 .LastMessage p {
   color: #aaa;
-  width: 40vh;
+  width: 50vh;
   overflow-wrap: break-word;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -222,8 +222,9 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   text-decoration: none;
-
 }
+
+
 
 .LastMessage b {
   background-color: #06d755;
@@ -235,7 +236,6 @@ body {
   justify-content: center;
   font-size: 0.75em;
   text-decoration: none;
-  margin-left: 300px;
 }
 
 
@@ -311,7 +311,12 @@ body {
   }
 
   .ChatScreen .MemmberInfo {
-    box-shadow: -1px 0px 1px #e3cff7;
+    border-top-right-radius: 0px;
+    }
+
+  .block {
+    max-width: 500px;
+    min-width: 200px;
   }
 
   .MemmberInfo {
@@ -320,6 +325,7 @@ body {
 
   .all-conv-board {
     height: 92vh !important;
+    border-bottom-right-radius: 0px !important;
   }
 
   .details {
@@ -331,19 +337,30 @@ body {
     width: 50vh;
   }
 
+
   b .notification {
     position: relative;
-    margin-left: 300px;
+    margin-left: 400px;
   
   }
 
   
   .list-group .block {
-    justify-content: flex-start;
     align-items: center;
     float: left;
     position: relative;
     display: flex;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    justify-content: space-around;
+    flex-direction: row;
+    max-height: 80px;
+  }
+
+
+  .popUp {
+    backdrop-filter: brightness(70%);
+    
   }
 
 }
