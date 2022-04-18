@@ -24,7 +24,6 @@ function PopUp(props) {
                     <div className="errorOnSubmit" style={{ 'display': props.displayError }}>
                         {renderErrorMessage("wrong")}</div>
                 </form>
-                {/* {props.children} */}
             </div>
         </div>
     ) : "";

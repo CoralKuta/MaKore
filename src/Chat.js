@@ -109,13 +109,8 @@ function Chat() {
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
-          {/* <div className="MemmberInfo"> */}
             <MemberInfo user={user} setButtonPopup = {setButtonPopup} />
-            {/* <button onClick={() => setButtonPopup(true)} type="button" className="bi-person-plus"></button> */}
-          {/* </div> */}
-          {/* <div className="searchChat"> */}
             <Search doSearch={doSearch} />
-          {/* </div> */}
           <ContactsListResult friends={friendsList} changeFriend={setFriend} />
         </div>
         <div className="ChatScreen">
