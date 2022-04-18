@@ -3,7 +3,7 @@ import './launch.css';
 import '../users';
 import users from '../users';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import New from './MKTRAN.png'
 import Talking from './talking1.png'
 import MK from './footer.png'
@@ -119,7 +119,7 @@ function Signup() {
             <div className="logo-space"><img className='logo' src={New}></img></div>
             <div className='sign' onClick={hideErrors}>
                 <h3 className="signup-text">Sign Up</h3>
-                <div className='signup-signin'>Already registered? <a href="/">Click here</a> to login</div>
+                <div className='signup-signin'>Already registered? <Link to="/">Click here</Link> to login</div>
 
 
                 <form onSubmit={register}>
