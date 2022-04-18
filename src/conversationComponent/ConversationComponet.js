@@ -47,8 +47,6 @@ function ConversationComponent({ friend, setLast }) {
 
   useEffect(() => {
     let messages = document.querySelectorAll('.time-msg');
-    console.log(typeof messages)
-    console.log(messages.length)
     if (messages.length !== 0) {
       let element = messages[messages.length - 1];
       element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
