@@ -48,6 +48,7 @@ function Signin() {
         if (userData != null) {
             if (userData.password !== password.value) {
                 setErrorMessages({ name: "wrong", message: errors.wrong });
+                setdisplayError('block');
             } else {
                 setIsSubmitted(true);
                 navigate('../chats', { state: { data: userData } });

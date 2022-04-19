@@ -17,7 +17,6 @@ function Chat() {
   const [friend, setFriend] = useState({});
   const [displayFriendsList, setDisplayFriendsList] = useState(friends);
   const [friendsList, setFriendsList] = useState(friends);
-  const [buttonPopup, setButtonPopup] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
 
   const doSearch = function (searchName) {
