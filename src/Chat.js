@@ -23,7 +23,6 @@ function Chat() {
     // setFriendsList(friendsList.filter((friend) => friend.Username.includes(searchName)));
     let filtered = [];
     for (let i = 0; i < friendsList.length; i++) {
-      console.log(friendsList[i][0].Username);
       if (friendsList[i][0].Username.includes(searchName)) {
         filtered.push(friendsList[i]);
       }
@@ -42,8 +41,8 @@ function Chat() {
 
   const errors = {
     inValid: "There is no such user! Please try again.",
-    yourSelf: "You can't add your self as a new contact!",
-    alreadyExists: "This contact already exists!"
+    yourSelf: "You can't add your self as a user!",
+    alreadyExists: "This user already exists!"
   };
 
   const handleSubmit = (e) => {

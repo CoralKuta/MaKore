@@ -151,7 +151,7 @@ function Signup() {
                     <div className='row'>
                         <div className="mb-3 pic">
                             <label className="form-label">Picture</label>
-                            <input className="form-control" accept="image/*" type="file" name="pic"></input>
+                            <input className="form-control" id='picture' accept="image/*" type="file" name="pic"></input>
                         </div>
                     </div>
 

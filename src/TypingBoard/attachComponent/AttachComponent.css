@@ -2,6 +2,35 @@
   float: left;
   height: 100%;
   width: 60vh;
+}
+
+.attach-panel .bi {
+  height: 100%;
+  width: fit-content;
+  bottom: 0px;
+  margin: 7px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  display: inline-flexbox;
+  padding: 1px;
+  box-shadow: 2px 3px #8a7f94;
+  border-radius: 20px;
+}
+
+.bi-stop-fill {
+  background-color: none;
+  fill: red;
+  display: none;
+  border: 3px solid red !important;
+}
+
+
+
+@media all and (max-width: 1400px) {
+  .attach-panel {
+    float: left;
+    height: 100%;
+    width: 60vh;
   }
 
   .attach-panel .bi {
@@ -9,18 +38,93 @@
     width: fit-content;
     bottom: 0px;
     margin: 7px;
-    background-color: #e0e0e0;
-    cursor: pointer;
     display: inline-flexbox;
     padding: 1px;
-    box-shadow: 2px 3px #8a7f94;
-    border-radius: 20px;
+  }
+}
+
+@media all and (max-height: 600px) {
+
+  .attach-panel {
+    float: none;
+    max-height: 5px;
+    width: 200px;
+    margin-top: 0px;
   }
 
-  .bi-stop-fill{
-    background-color: none;
-    fill: red;
-    display: none;
-    border: 3px solid red !important;
-
+  .attach-panel .bi {
+    height: 35px;
+    width: 35px;
+    bottom: 0px;
+    margin: 7px;
+    display: inline-flexbox;
+    padding: 1px;
   }
+
+}
+
+@media all and (min-height: 10px) {
+
+  .attached {
+    bottom: 100px !important;
+  }
+}
+
+@media all and (min-height: 100px) {
+
+  .attached {
+    bottom: 90px !important;
+  }
+}
+
+@media all and (min-height: 150px) {
+
+  .attached {
+    bottom: 80px !important;
+  }
+}
+
+@media all and (min-height: 200px) {
+
+  .attached {
+    bottom: 75px !important;
+  }
+}
+
+@media all and (min-height: 300px) {
+
+  .attached {
+    bottom: 70px !important;
+  }
+}
+
+
+@media all and (min-height: 400px) {
+
+  .attached {
+    bottom: 60px !important;
+  }
+}
+
+
+@media all and (min-height: 500px) {
+
+  .attached {
+    bottom: 50px !important;
+  }
+}
+
+
+@media all and (min-height: 750px) {
+
+  .attached {
+    bottom: 40px !important;
+  }
+}
+
+@media all and (min-height: 900px) {
+
+  .attached {
+    bottom: 30px !important;
+  }
+}
