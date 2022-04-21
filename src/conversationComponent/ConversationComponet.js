@@ -3,14 +3,20 @@ import TypingBoard from '../typingBoard/TypingBoard';
 import ConvBoard from '../convBoard/ConvBoard';
 import Message from '../message/Message'
 import React, { useState, useEffect } from 'react';
+import { fireEvent } from '@testing-library/react';
 
 function ConversationComponent({ friend, setLast }) {
 
+  var friendData = friend[0];
   var friendChat = friend[1];
 
+  
   const [messageList, setMessageList] = useState(friendChat);
   const [alredyReply, setAlredyReply] = useState(false);
 
+  if ((friendData.lastMessage != "") && (messageList == "")) {
+    setMessageList(friendChat.push(<Message key={"initial message"} content={[4, friendData.lastMessage, time]} />));
+  }
 
   useEffect(() => {
     if (friendChat[friendChat.length - 1] != null) {
@@ -26,12 +32,12 @@ function ConversationComponent({ friend, setLast }) {
       } else if (type == 2) {
         //video
         setLast("Video");
-      } else if (type == 4) {
-        //video
-        setLast("Auto reply");
-      } else {
+      } else if (type == 3) {
         // audio
         setLast("Voice message");
+      } else {  // type 4
+        //auto reply / respond
+        setLast(friendChat[friendChat.length - 1].props.content[1]);
       }
     }
   });
@@ -52,8 +58,9 @@ function ConversationComponent({ friend, setLast }) {
     if (messages.length !== 0) {
       let element = messages[messages.length - 1];
       setTimeout(() => {
-        element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });}, 0);
-      
+        element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+      }, 0);
+
     }
   })
 
@@ -61,10 +68,11 @@ function ConversationComponent({ friend, setLast }) {
 
   const autoReply = function () {
     setTimeout(() => {
-      setMessageList(friendChat.push(<Message key={fullTime} content={[4, 'nothing', time]} />));
+      setMessageList(friendChat.push(<Message key={fullTime} content={[4, 'Nice app!\n This is an automatic response', time]} />));
     }, 500);
     setAlredyReply(true);
   }
+
 
 
   return (

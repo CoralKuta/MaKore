@@ -4,9 +4,9 @@ import '../users';
 import users from '../users';
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import New from './MKTRAN.png'
-import Talking from './talking1.png'
-import MK from './footer.png'
+import New from '../images/MKTRAN.png'
+import Talking from '../images/talking1.png'
+import MK from '../images/footer.png'
 
 
 

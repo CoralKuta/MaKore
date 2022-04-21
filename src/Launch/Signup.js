@@ -4,10 +4,10 @@ import '../users';
 import users from '../users';
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import New from './MKTRAN.png'
-import Talking from './talking1.png'
-import MK from './footer.png'
-import deafultImg from './avatar.png'
+import New from '../images/MKTRAN.png'
+import Talking from '../images/talking1.png'
+import MK from '../images/footer.png'
+import deafultImg from '../images/avatar.png'
 
 function Signup() {
 
@@ -91,7 +91,8 @@ function Signup() {
 
                 var pic;
                 if (pic.value) {
-                    pic = pic.value;
+                    var img = document.getElementById("picture").files[0];
+                    pic = URL.createObjectURL(img);
                 } else {
                     pic = deafultImg;
                 }

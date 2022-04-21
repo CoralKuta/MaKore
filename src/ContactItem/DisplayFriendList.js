@@ -8,6 +8,7 @@ function DisplayFriendList(props) {
     var friendData = friend[0];
     var originFriendsList = props.originFriendsList[0];
 
+
     const change = () => {
         friendData.noti = 0;
         props.changeFriend(friend);
