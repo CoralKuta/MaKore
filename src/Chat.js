@@ -114,10 +114,10 @@ function Chat() {
         <div className="ContactScreen" >
         <MemberInfo user={user} setNameId = {setNameId} />
             <Search doSearch={doSearch} />
-          <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} setOriginFriendsList={setFriend} originFriendsList={friendsList} />
+          <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend} originFriendsList={friendsList} />
         </div>
         <div className="ChatScreen">
-          <MessageHead friend={friend} setLast={setLast} />
+          <MessageHead friend={friend} setLast={setLast} user ={user} />
         </div>
       </div>
       <PopUp hideErrors={hideErrors} setNameId={setNameId} nameId={nameId} displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>

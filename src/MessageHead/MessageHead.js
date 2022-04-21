@@ -29,14 +29,13 @@ const MessageHead = (props) => {
     return (
         <div>
             <div className="MemmberInfo">
-                {/* <div className="chat-image"> <img src={friendData.pic} className="rounded-circle" width="40px" alt=""></img></div> */}
                 <img src={friendData.pic} className="rounded-circle" width="40px" alt=""></img>
                 <div className="chat-Name" id="MemberName">
                     <h4>{friendData.Username}</h4>
                 </div>
                 <div className="NickName">{friendData.Nickname}</div>
             </div>
-            <ConversationComponent friend={friend} setLast={setLast}/>
+            <ConversationComponent friend={friend} setLast={setLast} user = {props.user}/>
         </div>
     );
 }

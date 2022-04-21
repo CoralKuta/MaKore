@@ -7,7 +7,7 @@ import img from "../images/ido.jpg"
 import video from "../images/video.mp4"
 import audio from "../images/heyThere.ogg"
 
-function ConversationComponent({ friend, setLast }) {
+function ConversationComponent({ friend, setLast, user }) {
 
   var friendData = friend[0];
   var friendChat = friend[1];
@@ -15,9 +15,8 @@ function ConversationComponent({ friend, setLast }) {
   const [messageList, setMessageList] = useState(friendChat);
   const [alredyReply, setAlredyReply] = useState(false);
 
+  if(user.Username === "Ido") {
   if ((friendChat.length == 0) && (friendChat == "") && (friendData.lastMessage != "") && (typeof friendData.lastMessage != "undefined")) {
-
-    
     if (friendData.Username === "Coral") {
       setMessageList(friendChat.push(<Message key={"1222221331"} content={[3, audio, "00:01"]} />));
       setMessageList(friendChat.push(<Message key={"11331"} content={[1, img, "00:01"]} />));
@@ -28,6 +27,7 @@ function ConversationComponent({ friend, setLast }) {
     }
     setMessageList(friendChat.push(<Message key={"17711"} content={[4, friendData.lastMessage, "00:01"]} />));
   }
+}
 
 
  
