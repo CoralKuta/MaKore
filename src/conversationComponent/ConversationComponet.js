@@ -7,6 +7,8 @@ import img from "../images/ido.jpg"
 import video from "../images/video.mp4"
 import audio from "../images/heyThere.ogg"
 
+
+//the conversation component
 function ConversationComponent({ friend, setLast, user }) {
 
   var friendData = friend[0];
@@ -15,6 +17,8 @@ function ConversationComponent({ friend, setLast, user }) {
   const [messageList, setMessageList] = useState(friendChat);
   const [alredyReply, setAlredyReply] = useState(false);
 
+
+  // this statement display the hardcoded messages
   if (user.Username === "Ido") {
     if ((friendChat.length == 0) && (friendChat == "") && (friendData.lastMessage != "") && (typeof friendData.lastMessage != "undefined")) {
       if (friendData.Username === "Coral") {
@@ -30,12 +34,11 @@ function ConversationComponent({ friend, setLast, user }) {
   }
 
 
-
+  //this useEfect hook is to set the last massage by type and time of the message at the appropriate chat 
   useEffect(() => {
     if (friendChat[friendChat.length - 1] != null) {
       // Update the document title using the browser API
       var type = friendChat[friendChat.length - 1].props.content[0];
-
       if (type == 0) {
         // text
         setLast(friendChat[friendChat.length - 1].props.content[1], friendChat[friendChat.length - 1].props.content[2]);
@@ -73,7 +76,7 @@ function ConversationComponent({ friend, setLast, user }) {
       let element = messages[messages.length - 1];
       setTimeout(() => {
         element.scrollIntoView({block: "start", inline: "nearest" });
-      }, 5);
+      }, 10);
 
     }
   })

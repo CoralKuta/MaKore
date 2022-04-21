@@ -8,7 +8,7 @@ import PopUp from './PopUpComponent/PopUp';
 import './PopUpComponent/PopUp.css';
 import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
-import Message from './message/Message'
+
 
 
 function Chat() {
@@ -20,8 +20,8 @@ function Chat() {
   const [friendsList, setFriendsList] = useState(friends);
   const [errorMessages, setErrorMessages] = useState({});
 
+  //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
-    // setFriendsList(friendsList.filter((friend) => friend.Username.includes(searchName)));
     let filtered = [];
     for (let i = 0; i < friendsList.length; i++) {
       if (friendsList[i][0].Username.includes(searchName)) {
@@ -33,33 +33,36 @@ function Chat() {
 
   const [displayError, setdisplayError] = useState('none');
 
-
+  // the hide errors function to hide the errors
   const hideErrors = function () {
     setErrorMessages({});
   }
 
   const [nameId, setNameId] = useState("");
 
+  //the errors that we are displaying when an error occur in the adding contact
   const errors = {
     inValid: "There is no such user! Please try again.",
     yourSelf: "You can't add your self as a user!",
     alreadyExists: "This user already exists!"
   };
 
+  //handle submit function that take care of the adding contact if there is no error
   const handleSubmit = (e) => {
     e.preventDefault();
     const noti = 0;
-    var contactIdentifier = (1 === 0);
-
+    var contactIdentifier = false;
+    //check if the friend is exists in the users list
     for (var k = 0; k < users.length; k++) {
       if (users[k].Username == nameId) {
-        contactIdentifier = (1 === 1);
+        contactIdentifier = true;
       }
     }
-    var checkExists = (1 === 0);
+    //check if the friend is already exists in my chat
+    var checkExists = false;
     for (var j = 0; j < friends.length; j++) {
       if (friends[j][0].Username == nameId) {
-        checkExists = (1 === 1);
+        checkExists = true;
       }
     }
 
@@ -73,37 +76,37 @@ function Chat() {
         var newContactFriends = users[i].friends;
       }
     }
-
+    //the new friend
     const newFriend = {
       Username: newContactName, Nickname: NewContactNickName, password: NewContactPassword,
       pic: NewContactPic, friends: newContactFriends, noti: noti
     };
-
+    //get the user name
     const friendName = document.getElementById("MemberName");
-
+    // check the the contact that we are adding is exists in the user list, not already in our chat, and we are not trying to add ourself to the chat
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
+      //add the contact
       friends.push([newFriend, []]);
       setDisplayFriendsList(friendsList);
       setNameId("");
-    }
+    }//display the appropriate error
     else if (!contactIdentifier) {
       setErrorMessages({ name: "uname", message: errors.inValid });
       setdisplayError('block');
-    }
+    } //display the appropriate error
     else if (checkExists) {
       setErrorMessages({ name: "uname", message: errors.alreadyExists });
       setdisplayError('block');
-    }
+    }//display the appropriate error
     else {
       setErrorMessages({ name: "uname", message: errors.yourSelf });
       setdisplayError('block');
     }
   }
-
   const [message, setMessage] = useState(friend.lastMessage);
-  
   const [time, setTime] = useState(friend.lastTime);
 
+  //the setLast function to set the last message the its time
   function setLast(message, time) {
       friend[0].lastMessage = message;
       setMessage(message);

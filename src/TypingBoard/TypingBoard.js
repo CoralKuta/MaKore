@@ -12,6 +12,7 @@ function TypingBoard({ setter }) {
   const [height, setHeight] = useState('43px');
   const [topBorderText, settopBorderText] = useState('52px');
 
+  //typing function
   function typing() {
     const textarea = document.querySelector("textarea");
     textarea.addEventListener("keyup", e => {

@@ -4,6 +4,7 @@ import Signup from './Signup';
 import Chat from '../Chat';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+//launch component that routes to the components
 function Launch() {
     return (
         <Router>

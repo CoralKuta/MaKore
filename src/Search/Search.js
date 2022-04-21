@@ -1,7 +1,9 @@
 import { useRef } from 'react';
 
+//this is the search component to search a specific chat
 function Search({ doSearch }) {
     const searchBox = useRef(null);
+    //call the search function with the value that we are want to search
     const search = function () {
         doSearch(searchBox.current.value);
     }

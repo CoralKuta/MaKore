@@ -53,6 +53,7 @@ function Message({ content }) {
       </div>
     );
   }
+  //case its the auto message
   if (type == 4) {
     return (
       <div className="reply-div">
