@@ -8,6 +8,7 @@ import PopUp from './PopUpComponent/PopUp';
 import './PopUpComponent/PopUp.css';
 import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
+import Message from './message/Message'
 
 
 function Chat() {

@@ -3,21 +3,34 @@ import TypingBoard from '../typingBoard/TypingBoard';
 import ConvBoard from '../convBoard/ConvBoard';
 import Message from '../message/Message'
 import React, { useState, useEffect } from 'react';
-import { fireEvent } from '@testing-library/react';
+import img from "../images/ido.jpg"
+import video from "../images/video.mp4"
+import audio from "../images/heyThere.ogg"
 
 function ConversationComponent({ friend, setLast }) {
 
   var friendData = friend[0];
   var friendChat = friend[1];
-
   
   const [messageList, setMessageList] = useState(friendChat);
   const [alredyReply, setAlredyReply] = useState(false);
 
-  // if ((friendData.lastMessage != "") && (messageList == "")) {
-  //   setMessageList(friendChat.push(<Message key={"initial message"} content={[4, friendData.lastMessage, time]} />));
-  // }
+  if ((friendChat.length == 0) && (friendChat == "") && (friendData.lastMessage != "") && (typeof friendData.lastMessage != "undefined")) {
 
+    
+    if (friendData.Username === "Coral") {
+      setMessageList(friendChat.push(<Message key={"1222221331"} content={[3, audio, "00:01"]} />));
+      setMessageList(friendChat.push(<Message key={"11331"} content={[1, img, "00:01"]} />));
+
+    } else if (friendData.Username === "Tal") {
+      setMessageList(friendChat.push(<Message key={"112111"} content={[2, video, "00:01"]} />));
+      setMessageList(friendChat.push(<Message key={"1121ggg11"} content={[0, "אחי תראה איך התקדמתי בתרגיל", "00:01"]} />));
+    }
+    setMessageList(friendChat.push(<Message key={"17711"} content={[4, friendData.lastMessage, "00:01"]} />));
+  }
+
+
+ 
   useEffect(() => {
     if (friendChat[friendChat.length - 1] != null) {
       // Update the document title using the browser API
@@ -73,6 +86,7 @@ function ConversationComponent({ friend, setLast }) {
     }, 500);
     setAlredyReply(true);
   }
+
 
 
 

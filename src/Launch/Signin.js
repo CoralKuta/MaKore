@@ -3,7 +3,7 @@ import './launch.css';
 import '../users';
 import users from '../users';
 import { useState } from 'react';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import New from '../images/MKTRAN.png'
 import Talking from '../images/talking1.png'
 import MK from '../images/footer.png'
@@ -11,8 +11,6 @@ import MK from '../images/footer.png'
 
 
 function Signin() {
-
-
     const navigate = useNavigate();
 
 
@@ -42,7 +40,9 @@ function Signin() {
         var { username, password } = document.forms[0];
 
         // find if the user exists in "users" - search by Username
-        const userData = users.find((user) => user.Username === username.value);
+       let userData = users.find((user) => user.Username === username.value);
+
+
 
         // Compare user info
         if (userData != null) {

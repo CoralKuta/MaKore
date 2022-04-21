@@ -5,7 +5,6 @@ import Chat from '../Chat';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function Launch() {
-
     return (
         <Router>
             <Routes>

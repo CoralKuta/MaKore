@@ -76,6 +76,7 @@ body {
   margin-right: 1vh;
 }
 
+
 .NickName {
   position: relative;
   color: cadetblue;
@@ -129,7 +130,9 @@ body {
   border: 0px;
   margin: 0;
   outline: none;
+  color: #000000;
 }
+
 
 .bbbbbbbbb {
   text-decoration: none;
@@ -487,6 +490,7 @@ div .details {
     cursor: pointer;
     display: inline-flexbox;
     padding: 1px;
+
   }
 
   .bi-paperclip {

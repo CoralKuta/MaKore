@@ -19,8 +19,6 @@ function DisplayFriendList(props) {
         friendData.noti = 0;
         props.changeFriend(friend);
     }
-    console.log(originFriend);
-
 
     return (
         <div type="button" className="block" onClick={change}>
