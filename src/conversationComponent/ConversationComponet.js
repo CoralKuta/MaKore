@@ -14,9 +14,9 @@ function ConversationComponent({ friend, setLast }) {
   const [messageList, setMessageList] = useState(friendChat);
   const [alredyReply, setAlredyReply] = useState(false);
 
-  if ((friendData.lastMessage != "") && (messageList == "")) {
-    setMessageList(friendChat.push(<Message key={"initial message"} content={[4, friendData.lastMessage, time]} />));
-  }
+  // if ((friendData.lastMessage != "") && (messageList == "")) {
+  //   setMessageList(friendChat.push(<Message key={"initial message"} content={[4, friendData.lastMessage, time]} />));
+  // }
 
   useEffect(() => {
     if (friendChat[friendChat.length - 1] != null) {

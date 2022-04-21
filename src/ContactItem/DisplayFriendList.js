@@ -6,13 +6,20 @@ function DisplayFriendList(props) {
 
     var friend = [props[0], props[1]];
     var friendData = friend[0];
-    var originFriendsList = props.originFriendsList[0];
+    var originFriend=null;
+        for (var i = 0; i < props.originFriendsList.length; i++) {
+            if (props.originFriendsList[i][0].Username == friendData.Username) {
+                originFriend = props.originFriendsList[i];
+            }
+        }
+
 
 
     const change = () => {
         friendData.noti = 0;
         props.changeFriend(friend);
     }
+    console.log(originFriend);
 
 
     return (
@@ -21,7 +28,7 @@ function DisplayFriendList(props) {
             <div className="details">
                 <div className="Head">
                     <h4 className="ContractName">{friendData.Username} </h4>
-                    {(((originFriendsList[1] != null) || (typeof originFriendsList[1] !== "undefined")) && (originFriendsList[1].length >= 1)) ? <p>{originFriendsList[1][originFriendsList[1].length - 1].props.content[2]}</p> : null}
+                    {(((originFriend != null) || (typeof originFriend !== "undefined")) && (originFriend[1].length >= 1)) ? <p>{originFriend[1][originFriend[1  ].length - 1].props.content[2]}</p> : null}
                 </div>
                 <div className="LastMessage">
                     {friendData.lastMessage !== "" ? <p> {friendData.lastMessage}</p> : null}

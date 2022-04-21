@@ -4,7 +4,7 @@ import coral_img from './images/coral.jpg';
 import tal_img from './images/tal.jpg';
 
 
-    let Tal = {lastMessage: "Hey! How r u ?", Username: "Tal", Nickname: "tal (:", password: "1234567890", pic: tal_img, friends: [], noti: 1 }
+    let Tal = {lastMessage: "", Username: "Tal", Nickname: "tal (:", password: "1234567890", pic: tal_img, friends: [], noti: 0 }
     let Coral = {lastMessage: "",  Username: "Coral", Nickname: "Kuta", password: "12345678", pic: coral_img, friends: [[Tal, []]], noti: 0 }
     let Ido = {lastMessage: "",  Username: "Ido", Nickname: "Idota", password: "12341234", pic: ido_img, friends: [[Coral, []], [Tal, []]], noti: 0 }
 
