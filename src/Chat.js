@@ -101,10 +101,15 @@ function Chat() {
   }
 
   const [message, setMessage] = useState(friend.lastMessage);
+  
+  const [time, setTime] = useState(friend.lastTime);
 
-  function setLast(message) {
+  function setLast(message, time) {
       friend[0].lastMessage = message;
       setMessage(message);
+      friend[0].lastTime = time;
+      setTime(time);
+      console.log(message)
   }
 
   return (

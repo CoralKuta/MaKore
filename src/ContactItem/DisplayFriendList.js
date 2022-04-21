@@ -28,7 +28,7 @@ function DisplayFriendList(props) {
             <div className="details">
                 <div className="Head">
                     <h4 className="ContractName">{friendData.Username} </h4>
-                    {(((originFriend != null) || (typeof originFriend !== "undefined")) && (originFriend[1].length >= 1)) ? <p>{originFriend[1][originFriend[1].length - 1].props.content[2]}</p> : null}
+                    {friendData.lastTime !== "" ? <p>{friendData.lastTime}</p> : null}
                 </div>
                 <div className="LastMessage">
                     {friendData.lastMessage !== "" ? <p> {friendData.lastMessage}</p> : null}

@@ -6,8 +6,8 @@ const MessageHead = (props) => {
     var friend = props.friend; 
     var friendData = friend[0];
 
-    const setLast = (message) => {
-        props.setLast(message);
+    const setLast = (message, time) => {
+        props.setLast(message, time);
     }
 
     if ((friendData == null) || (typeof friendData.Username === "undefined")) {

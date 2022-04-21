@@ -11,26 +11,26 @@ function ConversationComponent({ friend, setLast, user }) {
 
   var friendData = friend[0];
   var friendChat = friend[1];
-  
+
   const [messageList, setMessageList] = useState(friendChat);
   const [alredyReply, setAlredyReply] = useState(false);
 
-  if(user.Username === "Ido") {
-  if ((friendChat.length == 0) && (friendChat == "") && (friendData.lastMessage != "") && (typeof friendData.lastMessage != "undefined")) {
-    if (friendData.Username === "Coral") {
-      setMessageList(friendChat.push(<Message key={"1222221331"} content={[3, audio, "00:01"]} />));
-      setMessageList(friendChat.push(<Message key={"11331"} content={[1, img, "00:01"]} />));
+  if (user.Username === "Ido") {
+    if ((friendChat.length == 0) && (friendChat == "") && (friendData.lastMessage != "") && (typeof friendData.lastMessage != "undefined")) {
+      if (friendData.Username === "Coral") {
+        setMessageList(friendChat.push(<Message key={"1222221331"} content={[3, audio, "00:01"]} />));
+        setMessageList(friendChat.push(<Message key={"11331"} content={[1, img, "00:01"]} />));
 
-    } else if (friendData.Username === "Tal") {
-      setMessageList(friendChat.push(<Message key={"112111"} content={[2, video, "00:01"]} />));
-      setMessageList(friendChat.push(<Message key={"1121ggg11"} content={[0, "אחי תראה איך התקדמתי בתרגיל", "00:01"]} />));
+      } else if (friendData.Username === "Tal") {
+        setMessageList(friendChat.push(<Message key={"112111"} content={[2, video, "00:01"]} />));
+        setMessageList(friendChat.push(<Message key={"1121ggg11"} content={[0, "אחי תראה איך התקדמתי בתרגיל", "00:01"]} />));
+      }
+      setMessageList(friendChat.push(<Message key={"17711"} content={[4, friendData.lastMessage, "00:01"]} />));
     }
-    setMessageList(friendChat.push(<Message key={"17711"} content={[4, friendData.lastMessage, "00:01"]} />));
   }
-}
 
 
- 
+
   useEffect(() => {
     if (friendChat[friendChat.length - 1] != null) {
       // Update the document title using the browser API
@@ -38,24 +38,24 @@ function ConversationComponent({ friend, setLast, user }) {
 
       if (type == 0) {
         // text
-        setLast(friendChat[friendChat.length - 1].props.content[1]);
+        setLast(friendChat[friendChat.length - 1].props.content[1], friendChat[friendChat.length - 1].props.content[2]);
       } else if (type == 1) {
         //image
-        setLast("Photo");
+        setLast("Photo", friendChat[friendChat.length - 1].props.content[2]);
       } else if (type == 2) {
         //video
-        setLast("Video");
+        setLast("Video", friendChat[friendChat.length - 1].props.content[2]);
       } else if (type == 3) {
         // audio
-        setLast("Voice message");
+        setLast("Voice message", friendChat[friendChat.length - 1].props.content[2]);
       } else {  // type 4
         //auto reply / respond
-        setLast(friendChat[friendChat.length - 1].props.content[1]);
+        setLast(friendChat[friendChat.length - 1].props.content[1], friendChat[friendChat.length - 1].props.content[2]);
       }
     }
   });
 
-//calculates the current time and maintains the HH::MM format.
+  //calculates the current time and maintains the HH::MM format.
   var today = new Date();
   if (today.getMinutes() < 10) {
     var time = today.getHours() + ":0" + today.getMinutes();
@@ -72,14 +72,14 @@ function ConversationComponent({ friend, setLast, user }) {
     if (messages.length !== 0) {
       let element = messages[messages.length - 1];
       setTimeout(() => {
-        element.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
-      }, 0);
+        element.scrollIntoView({block: "start", inline: "nearest" });
+      }, 5);
 
     }
   })
 
 
-// Sends an auto-response after the first message is sent.
+  // Sends an auto-response after the first message is sent.
   const autoReply = function () {
     setTimeout(() => {
       setMessageList(friendChat.push(<Message key={fullTime} content={[4, 'Nice app!\n This is an automatic response', time]} />));
