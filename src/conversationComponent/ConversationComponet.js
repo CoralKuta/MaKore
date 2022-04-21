@@ -27,7 +27,7 @@ function ConversationComponent({ friend, setLast }) {
         //video
         setLast("Video");
       } else if (type == 4) {
-        //video
+        //auto reply
         setLast("Auto reply");
       } else {
         // audio
@@ -36,7 +36,7 @@ function ConversationComponent({ friend, setLast }) {
     }
   });
 
-
+//calculates the current time and maintains the HH::MM format.
   var today = new Date();
   if (today.getMinutes() < 10) {
     var time = today.getHours() + ":0" + today.getMinutes();
@@ -47,6 +47,7 @@ function ConversationComponent({ friend, setLast }) {
     var fullTime = time + today.getSeconds() + today.getMilliseconds();
   }
 
+  //When a new message arrives, it scrolls down the conversation.
   useEffect(() => {
     let messages = document.querySelectorAll('.time-msg');
     if (messages.length !== 0) {
@@ -58,7 +59,7 @@ function ConversationComponent({ friend, setLast }) {
   })
 
 
-
+// Sends an auto-response after the first message is sent.
   const autoReply = function () {
     setTimeout(() => {
       setMessageList(friendChat.push(<Message key={fullTime} content={[4, 'nothing', time]} />));

@@ -3,12 +3,11 @@ import './AttachComponent.css';
 function AttachComponent({ setter }) {
 
 
-    //opens file dialog box and able to send files just if the file appropriate the button who has been clicked
+//displays a file dialog box with the ability to send files only if the file is of image type.
     const imagesBrowseFiles = function () {
         var input = document.createElement('input');
         input.type = 'file';
         input.accept = "image/*";
-
         input.onchange = e => {
             var file = e.target.files[0];
             var url = URL.createObjectURL(file);
@@ -24,13 +23,12 @@ function AttachComponent({ setter }) {
 
     }
 
+    //displays a file dialog box with the ability to send files only if the file is of video type.
     const videosBrowseFiles = function () {
         var input = document.createElement('input');
         input.type = 'file';
         input.accept = "video/*";
-
         input.onchange = e => {
-
             var file = e.target.files[0];
             var url = URL.createObjectURL(file);
             // setting up the reader
@@ -44,7 +42,9 @@ function AttachComponent({ setter }) {
         input.click();
     }
 
+    // The record function
     const startRec = async () => {
+        // open audio streamer
         const stream = await navigator.mediaDevices.getUserMedia(
             { audio: true }
         );
@@ -53,6 +53,7 @@ function AttachComponent({ setter }) {
         const audioBtn = document.querySelector('.bi-mic-fill');
         const stopBtn = document.querySelector('.bi-stop-fill');
         mediaRecorder.start();
+        //When recording, use the stop button to stop the recording.
         mediaRecorder.onstart = function () {
             audioBtn.style.fill = "green";
             audioBtn.style.border = " 3px solid green";
@@ -68,7 +69,6 @@ function AttachComponent({ setter }) {
                     console.log("here")
                 })
                 .catch((ev) => {
-                    // mediaRecorder.stop();
                     stream.getTracks().forEach(function (track) {
                         track.stop();
                     });
