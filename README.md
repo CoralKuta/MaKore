@@ -67,7 +67,7 @@ The searching is case-sensitive since usernames are unique.
 6. Explore !
 
 ### Developers
-- Coral Kuta
-- Tal Dabran
-- Ido Tavron
+- Coral Kuta 208649186
+- Tal Dabran 316040898
+- Ido Tavron 316222512
 
