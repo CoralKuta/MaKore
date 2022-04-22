@@ -112,7 +112,6 @@ function Chat() {
       setMessage(message);
       friend[0].lastTime = time;
       setTime(time);
-      console.log(message)
   }
 
   return (

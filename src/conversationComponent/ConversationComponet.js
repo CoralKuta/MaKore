@@ -2,7 +2,7 @@ import './ConversationComponent.css';
 import TypingBoard from '../typingBoard/TypingBoard';
 import ConvBoard from '../convBoard/ConvBoard';
 import Message from '../message/Message'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import img from "../images/ido.jpg"
 import video from "../images/video.mp4"
 import audio from "../images/heyThere.ogg"
@@ -91,6 +91,8 @@ function ConversationComponent({ friend, setLast, user }) {
   }
 
 
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
+
 
 
   return (
@@ -100,6 +102,7 @@ function ConversationComponent({ friend, setLast, user }) {
       </div>
       <TypingBoard setter={(props) => {
         setMessageList(friendChat.push(<Message key={props[0] + fullTime} content={[props[0], props[1], time]} />));
+        forceUpdate();
         if (!alredyReply) {
           autoReply();
         }

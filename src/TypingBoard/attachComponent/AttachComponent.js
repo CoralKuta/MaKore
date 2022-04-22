@@ -66,13 +66,11 @@ function AttachComponent({ setter }) {
             return await promise
                 .then((ev) => {
                     mediaRecorder.stop();
-                    console.log("here")
                 })
                 .catch((ev) => {
                     stream.getTracks().forEach(function (track) {
                         track.stop();
                     });
-                    console.log(ev)
                 })
         }
         waitClick()

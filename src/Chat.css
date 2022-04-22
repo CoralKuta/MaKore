@@ -368,6 +368,7 @@ div .details {
 
 }
 
+
 @media all and (max-height: 600px) {
   .container {
     background-color: transparent;
