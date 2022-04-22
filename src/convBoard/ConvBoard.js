@@ -5,7 +5,7 @@ import React from 'react';
 function ConvBoard(props) {
   
   return (
-    <div>
+    <div id="another-wrap">
       <div id ="messages-wrap" className="chat-background d-flex flex-column align-items-start">
         {props.messageList}
       </div>

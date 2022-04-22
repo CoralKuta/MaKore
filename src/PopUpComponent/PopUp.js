@@ -1,5 +1,5 @@
 import React from 'react'
-import './PopUp.css'
+
 
 //this is the popup component that take care of the add new contact to the chat screen
 function PopUp(props) {

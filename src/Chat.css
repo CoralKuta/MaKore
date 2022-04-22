@@ -366,6 +366,14 @@ div .details {
     
   }
 
+  .messageComp {
+    min-height: 100% !important;
+
+  }
+
+  #another-wrap {
+    height: 92% !important;
+  }
 }
 
 
@@ -381,6 +389,7 @@ div .details {
     top: 0px;
     bottom: 0px;
   }
+
 
   
   .MemmberInfo {
