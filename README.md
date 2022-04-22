@@ -49,6 +49,7 @@ The searching is case-sensitive since usernames are unique.<br />
 
 ![search](https://user-images.githubusercontent.com/90967892/164453207-d4c88789-04eb-4dcb-a22d-1f0a9522d70e.jpg)<br />
 
+https://user-images.githubusercontent.com/92373590/164725285-7a442711-b18d-4d23-bceb-fdf6f4efc7e1.mp4<br />
 
 ### How to Run
 1. Clone the repository:
@@ -99,5 +100,8 @@ Also, Bella is not Ido's friend. When logged in to Ido's account, you can add he
 ### Developers
 - Coral Kuta 208649186
 - Tal Dabran 316040898
+
+
+
 - Ido Tavron 316222512
 
