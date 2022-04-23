@@ -74,10 +74,14 @@ function ConversationComponent({ friend, setLast, user }) {
     let messages = document.querySelectorAll('.time-msg');
     if (messages.length !== 0) {
       let element = messages[messages.length - 1];
-      setTimeout(() => {
-        element.scrollIntoView({block: "start", inline: "nearest" });
-      }, 10);
-
+      if(friendChat[friendChat.length-1].props.content[0] == 1 || friendChat[friendChat.length-1].props.content[0] == 2) {
+        setTimeout(() => {
+          element.scrollIntoView();
+        }, 50);
+      }
+      else {
+      element.scrollIntoView();
+      }
     }
   })
 
