@@ -50,6 +50,7 @@ The searching is case-sensitive since usernames are unique.<br />
 ![search](https://user-images.githubusercontent.com/90967892/164453207-d4c88789-04eb-4dcb-a22d-1f0a9522d70e.jpg)<br />
 
 
+
 ### How to Run
 1. Clone the repository:
     ```
@@ -96,8 +97,14 @@ for more useres you can check **users.js** at src folder.<br />
 <br />
 Also, Bella is not Ido's friend. When logged in to Ido's account, you can add her as a new friend. 
 
+### Demo
+![ourGif](https://user-images.githubusercontent.com/92373590/164725983-68a33597-394a-4502-9c54-5a60acf0fcfe.gif)
+
 ### Developers
 - Coral Kuta 208649186
 - Tal Dabran 316040898
+
+
+
 - Ido Tavron 316222512
 
