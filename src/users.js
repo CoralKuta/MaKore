@@ -14,7 +14,7 @@ import itamar_img from './images/itamar.jpg';
     let Bella =  {lastMessage: "", lastTime: "",  Username: "Bella", Nickname: "bella", password: "1234a1234a", pic: bella_img, friends: [[Matan, []], [Itamar, []]], noti: 0 }
     let Ariel =  {lastMessage: "", lastTime: "",  Username: "Ariel", Nickname: "arielo", password: "1234aaaa", pic: ariell_img, friends: [[Matan, []], [Itamar, []]], noti: 0 }
     let Ido = {lastMessage: "", lastTime: "",  Username: "Ido", Nickname: "Idota", password: "12341234a", pic: ido_img, friends: [[Coral, []], [Tal, []], [Matan, []], [Itamar,[]], [Ariel,[]]], noti: 0 }
-    let users = [Bella, Itamar, Matan ,Tal, Coral, Ido];
+    let users = [Bella, Itamar, Matan ,Tal, Coral, Ido, Ariel];
 
 
     export default users;

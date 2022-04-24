@@ -51,8 +51,10 @@ function Chat() {
     e.preventDefault();
     const noti = 0;
     var contactIdentifier = false;
+    console.log(users)
     //check if the friend is exists in the users list
     for (var k = 0; k < users.length; k++) {
+      console.log(users[k])
       if (users[k].Username == nameId) {
         contactIdentifier = true;
       }
