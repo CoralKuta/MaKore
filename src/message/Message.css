@@ -56,6 +56,8 @@
 }
 
 .video-msg {
+    width: 25vh;
+    height: 25vh;
     max-width: 25vh;
 }
 
