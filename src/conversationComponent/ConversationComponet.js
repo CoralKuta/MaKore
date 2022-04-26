@@ -77,7 +77,7 @@ function ConversationComponent({ friend, setLast, user }) {
       if(friendChat[friendChat.length-1].props.content[0] == 1 || friendChat[friendChat.length-1].props.content[0] == 2) {
         setTimeout(() => {
           element.scrollIntoView();
-        }, 50);
+        }, 100);
       }
       else {
       element.scrollIntoView();
