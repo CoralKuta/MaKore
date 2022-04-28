@@ -56,13 +56,13 @@ The searching is case-sensitive since usernames are unique.<br />
     ```
     git clone https://github.com/CoralKuta/MaKore
     ```
-2. Enter the folder and make a react project:
-    ```
-    npx create-react-app MaKore
-    ```
-3. Enter the MaKore folder:
+2. Enter the MaKore folder:
     ```
     cd MaKore
+    ```
+3. Install all modules:
+    ```
+    npm install
     ```
 4. Run the program:
     ```
@@ -71,7 +71,7 @@ The searching is case-sensitive since usernames are unique.<br />
 5. Enter the following details:
     ```
     Username: Ido
-    Password: 12341234
+    Password: 12341234a
     ``` 
 6. Explore !
 
