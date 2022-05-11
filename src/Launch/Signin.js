@@ -20,7 +20,7 @@ function Signin() {
     // indicate if the form is successfully submitted
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const errors = { wrong: "Invalid details. Not registerd? Sign up now! " };
+    const errors = { wrong: "Invalid details. Not registerd? Sign up now!" };
 
     // to hide the error messages
     const [displayError, setdisplayError] = useState('none');
@@ -39,24 +39,25 @@ function Signin() {
 
         var { username, password } = document.forms[0];
 
-        // find if the user exists in "users" - search by Username
-       let userData = users.find((user) => user.Username === username.value);
+        const requestOptions = {
+            method: 'Post',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({UserName:username.value, Password:password.value})
+          };
+          var flag = 0;
 
-
-
-        // Compare user info
-        if (userData != null) {
-            if (userData.password !== password.value) {
+          fetch('http://localhost:5018/api/connection',requestOptions)
+          .then(resopne=> {
+            // find if the user exists in "users" - search by Username
+            if (resopne.status==200){
+                setIsSubmitted(true);
+                let userData = users.find((user) => user.Username === username.value);
+                navigate('../chats', { state: { data: userData } });
+            } else {
                 setErrorMessages({ name: "wrong", message: errors.wrong });
                 setdisplayError('block');
-            } else {
-                setIsSubmitted(true);
-                navigate('../chats', { state: { data: userData } });
             }
-        } else {
-            setErrorMessages({ name: "wrong", message: errors.wrong });
-            setdisplayError('block');
-        }
+        });
     }
 
 
