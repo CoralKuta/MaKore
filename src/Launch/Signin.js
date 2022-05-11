@@ -20,7 +20,7 @@ function Signin() {
     // indicate if the form is successfully submitted
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const errors = { wrong: "Invalid details. Not registerd? Sign up now!" };
+    const errors = { wrong: "Invalid details. Not registerd? Sign up now! " };
 
     // to hide the error messages
     const [displayError, setdisplayError] = useState('none');
