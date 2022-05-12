@@ -9,22 +9,44 @@ import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
-function Chat() {
+async function Chat() {
   const user = useLocation().state.data;
   
   var friends = [];
+  var temp = '';
+  const validate = async (event) => {
+    // prevent the page from refreshing
 
-  const address = fetch('http://localhost:5018/api/contacts')
+    const token = await fetch('http://localhost:5018/api/contacts')
+.then((response) => response.json())
+.then((user) => {
+  temp = user;
+  user.forEach(element => {
+    friends.push(element);
+  });
+
+
+
+});}
+
+
+/*
+  const address = await fetch('http://localhost:5018/api/contacts')
     .then((response) => response.json())
     .then((user) => {
       user.forEach(element => {
+        temp = element;
+        console.log(temp)
         friends.push(element);
       })
-    
 
     });
-  console.log(friends);
-  console.log(friends[0]);
+    */
+
+    
+    const x = await validate();
+    console.log(friends[0]);
+    console.log(friends[1]);
 
   const [friend, setFriend] = useState({});
   const [displayFriendsList, setDisplayFriendsList] = useState(friends);
