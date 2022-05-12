@@ -44,9 +44,8 @@ function Signin() {
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({UserName:username.value, Password:password.value})
           };
-          var flag = 0;
 
-          fetch('http://localhost:5018/api/connection',requestOptions)
+          fetch('http://localhost:5018/api/connection/login',requestOptions)
           .then(resopne=> {
             // find if the user exists in "users" - search by Username
             if (resopne.status==200){
