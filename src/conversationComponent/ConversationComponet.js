@@ -13,7 +13,6 @@ function ConversationComponent({ friend, setLast, user }) {
 
   var friendData = friend[0];
   var friendChat = friend[1];
-
   const [messageList, setMessageList] = useState(friendChat);
 
   //this useEfect hook is to set the last massage by type and time of the message at the appropriate chat 
