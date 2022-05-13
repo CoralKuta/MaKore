@@ -1,15 +1,25 @@
+import { useEffect, useState } from 'react';
 import pic from '../images/footer.png'
 //this component display the friends list (the left side of the chat)
 function DisplayFriendList(props) {
-
-    
     var friend = [props[0], props[1]];
-    var friendData = friend[0];
+    //console.log(friend);
+    var friendData = props.friend;
     var originFriend = null;
-
+    const [messages, setMessages] = useState([]);
+    const getAnswer = async () => {
+        const res = await fetch('http://localhost:5018/api/contacts/'+friendData.id+'/messages');
+        const data = await res.json();
+        setMessages(data);
+      };
+      useEffect(() => {
+        getAnswer();
+      }, []);
+      
     //find the friend that we are want to display
     for (var i = 0; i < props.originFriendsList.length; i++) {
-        if (props.originFriendsList[i][0].id == friendData.id) {
+        console.log(props.originFriendsList)
+        if (props.originFriendsList[i].id == friendData.id) {
             originFriend = props.originFriendsList[i];
         }
     }

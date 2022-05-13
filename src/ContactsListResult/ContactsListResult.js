@@ -8,19 +8,9 @@ function ContactsListResult(props) {
   const changeFriend = (friend) => {
     props.changeFriend(friend);
   }
-
-  let contactList;
-
-  useEffect(() => {
-  const setErrorMessages = (name, message) => {
-    props.setErrorMessages(name, message);
-}
-  setErrorMessages("", "");
-  });
-
     //goes all over the friend that the user has and call the display component to display them on the left side of the chat screen
-      contactList = a.map((friend, key) => {
-        return <DisplayFriendList {...friend} key = {key} changeFriend = {changeFriend}  originFriendsList = {props.originFriendsList} user = {props.user} />
+    const contactList = a.map((friend, key) => {
+        return <DisplayFriendList friend = {friend} key = {key} changeFriend = {changeFriend}  originFriendsList = {props.originFriendsList} user = {props.user} />
     });
 
     return (

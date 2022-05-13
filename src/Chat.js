@@ -9,63 +9,48 @@ import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
-async function Chat() {
+ function Chat() {
   const user = useLocation().state.data;
-  
-  var friends = [];
-  var temp = '';
-  const validate = async (event) => {
-    // prevent the page from refreshing
-
-    const token = await fetch('http://localhost:5018/api/contacts')
-.then((response) => response.json())
-.then((user) => {
-  temp = user;
-  user.forEach(element => {
-    friends.push(element);
-  });
-
-
-
-});}
-
-
-/*
-  const address = await fetch('http://localhost:5018/api/contacts')
+  const [friends, setFriends] = useState([]);
+  const [displayFriendsList, setDisplayFriendsList] = useState([]);
+  const [friendsList, setFriendsList] = useState([]);
+  /*
+  useEffect(() => {
+  const address =fetch('http://localhost:5018/api/contacts')
     .then((response) => response.json())
     .then((user) => {
-      user.forEach(element => {
-        temp = element;
-        console.log(temp)
-        friends.push(element);
-      })
+      setFriends(user);
+    });});
+  console.log(friends);
+  */
+ /*
+ useEffect(() => {
+   async function fetchData() {
+    const address = await fetch('http://localhost:5018/api/contacts')
+    setFriends(address.json())
+    return address;
+   }
+   fetchData();
+ }, [])
+ console.log(JSON.stringify(friends));
+*/
 
-    });
-    */
+const getAnswer = async () => {
+  const res = await fetch('http://localhost:5018/api/contacts');
+  const data = await res.json();
+  setFriends(data);
+};
 
-    
-    const x = await validate();
-    console.log(friends[0]);
-    console.log(friends[1]);
+useEffect(() => {
+  getAnswer();
+}, []);
 
   const [friend, setFriend] = useState({});
-  const [displayFriendsList, setDisplayFriendsList] = useState(friends);
-  const [friendsList, setFriendsList] = useState(friends);
   const [errorMessages, setErrorMessages] = useState({});
-  
-
-  
-  
-    // Generate JSX code for error message
-    const renderErrorMessage = (name) =>
-        name === errorMessages.name && (
-            <div></div>
-        );
-
-
-
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
+    setDisplayFriendsList(friends);
+    setFriendsList(friends);
     let filtered = [];
     for (let i = 0; i < friendsList.length; i++) {
       if (friendsList[i][0].Username.includes(searchName)) {
@@ -165,14 +150,13 @@ async function Chat() {
         <div className="ContactScreen" >
         <MemberInfo user={user} setNameId = {setNameId} />
             <Search doSearch={doSearch} />
-          <ContactsListResult setErrorMessages={setErrorMessages} friends={displayFriendsList} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend} originFriendsList={friendsList} />
+          <ContactsListResult friends={friends} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend} originFriendsList={friends} />
         </div>
         <div className="ChatScreen">
           <MessageHead friend={friend} setLast={setLast} user ={user} />
         </div>
       </div>
       <PopUp hideErrors={hideErrors} setNameId={setNameId} nameId={nameId} displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>
-      {renderErrorMessage("")}
       </div>
   );
 }
