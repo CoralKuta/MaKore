@@ -14,26 +14,6 @@ import MessageHead from './MessageHead/MessageHead';
   const [friends, setFriends] = useState([]);
   const [displayFriendsList, setDisplayFriendsList] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
-  /*
-  useEffect(() => {
-  const address =fetch('http://localhost:5018/api/contacts')
-    .then((response) => response.json())
-    .then((user) => {
-      setFriends(user);
-    });});
-  console.log(friends);
-  */
- /*
- useEffect(() => {
-   async function fetchData() {
-    const address = await fetch('http://localhost:5018/api/contacts')
-    setFriends(address.json())
-    return address;
-   }
-   fetchData();
- }, [])
- console.log(JSON.stringify(friends));
-*/
 
 const getAnswer = async () => {
   const res = await fetch('http://localhost:5018/api/contacts');
