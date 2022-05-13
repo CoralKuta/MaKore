@@ -35,7 +35,7 @@ function Signup() {
     }
 
     // When the form is submitted and the user wishes to register
-    const register = event => {
+    const register = async (event) => {
         // prevent the page from refreshing
         event.preventDefault();
 
@@ -64,7 +64,7 @@ function Signup() {
             setErrorMessages({ name: "wrongPassword2", message: errors.wrongPassword2 });
             setdisplayError('block');
 
-        // new user, all good
+            // new user, all good
         } else {
             var Username = newUsername;
             var password = newPass1;
@@ -79,24 +79,36 @@ function Signup() {
             const requestOptions = {
                 method: 'Post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({UserName:Username, NickName: Nickname, Password:password})
+                body: JSON.stringify({ UserName: Username, NickName: Nickname, Password: password })
             };
-    
-            fetch('http://localhost:5018/api/connection/register', requestOptions)
-                .then(resopne => {
-                    // find if the user exists in "users" - search by Username
-                    if (resopne.status == 200) {
-                        setIsSubmitted(true);
-                        let userData = users.find((user) => user.Username === username.value);
-                        navigate('../chats', { state: { data: users[users.length - 1] } });
+            // Send the service POST request, get JWT if registartion succeed and 400
+            const token  = fetch('http://localhost:5018/api/connection/register', requestOptions)
+                .then(response => {
+                    if (response.status == 200) {
+                        return response.text();
                     } else {
-                        setErrorMessages({ name: "wrong", message: errors.wrong });
-                        setdisplayError('block');
+                        return response.status;
                     }
+                })
+                .then(data => {
+                    return data;
+                })
+                .catch(error => {
+                    console.log('Request failed', error);
                 });
+            if (token != 400) {
+                setIsSubmitted(true);
+                sessionStorage.setItem('myTokenName', token);
+                let userData = users.find((user) => user.Username === username.value);
+                navigate('../chats', { state: { data: users[users.length - 1] } });
+            } else {
+                setErrorMessages({ name: "wrong", message: errors.wrong });
+                setdisplayError('block');
+            }
+
         }
-        
-     }
+
+    }
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
