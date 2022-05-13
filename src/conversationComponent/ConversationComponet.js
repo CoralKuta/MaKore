@@ -7,7 +7,6 @@ import React, { useState, useEffect, useReducer } from 'react';
 
 //the conversation component
 function ConversationComponent({ friend, setLast, user }) {
-
   var friendData = friend[0];
   var friendChat = friend[1];
   const [messageList, setMessageList] = useState(friendChat);
@@ -32,13 +31,11 @@ function ConversationComponent({ friend, setLast, user }) {
     var time = today.getHours() + ":" + today.getMinutes();
     var fullTime = time + today.getSeconds() + today.getMilliseconds();
   }
-  var newMessageList = [];
+  var a=[];
+  const [newMessageList, setNewMessageList] = useState([]);
   for(var i = 0; i < friendChat.length; i++) {
-    console.log(friendChat[i].content)
-    newMessageList.push(<Message key={1 + fullTime} content={[friendChat[i].content, friendChat[i].created]}/>)
+    (a.push(<Message key={1 + fullTime} content={[friendChat[i].content, friendChat[i].created]}/>))
   }
-
-
   //When a new message arrives, it scrolls down the conversation.
   useEffect(() => {
     let messages = document.querySelectorAll('.time-msg');
@@ -47,20 +44,18 @@ function ConversationComponent({ friend, setLast, user }) {
       setTimeout(() => {
         element.scrollIntoView({block: "start", inline: "nearest" });
       }, 10);
-
     }
   })
 
-
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-
+  console.log(a);
   return (
     <div className="all-conv-board">
       <div className="messageComp">
-        <ConvBoard messageList={newMessageList} />
+        <ConvBoard messageList={a} />
       </div>
       <TypingBoard setter={(props) => {
-        setMessageList(friendChat.push(<Message key={1 + fullTime} content={[props[1], time]} />));
+        (a.push(<Message key={1 + fullTime} content={[props[1], time]} />));
         forceUpdate();
       }} />
     </div>
