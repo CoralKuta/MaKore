@@ -3,9 +3,6 @@ import TypingBoard from '../typingBoard/TypingBoard';
 import ConvBoard from '../convBoard/ConvBoard';
 import Message from '../message/Message'
 import React, { useState, useEffect, useReducer } from 'react';
-import img from "../images/ido.jpg"
-import video from "../images/video.mp4"
-import audio from "../images/heyThere.ogg"
 
 
 //the conversation component
@@ -16,12 +13,14 @@ function ConversationComponent({ friend, setLast, user }) {
   const [messageList, setMessageList] = useState(friendChat);
 
   //this useEfect hook is to set the last massage by type and time of the message at the appropriate chat 
+  /*
   useEffect(() => {
     if (friendChat[friendChat.length - 1] != null) {
       // Update the document title using the browser API
       setLast(friendChat[friendChat.length - 1].props.content[1], friendChat[friendChat.length - 1].props.content[2]);
     }
   });
+*/
 
   //calculates the current time and maintains the HH::MM format.
   var today = new Date();
@@ -33,6 +32,12 @@ function ConversationComponent({ friend, setLast, user }) {
     var time = today.getHours() + ":" + today.getMinutes();
     var fullTime = time + today.getSeconds() + today.getMilliseconds();
   }
+  var newMessageList = [];
+  for(var i = 0; i < friendChat.length; i++) {
+    console.log(friendChat[i].content)
+    newMessageList.push(<Message key={1 + fullTime} content={[friendChat[i].content, friendChat[i].created]}/>)
+  }
+
 
   //When a new message arrives, it scrolls down the conversation.
   useEffect(() => {
@@ -52,7 +57,7 @@ function ConversationComponent({ friend, setLast, user }) {
   return (
     <div className="all-conv-board">
       <div className="messageComp">
-        <ConvBoard messageList={friendChat} />
+        <ConvBoard messageList={newMessageList} />
       </div>
       <TypingBoard setter={(props) => {
         setMessageList(friendChat.push(<Message key={1 + fullTime} content={[props[1], time]} />));
