@@ -9,7 +9,6 @@ import React, { useState, useEffect, useReducer } from 'react';
 function ConversationComponent({ friend, setLast, user }) {
   var friendData = friend[0];
   var friendChat = friend[1];
-  const [messageList, setMessageList] = useState(friendChat);
 
   //this useEfect hook is to set the last massage by type and time of the message at the appropriate chat 
   /*
@@ -21,21 +20,10 @@ function ConversationComponent({ friend, setLast, user }) {
   });
 */
 
-  //calculates the current time and maintains the HH::MM format.
-  var today = new Date();
-  if (today.getMinutes() < 10) {
-    var time = today.getHours() + ":0" + today.getMinutes();
-    var fullTime = time + today.getSeconds() + today.getMilliseconds();
-  }
-  else {
-    var time = today.getHours() + ":" + today.getMinutes();
-    var fullTime = time + today.getSeconds() + today.getMilliseconds();
-  }
   var a=[];
-  const [newMessageList, setNewMessageList] = useState([]);
-  for(var i = 0; i < friendChat.length; i++) {
-    (a.push(<Message key={1 + fullTime} content={[friendChat[i].content, friendChat[i].created]}/>))
-  }
+  for(var i = 0; i < friendChat.length; i++)
+    a.push(<Message key={1 + Math.random()} content={[friendChat[i].content, friendChat[i].created]}/>)
+  const [b, setB] = useState(a);
   //When a new message arrives, it scrolls down the conversation.
   useEffect(() => {
     let messages = document.querySelectorAll('.time-msg');
@@ -48,14 +36,14 @@ function ConversationComponent({ friend, setLast, user }) {
   })
 
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-  console.log(a);
+  console.log(b);
   return (
     <div className="all-conv-board">
       <div className="messageComp">
-        <ConvBoard messageList={a} />
+        <ConvBoard messageList={b} />
       </div>
       <TypingBoard setter={(props) => {
-        (a.push(<Message key={1 + fullTime} content={[props[1], time]} />));
+        setB(a.push(<Message key={1 + Math.random()} content={[props[1], "13:00"]} />));
         forceUpdate();
       }} />
     </div>
