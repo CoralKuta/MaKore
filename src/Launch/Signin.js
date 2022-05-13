@@ -44,7 +44,6 @@ function Signin() {
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify({UserName:username.value, Password:password.value})
           };
-          var flag = 0;
 
           fetch('http://localhost:5018/api/connection',requestOptions)
           .then(resopne=> {
@@ -59,10 +58,6 @@ function Signin() {
             }
         });
     }
-
-
-
-
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>

@@ -2,17 +2,24 @@ import './Chat.css';
 import users from './users';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
-
-
 function Chat() {
   const user = useLocation().state.data;
-  const friends = user.friends;
+  var friends = [];
+
+
+  const address = fetch('http://localhost:5018/api/contacts')
+    .then((response) => response.json())
+    .then((user) => {
+      user.forEach(element => {
+        friends.push(element);
+      });
+    });
 
   const [friend, setFriend] = useState({});
   const [displayFriendsList, setDisplayFriendsList] = useState(friends);
@@ -120,8 +127,10 @@ function Chat() {
         <div className="ContactScreen" >
         <MemberInfo user={user} setNameId = {setNameId} />
             <Search doSearch={doSearch} />
+            
           <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend} originFriendsList={friendsList} />
-        </div>
+
+          </div>
         <div className="ChatScreen">
           <MessageHead friend={friend} setLast={setLast} user ={user} />
         </div>
