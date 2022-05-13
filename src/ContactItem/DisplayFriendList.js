@@ -4,6 +4,7 @@ import pic from '../images/footer.png'
 function DisplayFriendList(props) {
     var friendData = props.friend;
     var originFriend = null;
+
     const [messages, setMessages] = useState([]);
     const getAnswer = async () => {
         const res = await fetch('http://localhost:5018/api/contacts/'+friendData.id+'/messages');
@@ -15,7 +16,6 @@ function DisplayFriendList(props) {
       }, []);
 
       var friend = [friendData, messages];
-      console.log(friend)
       
     //find the friend that we are want to display
     for (var i = 0; i < props.originFriendsList.length; i++) {
@@ -26,7 +26,7 @@ function DisplayFriendList(props) {
 
     //the change method that change the chat we are displaying by clicking and restets the notification(if there are some)
     const change = () => {
-        friendData.noti = 0;
+        //friendData.noti = 0;
         props.changeFriend(friend);
     }
 

@@ -131,9 +131,12 @@ useEffect(() => {
         <MemberInfo user={user} setNameId = {setNameId} />
             <Search doSearch={doSearch} />
           <ContactsListResult friends={friends} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend} originFriendsList={friends} />
-        </div>
+
+          </div>
         <div className="ChatScreen">
+          {console.log(friend)}
           <MessageHead friend={friend} setLast={setLast} user ={user} />
+          {console.log(friend)}
         </div>
       </div>
       <PopUp hideErrors={hideErrors} setNameId={setNameId} nameId={nameId} displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>
