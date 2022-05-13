@@ -12,7 +12,7 @@ import MK from '../images/footer.png'
 
 function Signin() {
     const navigate = useNavigate();
-
+    
 
     // if there is an error message - store the name of the field
     const [errorMessages, setErrorMessages] = useState({});
@@ -33,7 +33,7 @@ function Signin() {
     }
 
 
-    const validate = event => {
+    const validate = async (event) => {
         // prevent the page from refreshing
         event.preventDefault();
 
@@ -41,36 +41,42 @@ function Signin() {
 
         const requestOptions = {
             method: 'Post',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({UserName:username.value, Password:password.value})
-          };
-          var flag = 0;
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ UserName: username.value, Password: password.value })
+        };
 
-          fetch('http://localhost:5018/api/connection',requestOptions)
-          .then(resopne=> {
-            // find if the user exists in "users" - search by Username
-            if (resopne.status==200){
-                setIsSubmitted(true);
-                let userData = users.find((user) => user.Username === username.value);
-                navigate('../chats', { state: { data: userData } });
-            } else {
-                setErrorMessages({ name: "wrong", message: errors.wrong });
-                setdisplayError('block');
-            }
+        const token = await fetch('http://localhost:5018/api/connection/login', requestOptions)
+            .then(response=> {
+                if (response.status == 200) {
+                    return response.text();
+                } else {
+                    return response.status;
+                }
+            })
+            .then(data=> {
+                return data;
+            })
+            .catch(error => {
+                console.log('Request failed', error);
         });
+        if (token !=400) {
+            setIsSubmitted(true);
+            sessionStorage.setItem('myTokenName', token);
+            // read from storage
+            // sessionStorage.getItem('myTokenName')
+            let userData = users.find((user) => user.Username === username.value);
+            navigate('../chats', { state: { data: userData } });
+        } else {
+            setErrorMessages({ name: "wrong", message: errors.wrong });
+            setdisplayError('block');
+        }
     }
-
-
-
-
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
         name === errorMessages.name && (
             <div className="errors">{errorMessages.message}</div>
         );
-
-
 
     return (
 

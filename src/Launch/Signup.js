@@ -34,77 +34,69 @@ function Signup() {
         setdisplayError('none');
     }
 
+    // When the form is submitted and the user wishes to register
     const register = event => {
         // prevent the page from refreshing
         event.preventDefault();
 
         var { username, nickname, password1, password2, pic } = document.forms[0];
         var newUsername = username.value.trim();
+        // validate username not empty, and contains letters and digits only
+        var regex = /^[A-Za-z0-9]*$/;
+        var passRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+        // remove empty spaces from beginning and end
+        var newUsername = username.value.trim();
+        var newPass1 = password1.value.trim();
+        var newPass2 = password2.value.trim();
 
-        // find if the userbame already exists in "users"
-        const userData = users.find((user) => user.Username === newUsername);
+        if ((!regex.test(newUsername)) || (newUsername === '')) {
+            setErrorMessages({ name: "emptyName", message: errors.emptyName });
+            setdisplayError('block');
 
-        // if there is a user with this user name
-        if (userData) {
-            if (userData.Username !== null) {
-                setErrorMessages({ name: "usernameTaken", message: errors.usernameTaken });
-                setdisplayError('block');
-            }
-
-            // new user
-        } else {
-            // validate username not empty, and contains letters and digits only
-            var regex = /^[A-Za-z0-9]*$/;
-            var passRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-
-            // remove empty spaces from beginning and end
-            var newUsername = username.value.trim();
-            var newPass1 = password1.value.trim();
-            var newPass2 = password2.value.trim();
-
-            if ((!regex.test(newUsername)) || (newUsername === '')) {
-                setErrorMessages({ name: "emptyName", message: errors.emptyName });
-                setdisplayError('block');
-
-                // validate characters of password
-            } else if ((!passRegex.test(newPass1)) || (newPass1.length < 8)) {
-                setErrorMessages({ name: "invalidPass", message: errors.invalidPass });
-                setdisplayError('block');
-            }
-
-            // validate same passwords
-            else if (newPass1 !== newPass2) {
-                setErrorMessages({ name: "wrongPassword2", message: errors.wrongPassword2 });
-                setdisplayError('block');
-
-                // new user, all good
-            } else {
-                var Username = newUsername;
-                var password = newPass1;
-
-                var Nickname;
-                if (nickname.value) {
-                    Nickname = nickname.value;
-                } else {
-                    Nickname = newUsername;
-                }
-
-                var pic;
-                if (pic.value) {
-                    var img = document.getElementById("picture").files[0];
-                    pic = URL.createObjectURL(img);
-                } else {
-                    pic = deafultImg;
-                }
-
-                var friends = [];
-                var noti = 0;
-                users[users.length] = { Username, Nickname, password, pic, friends, noti };
-                setIsSubmitted(true);
-                navigate('../chats', { state: { data: users[users.length - 1] } });
-            }
+            // validate characters of password
+        } else if ((!passRegex.test(newPass1)) || (newPass1.length < 8)) {
+            setErrorMessages({ name: "invalidPass", message: errors.invalidPass });
+            setdisplayError('block');
         }
-    }
+
+        // validate same passwords
+        else if (newPass1 !== newPass2) {
+            setErrorMessages({ name: "wrongPassword2", message: errors.wrongPassword2 });
+            setdisplayError('block');
+
+        // new user, all good
+        } else {
+            var Username = newUsername;
+            var password = newPass1;
+
+            var Nickname;
+            if (nickname.value) {
+                Nickname = nickname.value;
+            } else {
+                Nickname = newUsername;
+            }
+
+            const requestOptions = {
+                method: 'Post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({UserName:Username, NickName: Nickname, Password:password})
+            };
+    
+            fetch('http://localhost:5018/api/connection/register', requestOptions)
+                .then(resopne => {
+                    // find if the user exists in "users" - search by Username
+                    if (resopne.status == 200) {
+                        setIsSubmitted(true);
+                        let userData = users.find((user) => user.Username === username.value);
+                        navigate('../chats', { state: { data: users[users.length - 1] } });
+                    } else {
+                        setErrorMessages({ name: "wrong", message: errors.wrong });
+                        setdisplayError('block');
+                    }
+                });
+        }
+        
+     }
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
@@ -181,6 +173,5 @@ function Signup() {
 
     );
 }
-
 export default Signup;
 

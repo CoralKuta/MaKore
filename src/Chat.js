@@ -15,8 +15,13 @@ import MessageHead from './MessageHead/MessageHead';
   const [displayFriendsList, setDisplayFriendsList] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
 
+
 const getAnswer = async () => {
-  const res = await fetch('http://localhost:5018/api/contacts');
+  const requestOptions = {
+    method: 'get',
+    headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+  };
+  const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
   const data = await res.json();
   setFriends(data);
 };

@@ -26,7 +26,6 @@ function DisplayFriendList(props) {
 
     //the change method that change the chat we are displaying by clicking and restets the notification(if there are some)
     const change = () => {
-        //friendData.noti = 0;
         props.changeFriend(friend);
     }
 
