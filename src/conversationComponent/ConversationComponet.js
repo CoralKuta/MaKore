@@ -20,10 +20,11 @@ function ConversationComponent({ friend, setLast, user }) {
   });
 */
 
-  var a=[];
+  var NewMessageList=[];
+  console.log(friendChat)
   for(var i = 0; i < friendChat.length; i++)
-    a.push(<Message key={1 + Math.random()} content={[friendChat[i].content, friendChat[i].created]}/>)
-  const [b, setB] = useState(a);
+    NewMessageList.push(<Message key={1 + Math.random()} content={[friendChat[i].content, friendChat[i].created]}/>)
+  const [b, setB] = useState(NewMessageList);
   //When a new message arrives, it scrolls down the conversation.
   useEffect(() => {
     let messages = document.querySelectorAll('.time-msg');
@@ -36,14 +37,13 @@ function ConversationComponent({ friend, setLast, user }) {
   })
 
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-  console.log(b);
   return (
     <div className="all-conv-board">
       <div className="messageComp">
-        <ConvBoard messageList={b} />
+        <ConvBoard messageList={NewMessageList} />
       </div>
       <TypingBoard setter={(props) => {
-        setB(a.push(<Message key={1 + Math.random()} content={[props[1], "13:00"]} />));
+        setB(NewMessageList.push(<Message key={1 + Math.random()} content={[props[1], "13:00"]} />));
         forceUpdate();
       }} />
     </div>
