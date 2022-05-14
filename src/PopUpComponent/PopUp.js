@@ -4,7 +4,7 @@ import React from 'react'
 //this is the popup component that take care of the add new contact to the chat screen
 function PopUp(props) {
 
-
+    
     // this function displaying the error when it occurs
     const renderErrorMessage = (name) =>
         name === props.errorMessages.name && (

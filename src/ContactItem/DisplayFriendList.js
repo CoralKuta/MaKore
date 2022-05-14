@@ -5,7 +5,6 @@ function DisplayFriendList(props) {
     var friendData = props.friend;
     var originFriend = null;
     const [messages, setMessages] = useState([]);
-    console.log('http://localhost:5018/api/contacts/'+friendData.id+'/messages');
     const getAnswer = async () => {
         const requestOptions = {
             method: 'get',
@@ -20,13 +19,6 @@ function DisplayFriendList(props) {
       }, []);
 
       var friend = [friendData, messages];
-    //find the friend that we are want to display
-    for (var i = 0; i < props.originFriendsList.length; i++) {
-        if (props.originFriendsList[i].id == friendData.id) {
-            originFriend = props.originFriendsList[i];
-        }
-    }
-
     //the change method that change the chat we are displaying by clicking and restets the notification(if there are some)
     const change = () => {
         props.changeFriend(friend);

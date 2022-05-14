@@ -5,7 +5,6 @@ import MemberInfo from './MemberInfo/memberInfo';
 import { useEffect, useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
-import { useLocation } from 'react-router-dom';
 import MessageHead from './MessageHead/MessageHead';
 
 
@@ -22,6 +21,8 @@ const getAnswer = async () => {
   };
   const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
   const data = await res.json();
+  setDisplayFriendsList(data);
+  setFriendsList(data);
   setFriends(data);
   const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
   const data1 = await res1.json();
@@ -37,11 +38,9 @@ useEffect(() => {
   const [errorMessages, setErrorMessages] = useState({});
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
-    setDisplayFriendsList(friends);
-    setFriendsList(friends);
     let filtered = [];
     for (let i = 0; i < friendsList.length; i++) {
-      if (friendsList[i][0].Username.includes(searchName)) {
+      if (friendsList[i].id.includes(searchName)) {
         filtered.push(friendsList[i]);
       }
     }
@@ -136,9 +135,9 @@ useEffect(() => {
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
-        <MemberInfo user={user} setNameId = {setNameId} />
+        <MemberInfo user={user} />
             <Search doSearch={doSearch} />
-          <ContactsListResult friends={friends} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend} originFriendsList={friends} />
+          <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend}/>
         </div>
         <div className="ChatScreen">
           <MessageHead friend={friend} setLast={setLast} user ={user} />
