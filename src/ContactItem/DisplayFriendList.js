@@ -15,7 +15,6 @@ function DisplayFriendList(props) {
       }, []);
 
       var friend = [friendData, messages];
-      console.log(friend)
       
     //find the friend that we are want to display
     for (var i = 0; i < props.originFriendsList.length; i++) {
