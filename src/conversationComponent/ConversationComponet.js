@@ -36,11 +36,10 @@ function ConversationComponent({ friend, setLast, user }) {
   })
 
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-  console.log(b);
   return (
     <div className="all-conv-board">
       <div className="messageComp">
-        <ConvBoard messageList={b} />
+        <ConvBoard messageList={a} />
       </div>
       <TypingBoard setter={(props) => {
         setB(a.push(<Message key={1 + Math.random()} content={[props[1], "13:00"]} />));

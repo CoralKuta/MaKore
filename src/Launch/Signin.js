@@ -64,8 +64,7 @@ function Signin() {
             sessionStorage.setItem('myTokenName', token);
             // read from storage
             // sessionStorage.getItem('myTokenName')
-            let userData = users.find((user) => user.Username === username.value);
-            navigate('../chats', { state: { data: userData } });
+            navigate('../chats', { state: { data: username.value } });
         } else {
             setErrorMessages({ name: "wrong", message: errors.wrong });
             setdisplayError('block');

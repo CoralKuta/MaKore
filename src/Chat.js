@@ -10,11 +10,10 @@ import MessageHead from './MessageHead/MessageHead';
 
 
  function Chat() {
-  const user = useLocation().state.data;
   const [friends, setFriends] = useState([]);
   const [displayFriendsList, setDisplayFriendsList] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
-
+  const [user, setUser] = useState([]);
 
 const getAnswer = async () => {
   const requestOptions = {
@@ -24,7 +23,11 @@ const getAnswer = async () => {
   const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
   const data = await res.json();
   setFriends(data);
+  const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
+  const data1 = await res1.json();
+  setUser(data1);
 };
+
 
 useEffect(() => {
   getAnswer();
