@@ -22,8 +22,13 @@ function ConversationComponent({ friend, setLast, user }) {
 
   var NewMessageList=[];
   console.log(friendChat)
-  for(var i = 0; i < friendChat.length; i++)
-    NewMessageList.push(<Message key={1 + Math.random()} content={[friendChat[i].content, friendChat[i].created]}/>)
+  for(var i = 0; i < friendChat.length; i++) {
+    var type = 0;
+    if (friendChat[i].sent != true) {
+      type = 1;
+    }
+    NewMessageList.push(<Message key={1 + Math.random()} content={[type, friendChat[i].content, friendChat[i].created]}/>)
+  }
   const [b, setB] = useState(NewMessageList);
   //When a new message arrives, it scrolls down the conversation.
   useEffect(() => {
