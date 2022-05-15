@@ -82,7 +82,7 @@ function Signup() {
                 body: JSON.stringify({ UserName: Username, NickName: Nickname, Password: password })
             };
             // Send the service POST request, get JWT if registartion succeed and 400
-            const token  = fetch('http://localhost:5018/api/connection/register', requestOptions)
+            const token  = await fetch('http://localhost:5018/api/connection/register', requestOptions)
                 .then(response => {
                     if (response.status == 200) {
                         return response.text();
@@ -91,14 +91,14 @@ function Signup() {
                     }
                 })
                 .then(data => {
+                    sessionStorage.setItem('myTokenName', data);
                     return data;
                 })
                 .catch(error => {
                     console.log('Request failed', error);
                 });
             if (token != 400) {
-                setIsSubmitted(true);
-                sessionStorage.setItem('myTokenName', token);
+                setIsSubmitted(true);          
                 let userData = users.find((user) => user.Username === username.value);
                 navigate('../chats', { state: { data: users[users.length - 1] } });
             } else {
@@ -109,6 +109,7 @@ function Signup() {
         }
 
     }
+    
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
