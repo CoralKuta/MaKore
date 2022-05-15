@@ -7,7 +7,11 @@ function DisplayFriendList(props) {
 
     const [messages, setMessages] = useState([]);
     const getAnswer = async () => {
-        const res = await fetch('http://localhost:5018/api/contacts/'+friendData.id+'/messages');
+        const requestOptions = {
+            method: 'get',
+            headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+          };
+        const res = await fetch('http://localhost:5018/api/contacts/'+friendData.id+'/messages', requestOptions);
         const data = await res.json();
         setMessages(data);
       };
@@ -16,14 +20,6 @@ function DisplayFriendList(props) {
       }, []);
 
       var friend = [friendData, messages];
-      
-    //find the friend that we are want to display
-    for (var i = 0; i < props.originFriendsList.length; i++) {
-        if (props.originFriendsList[i].id == friendData.id) {
-            originFriend = props.originFriendsList[i];
-        }
-    }
-
     //the change method that change the chat we are displaying by clicking and restets the notification(if there are some)
     const change = () => {
         props.changeFriend(friend);
