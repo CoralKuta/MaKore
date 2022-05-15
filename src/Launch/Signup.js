@@ -91,14 +91,15 @@ function Signup() {
                     }
                 })
                 .then(data => {
-                    return data;
+                    sessionStorage.setItem('myTokenName', data);
                 })
                 .catch(error => {
                     console.log('Request failed', error);
                 });
             if (token != 400) {
                 setIsSubmitted(true);
-                sessionStorage.setItem('myTokenName', token);
+                //sessionStorage.setItem('myTokenName', token);
+                //console.log(sessionStorage.getItem('myTokenName'));
                 let userData = users.find((user) => user.Username === username.value);
                 navigate('../chats', { state: { data: users[users.length - 1] } });
             } else {
@@ -186,4 +187,3 @@ function Signup() {
     );
 }
 export default Signup;
-

@@ -1,5 +1,4 @@
 import './Chat.css';
-import users from './users';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
 import { useEffect, useState } from 'react';
@@ -13,29 +12,33 @@ import MessageHead from './MessageHead/MessageHead';
   const [displayFriendsList, setDisplayFriendsList] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
   const [user, setUser] = useState([]);
+  const [friend, setFriend] = useState({});
+  const [errorMessages, setErrorMessages] = useState({});
+  const [message, setMessage] = useState(friend.lastMessage);
+  const [time, setTime] = useState(friend.lastTime);
+  const [users, setUsers] = useState([]);
 
 const getAnswer = async () => {
   const requestOptions = {
     method: 'get',
     headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
   };
+  const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
+  const data1 = await res1.json();
+  setUser(data1);
   const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
   const data = await res.json();
   setDisplayFriendsList(data);
   setFriendsList(data);
   setFriends(data);
-  const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
-  const data1 = await res1.json();
-  setUser(data1);
+  const res2 = await fetch('http://localhost:5018/api/Users', requestOptions);
+  const data2 = await res2.json();
+  setUsers(data2);
 };
-
-
 useEffect(() => {
   getAnswer();
 }, []);
 
-  const [friend, setFriend] = useState({});
-  const [errorMessages, setErrorMessages] = useState({});
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
     let filtered = [];
@@ -70,39 +73,35 @@ useEffect(() => {
     var contactIdentifier = false;
     //check if the friend is exists in the users list
     for (var k = 0; k < users.length; k++) {
-      if (users[k].Username == nameId) {
+      if (users[k].id === nameId) {
         contactIdentifier = true;
       }
     }
     //check if the friend is already exists in my chat
     var checkExists = false;
     for (var j = 0; j < friends.length; j++) {
-      if (friends[j][0].Username == nameId) {
+      if (friends[j].id === nameId) {
         checkExists = true;
       }
     }
 
     // we want to add a friend to our user. we find the user in "users" and add the new friend.
     for (var i = 0; i < users.length; i++) {
-      if (users[i].Username == nameId) {
-        var newContactName = users[i].Username;
-        var NewContactNickName = users[i].Nickname;
-        var NewContactPassword = users[i].password;
-        var NewContactPic = users[i].pic;
-        var newContactFriends = users[i].friends;
-      }
+      if (users[i].id === nameId)
+        var newContactName = users[i].id;
+        var newNickName = users[i].name;
+        var newServer = users[i].server;
+        var newLastMessage = users[i].last;
+        var newLastDate = users[i].lastDate;
     }
     //the new friend
-    const newFriend = {
-      Username: newContactName, Nickname: NewContactNickName, password: NewContactPassword,
-      pic: NewContactPic, friends: newContactFriends, noti: noti
-    };
+    const newFriend = {id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate};
     //get the user name
     const friendName = document.getElementById("MemberName");
     // check the the contact that we are adding is exists in the user list, not already in our chat, and we are not trying to add ourself to the chat
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
-      //add the contact
-      friends.push([newFriend, []]);
+
+      friends.push(newFriend);
       setDisplayFriendsList(friendsList);
       setNameId("");
     }//display the appropriate error
@@ -119,9 +118,6 @@ useEffect(() => {
       setdisplayError('block');
     }
   }
-  const [message, setMessage] = useState(friend.lastMessage);
-  const [time, setTime] = useState(friend.lastTime);
-
   //the setLast function to set the last message the its time
   function setLast(message, time) {
       friend[0].lastMessage = message;

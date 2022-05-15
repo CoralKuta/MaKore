@@ -17,7 +17,7 @@ function DisplayFriendList(props) {
       useEffect(() => {
         getAnswer();
       }, []);
-
+      console.log(messages);
       var friend = [friendData, messages];
     //the change method that change the chat we are displaying by clicking and restets the notification(if there are some)
     const change = () => {
