@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { useState } from 'react';
 
 
-function TypingBoard({ setter }) {
+function TypingBoard({ setter, friend }) {
   const textBoard = useRef(null);
 
   // // to change height of grayPanel
@@ -38,16 +38,25 @@ const cleanTextarea = function(){
   settopBorderText('52px');
 }
 
-  const send = function () {
+  const send = async function () {
     const textarea = document.querySelector("textarea");
     textarea.style.height = "auto";
 
     //send message if it isn't empty
     var userInput = textBoard.current.value.trim();
     if (userInput != "") {
-      setter([0, userInput]);
-      cleanTextarea();
-    }
+
+      const requestOptions = {
+        method: 'post',
+        headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: userInput })
+      };
+      const res = await fetch('http://localhost:5018/api/contacts/' + friend.id + '/messages', requestOptions);
+      const data = await res.json();
+      console.log(data);
+    };
+    setter([userInput]);
+    cleanTextarea();
   }
   const attach = function () {
 

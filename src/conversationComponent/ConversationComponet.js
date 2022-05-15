@@ -48,9 +48,9 @@ function ConversationComponent({ friend, setLast, user }) {
         <ConvBoard messageList={NewMessageList} />
       </div>
       <TypingBoard setter={(props) => {
-        setB(NewMessageList.push(<Message key={1 + Math.random()} content={[props[1], "13:00"]} />));
+        setB(NewMessageList.push(<Message key={1 + Math.random()} content={[props[0], "13:00"]} />));
         forceUpdate();
-      }} />
+      }} friend = {friendData} />
     </div>
 
   );
