@@ -38,7 +38,7 @@ const getAnswer = async () => {
 useEffect(() => {
   getAnswer();
 }, []);
-
+//console.log(friends);
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
     let filtered = [];
