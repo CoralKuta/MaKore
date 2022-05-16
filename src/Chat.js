@@ -67,7 +67,7 @@ useEffect(() => {
   };
 
   //handle submit function that take care of the adding contact if there is no error
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     const noti = 0;
     var contactIdentifier = false;
@@ -102,9 +102,16 @@ useEffect(() => {
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
       const requestOptions = {
         method: 'Post',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
         body: JSON.stringify({UserName: newFriend.id, NickName: newNickName, Server: newServer })
     };
+    const token  = await fetch('http://localhost:5018/api/addConversation', requestOptions)
+                .then(response => {
+                    if (response.status == 200) {
+                        return response.text();
+                    } else {
+                        return response.status;
+                    }})
       friends.push(newFriend);
       setDisplayFriendsList(friendsList);
       setNameId("");
