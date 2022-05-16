@@ -100,7 +100,11 @@ useEffect(() => {
     const friendName = document.getElementById("MemberName");
     // check the the contact that we are adding is exists in the user list, not already in our chat, and we are not trying to add ourself to the chat
     if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
-
+      const requestOptions = {
+        method: 'Post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({UserName: newFriend.id, NickName: newNickName, Server: newServer })
+    };
       friends.push(newFriend);
       setDisplayFriendsList(friendsList);
       setNameId("");

@@ -61,7 +61,6 @@ function Signin() {
         });
         if (token !=400) {
             setIsSubmitted(true);
-            console.log(token)
             sessionStorage.setItem('myTokenName', token);
             // read from storage
             navigate('../chats', { state: { data: username.value } });
