@@ -11,9 +11,6 @@ function ContactsListResult(props) {
     props.changeFriend(friend);
   }
 
-
-
-
     //goes all over the friend that the user has and call the display component to display them on the left side of the chat screen
     const contactList = a.map((friend, key) => {
         return <DisplayFriendList friend = {friend} key = {key} changeFriend = {changeFriend}  originFriendsList = {props.originFriendsList} user = {props.user} />
