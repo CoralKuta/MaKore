@@ -5,6 +5,8 @@ import pic from '../images/footer.png'
 const MessageHead = (props) => {
     var friend = props.friend; 
     var friendData = friend[0];
+
+
     //setting the last massage and time on the appropriate chat
     const setLast = (message, time) => {
         props.setLast(message, time);
@@ -32,7 +34,7 @@ const MessageHead = (props) => {
                 </div>
                 <div className="NickName">{friendData.name}</div>
             </div>
-            <ConversationComponent friend={friend} setLast={setLast} user = {props.user}/>
+            <ConversationComponent friend={friend} setLast={setLast} user={props.user}/>
         </div>
     );
 }

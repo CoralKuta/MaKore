@@ -59,7 +59,7 @@ function Signin() {
             .catch(error => {
                 console.log('Request failed', error);
         });
-        if (token !=400) {
+        if (token != 400) {
             setIsSubmitted(true);
             sessionStorage.setItem('myTokenName', token);
             // read from storage
@@ -77,9 +77,6 @@ function Signin() {
         );
 
     return (
-
-        
-
         <div className='wrapper'>
             <div className="logo-space"><img className='logo' src={New}></img></div>
             <div className='sign' onClick={hideErrors}>

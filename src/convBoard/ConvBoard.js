@@ -1,6 +1,8 @@
 import './ConvBoard.css';
 import React from 'react';
 import Message from '../message/Message'
+
+
 //conversation component that display the conversion on the chat
 function ConvBoard(props) {
   return (
