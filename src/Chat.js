@@ -18,6 +18,7 @@ import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
   const [message, setMessage] = useState(friend.lastMessage);
   const [time, setTime] = useState(friend.lastTime);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
 const getAnswer = async () => {
   const requestOptions = {
@@ -25,6 +26,10 @@ const getAnswer = async () => {
     headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
   };
   const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
+  if (res1.status == 400) {
+    navigate('../', {});
+
+  }
   const data1 = await res1.json();
   setUser(data1);
   registerToListener(data1.id);
