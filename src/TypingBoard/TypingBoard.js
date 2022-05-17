@@ -1,13 +1,12 @@
 import './TypingBoard.css';
 import AttachComponent from './attachComponent/AttachComponent';
-import React, { Component } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 
 
-function TypingBoard({ friendData, setter }) {
-  const textBoard = useRef(null);
+function TypingBoard({seenMessages ,user, friendData, setter }) {
 
+  const textBoard = useRef(null);
   // // to change height of grayPanel
   const [height, setHeight] = useState('43px');
   const [topBorderText, settopBorderText] = useState('52px');
@@ -26,7 +25,7 @@ function TypingBoard({ friendData, setter }) {
       }
     })
   }
-
+  const [message, setMessage] = useState("");
   const cleanTextarea = function () {
     const textarea = document.querySelector("textarea");
     document.getElementById("attached").style.display = "none"
@@ -39,11 +38,10 @@ function TypingBoard({ friendData, setter }) {
   const send = async function () {
     const textarea = document.querySelector("textarea");
     textarea.style.height = "auto";
-
-    //send message if it isn't empty
     var userInput = textBoard.current.value.trim();
+    //send message if it isn't empty
     if (userInput != "") {
-
+      setMessage(userInput);
       const requestOptions = {
         method: 'post',
         headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
@@ -52,9 +50,11 @@ function TypingBoard({ friendData, setter }) {
       const res = await fetch('http://localhost:5018/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
     };
+
     setter([userInput]);
     cleanTextarea();
   }
+
 
   const attach = function () {
 
@@ -71,7 +71,10 @@ function TypingBoard({ friendData, setter }) {
       document.querySelector("textarea").value = "";
     }
   };
-
+  const userName = user.id;
+  const remoteUserName = friendData.id;
+  if(message !== "")
+    seenMessages(message, remoteUserName, userName);
   return (
     <div className="gray-low-panel d-flex" id="grayPanel" style={{ 'height': height }}>
       <div id="attached" className="attached" style={{ 'bottom': topBorderText }}>

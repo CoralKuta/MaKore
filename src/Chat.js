@@ -1,10 +1,11 @@
 import './Chat.css';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useReducer } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import MessageHead from './MessageHead/MessageHead';
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 
  function Chat() {
@@ -26,6 +27,7 @@ const getAnswer = async () => {
   const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
   const data1 = await res1.json();
   setUser(data1);
+  registerToListener(data1.id);
   const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
   const data = await res.json();
   setDisplayFriendsList(data);
@@ -137,6 +139,39 @@ useEffect(() => {
       setTime(time);
   }
 
+    const [count, setCount] = useState(0);
+  const [messages, setMessages] = useState("");
+  const [connection, setConnection] = useState();
+  const registerToListener = async(userName) => {
+    try {
+      const connection = new HubConnectionBuilder()
+        .withUrl("http://localhost:5018/MessagesHub")
+        .configureLogging(LogLevel.Information)
+        .build();
+        connection.on("ReciveMessage", (message) => {
+          console.log(message);
+          setCount(count + 1);
+        });
+        await connection.start();
+        await connection.invoke("registerToListener", {userName});
+        setConnection(connection);
+    } catch(e) {
+      console.log(e);
+    }
+  }
+
+
+
+  const immediateSeenMessage = async (message, remoteUserName, userName) => {
+      try {
+        await connection.invoke("immediateSeenMessage", {message, remoteUserName, userName});
+      }
+      catch (e) {
+        console.log(e);
+      }
+  }
+
+
   return (
 
     <div className="background" >
@@ -147,7 +182,7 @@ useEffect(() => {
           <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend}/>
         </div>
         <div className="ChatScreen">
-          <MessageHead friend={friend} setLast={setLast} user ={user} />
+          <MessageHead friend={friend} setLast={setLast} user ={user} seenMessages = {immediateSeenMessage} />
         </div>
       </div>
       <PopUp hideErrors={hideErrors} setNameId={setNameId} nameId={nameId} displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>

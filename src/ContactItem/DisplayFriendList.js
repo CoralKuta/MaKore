@@ -27,9 +27,6 @@ function DisplayFriendList(props) {
         getAnswer();
       }, []);
       var friend = [friendData, messages];
-      if(typeof messages[messages.length - 1] !== "undefined") {
-          console.log(messages);
-      }
       //console.log(messages[messages.length - 1].content);
     //the change method that change the chat we are displaying by clicking and restets the notification(if there are some)
     const change = () => {
