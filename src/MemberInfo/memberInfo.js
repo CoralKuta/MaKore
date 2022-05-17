@@ -9,6 +9,7 @@ function MemberInfo(props) {
         <h4>{props.user.id}</h4>
       </div>
       <div className="NickName">{props.user.name}</div>
+      <a type="button" className="bi-bar-chart-line" href='http://localhost:5018/Ratings'> </a>
       <a type="button" className="bi-person-plus" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
       </div>
   );

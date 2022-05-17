@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import MessageHead from './MessageHead/MessageHead';
+import { useNavigate} from "react-router-dom";
+
 
 
  function Chat() {
@@ -17,6 +19,7 @@ import MessageHead from './MessageHead/MessageHead';
   const [message, setMessage] = useState(friend.lastMessage);
   const [time, setTime] = useState(friend.lastTime);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
 const getAnswer = async () => {
   const requestOptions = {
@@ -24,6 +27,10 @@ const getAnswer = async () => {
     headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
   };
   const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
+  if (res1.status == 400) {
+    navigate('../', {});
+
+  }
   const data1 = await res1.json();
   setUser(data1);
   const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
