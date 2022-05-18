@@ -8,7 +8,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 function ConversationComponent(props) {
   var friendData = props.friend[0];
   var friendChat = props.friend[1];
-
+  var NewMessageList = [];
 
   //setting the last massage and time on the appropriate chat
   const setLast = (message, time) => {
@@ -28,7 +28,7 @@ function ConversationComponent(props) {
   }
 
   // new message list which will be displayed
-  var NewMessageList = [];
+
   for (var i = 0; i < friendChat.length; i++) {
     var type = 0;
     if (friendChat[i].sent !== true) {
@@ -36,7 +36,6 @@ function ConversationComponent(props) {
     }
     NewMessageList.push(<Message key={Math.random()} content={[type, friendChat[i].content, friendChat[i].created]} />)
   }
-  const [b, setB] = useState(NewMessageList);
   //When a new message arrives, it scrolls down the conversation.
   useEffect(() => {
     let messages = document.querySelectorAll('.time-msg');
@@ -47,17 +46,19 @@ function ConversationComponent(props) {
       }, 10);
     }
   })
-
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-
-
+  
+  props.connection.on("ReciveMessage", (message) => {
+    console.log(message);
+    friendChat.push({id: 0, contenet: message, created: time, sent: false });
+    setLast(message, time);
+  });
   return (
     <div className="all-conv-board">
       <div className="messageComp">
         <ConvBoard messageList={NewMessageList} />
       </div>
       <TypingBoard seenMessages = {props.seenMessage} user = {props.user} friendData={friendData} setter={(props) => {
-        setB(NewMessageList.push(<Message key={fullTime} content={[0, props[0], time]} />));
         friendChat.push({ id: 0, content: props[0], created: time, sent: true });
         setLast(props[0], time);
         forceUpdate();

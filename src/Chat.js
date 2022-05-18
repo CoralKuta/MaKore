@@ -6,6 +6,7 @@ import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import MessageHead from './MessageHead/MessageHead';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import {useNavigate} from 'react-router-dom';
 
 
  function Chat() {
@@ -153,10 +154,6 @@ useEffect(() => {
         .withUrl("http://localhost:5018/MessagesHub")
         .configureLogging(LogLevel.Information)
         .build();
-        connection.on("ReciveMessage", (message) => {
-          console.log(message);
-          setCount(count + 1);
-        });
         await connection.start();
         await connection.invoke("registerToListener", {userName});
         setConnection(connection);
@@ -187,7 +184,7 @@ useEffect(() => {
           <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend}/>
         </div>
         <div className="ChatScreen">
-          <MessageHead friend={friend} setLast={setLast} user ={user} seenMessages = {immediateSeenMessage} />
+          <MessageHead friend={friend} setLast={setLast} user ={user} seenMessages = {immediateSeenMessage} connection = {connection}/>
         </div>
       </div>
       <PopUp hideErrors={hideErrors} setNameId={setNameId} nameId={nameId} displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit}/>

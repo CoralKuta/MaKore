@@ -25,7 +25,6 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       }
     })
   }
-  const [message, setMessage] = useState("");
   const cleanTextarea = function () {
     const textarea = document.querySelector("textarea");
     document.getElementById("attached").style.display = "none"
@@ -35,13 +34,13 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
     settopBorderText('52px');
   }
 
+  var userInput;
   const send = async function () {
     const textarea = document.querySelector("textarea");
     textarea.style.height = "auto";
-    var userInput = textBoard.current.value.trim();
+    userInput = textBoard.current.value.trim();
     //send message if it isn't empty
     if (userInput != "") {
-      setMessage(userInput);
       const requestOptions = {
         method: 'post',
         headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
@@ -49,9 +48,9 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       };
       const res = await fetch('http://localhost:5018/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
+      setter([userInput]);
     };
 
-    setter([userInput]);
     cleanTextarea();
   }
 
@@ -68,13 +67,14 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
     //it triggers by pressing the enter key
     if (e.key == 'Enter' && !e.shiftKey) {
       send();
+      if(userInput != ""){
+      seenMessages(userInput, remoteUserName, userName);
+      }
       document.querySelector("textarea").value = "";
     }
   };
   const userName = user.id;
   const remoteUserName = friendData.id;
-  if(message !== "")
-    seenMessages(message, remoteUserName, userName);
   return (
     <div className="gray-low-panel d-flex" id="grayPanel" style={{ 'height': height }}>
       <div id="attached" className="attached" style={{ 'bottom': topBorderText }}>

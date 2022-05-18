@@ -62,7 +62,6 @@ function Signin() {
             .catch(error => {
                 console.log('Request failed', error);
         });
-        console.log(token);
         if (token != 400 && token != undefined) {
             setIsSubmitted(true);
             sessionStorage.setItem('myTokenName', token);
