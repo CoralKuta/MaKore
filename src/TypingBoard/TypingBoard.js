@@ -68,12 +68,13 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
     if (e.key == 'Enter' && !e.shiftKey) {
       send();
       if(userInput != ""){
-      seenMessages(userInput, remoteUserName, userName);
-      
+      seenMessages(userInput, remoteUserName, userName, x);
       }
       document.querySelector("textarea").value = "";
     }
   };
+  const unuiqeId = Math.random();
+  const x = unuiqeId.toString(10);
   const userName = user.id;
   const remoteUserName = friendData.id;
   return (

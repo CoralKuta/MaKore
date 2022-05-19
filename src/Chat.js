@@ -46,7 +46,6 @@ const getAnswer = async () => {
 useEffect(() => {
   getAnswer();
 }, []);
-//console.log(friends);
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
     let filtered = [];
@@ -145,8 +144,6 @@ useEffect(() => {
       setTime(time);
   }
 
-    const [count, setCount] = useState(0);
-  const [messages, setMessages] = useState("");
   const [connection, setConnection] = useState();
   const registerToListener = async(userName) => {
     try {
@@ -164,9 +161,9 @@ useEffect(() => {
 
 
 
-  const immediateSeenMessage = async (message, remoteUserName, userName) => {
+  const immediateSeenMessage = async (message, remoteUserName, userName, x) => {
       try {
-        await connection.invoke("immediateSeenMessage", {message, remoteUserName, userName});
+        await connection.invoke("immediateSeenMessage", {message, remoteUserName, userName, x});
       }
       catch (e) {
         console.log(e);
@@ -181,7 +178,7 @@ useEffect(() => {
         <div className="ContactScreen" >
         <MemberInfo user={user} />
             <Search doSearch={doSearch} />
-          <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend}/>
+          <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} user = {user} setOriginFriendsList={setFriend} setLast = {setLast}/>
         </div>
         <div className="ChatScreen">
           <MessageHead friend={friend} setLast={setLast} user ={user} seenMessages = {immediateSeenMessage} connection = {connection}/>

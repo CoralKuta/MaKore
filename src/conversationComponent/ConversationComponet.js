@@ -9,7 +9,6 @@ function ConversationComponent(props) {
   var friendData = props.friend[0];
   var friendChat = props.friend[1];
   var NewMessageList = [];
-
   //setting the last massage and time on the appropriate chat
   const setLast = (message, time) => {
     props.setLast(message, time);
@@ -48,9 +47,17 @@ function ConversationComponent(props) {
     }
   })
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-  props.connection.on("ReciveMessage", (message) => {
-    friendChat.push({id: 0, content: message, created: time, sent: false });
-    setLast(message,time);
+  props.connection.on("ReciveMessage", (message, unuiqeId, remoteName) => {
+    var isExsits = false;
+    for(var i = 0; i < friendChat.length; i++){
+      if(friendChat[i].id === unuiqeId){
+        isExsits = true;
+      }
+    }
+    if(isExsits === false && friendData.id === remoteName){
+      friendChat.push({id: unuiqeId, content: message, created: time, sent: false });
+      setLast(message,time);
+    }
   });
   return (
     <div className="all-conv-board">
