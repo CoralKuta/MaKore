@@ -23,8 +23,16 @@ function PopUp(props) {
                         <form className="form" onSubmit={props.handleSubmit}>
                             <div className="form-floating mb-3">
                                 <div className="form-floating mb-3">
+                                    <input type="contact" className="form-control" id="nick" value={props.nick} onChange={(e) => props.setNick(e.target.value)}></input>
+                                    <label htmlFor="floatingInput">NickName</label>
+                                </div>
+                                <div className="form-floating mb-3">
                                     <input type="contact" className="form-control" id="floatingInput" value={props.nameId} onChange={(e) => props.setNameId(e.target.value)}></input>
-                                    <label htmlFor="floatingInput">Contact's identifier</label>
+                                    <label htmlFor="floatingInput">Contact's ID</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                    <input type="contact" className="form-control" id="server" value={props.server} onChange={(e) => props.setServer(e.target.value)}></input>
+                                    <label htmlFor="floatingInput">Server</label>
                                 </div>
                                 {renderErrorMessage("uname")}
                             </div>

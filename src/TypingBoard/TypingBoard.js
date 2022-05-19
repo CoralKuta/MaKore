@@ -1,13 +1,14 @@
 import './TypingBoard.css';
 import AttachComponent from './attachComponent/AttachComponent';
-import React, { Component } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
+import consts from '../consts.js';
 
 
-function TypingBoard({ friendData, setter }) {
+
+function TypingBoard({seenMessages ,user, friendData, setter }) {
+
   const textBoard = useRef(null);
-
   // // to change height of grayPanel
   const [height, setHeight] = useState('43px');
   const [topBorderText, settopBorderText] = useState('52px');
@@ -26,7 +27,6 @@ function TypingBoard({ friendData, setter }) {
       }
     })
   }
-
   const cleanTextarea = function () {
     const textarea = document.querySelector("textarea");
     document.getElementById("attached").style.display = "none"
@@ -36,25 +36,27 @@ function TypingBoard({ friendData, setter }) {
     settopBorderText('52px');
   }
 
+  var userInput;
   const send = async function () {
     const textarea = document.querySelector("textarea");
     textarea.style.height = "auto";
+    userInput = textBoard.current.value.trim();
 
     //send message if it isn't empty
-    var userInput = textBoard.current.value.trim();
     if (userInput != "") {
-
       const requestOptions = {
         method: 'post',
         headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: userInput })
       };
-      const res = await fetch('http://localhost:5018/api/contacts/' + friendData.id + '/messages', requestOptions);
+      const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
+      setter([userInput]);
     };
-    setter([userInput]);
+
     cleanTextarea();
   }
+
 
   const attach = function () {
 
@@ -68,10 +70,14 @@ function TypingBoard({ friendData, setter }) {
     //it triggers by pressing the enter key
     if (e.key == 'Enter' && !e.shiftKey) {
       send();
+      if(userInput != ""){
+      seenMessages(userInput, remoteUserName, userName);
+      }
       document.querySelector("textarea").value = "";
     }
   };
-
+  const userName = user.id;
+  const remoteUserName = friendData.id;
   return (
     <div className="gray-low-panel d-flex" id="grayPanel" style={{ 'height': height }}>
       <div id="attached" className="attached" style={{ 'bottom': topBorderText }}>

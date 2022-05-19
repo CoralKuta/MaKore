@@ -1,13 +1,13 @@
 import React from 'react';
 import './launch.css';
-import '../users';
-import users from '../users';
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import New from '../images/MKTRAN.png'
 import Talking from '../images/talking1.png'
 import MK from '../images/footer.png'
 import deafultImg from '../images/avatar.png'
+import consts from '../consts.js';
+
 
 function Signup() {
 
@@ -83,12 +83,13 @@ function Signup() {
                 body: JSON.stringify({ UserName: Username, NickName: Nickname, Password: password })
             };
             // Send the service POST request, get JWT if registartion succeed and 400
-            const token  = await fetch('http://localhost:5018/api/connection/register', requestOptions)
+            const token = await fetch('http://' + consts.myServer + '/api/connection/register', requestOptions)
                 .then(response => {
                     if (response.status == 200) {
                         return response.text();
                     } else {
-                        return response.status;
+                        setErrorMessages({ name: "wrongPassword2", message: errors.usernameTaken });
+                        setdisplayError('block');
                     }
                 })
                 .then(data => {
@@ -99,8 +100,8 @@ function Signup() {
                     console.log('Request failed', error);
                 });
             if (token != 400 && token != undefined) {
-                setIsSubmitted(true);          
-                navigate('../chats', { state: { data: users[users.length - 1] } });
+                setIsSubmitted(true);
+                navigate('../chats');
             } else {
                 setErrorMessages({ name: "wrongPassword2", message: "Internal server error" });
                 setdisplayError('block');
@@ -109,7 +110,7 @@ function Signup() {
         }
 
     }
-    
+
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>

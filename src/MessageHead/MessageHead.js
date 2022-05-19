@@ -19,7 +19,7 @@ const MessageHead = (props) => {
 
     //this loop change the background of a chat by clicking on it, to show that this is the selected chat
     for (let i = 0; i < document.getElementsByClassName("ContractName").length; i++) {
-        if(friendData.Username === document.getElementsByClassName("ContractName")[i].innerText) 
+        if(friendData.id === document.getElementsByClassName("ContractName")[i].innerText) 
             document.getElementsByClassName("block")[i].style.background = "#f4f4f4";
         else
             document.getElementsByClassName("block")[i].style.background = "white";
@@ -34,7 +34,7 @@ const MessageHead = (props) => {
                 </div>
                 <div className="NickName">{friendData.name}</div>
             </div>
-            <ConversationComponent friend={friend} setLast={setLast} user={props.user}/>
+            <ConversationComponent friend={friend} setLast={setLast} user={props.user} seenMessage = {props.seenMessages} connection = {props.connection} />
         </div>
     );
 }
