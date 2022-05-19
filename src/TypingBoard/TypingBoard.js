@@ -69,6 +69,7 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       send();
       if(userInput != ""){
       seenMessages(userInput, remoteUserName, userName);
+      
       }
       document.querySelector("textarea").value = "";
     }

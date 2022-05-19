@@ -31,11 +31,10 @@ function ConversationComponent(props) {
 
   for (var i = 0; i < friendChat.length; i++) {
     var type = 0;
+    //console.log(friendMessages)
     if (friendChat[i].sent !== true) {
       type = 1;
     }
-    const a = friendChat[i].content;
-    const b = friendChat[friendChat.length - 1].content;
     NewMessageList.push(<Message key={Math.random()} content={[type, friendChat[i].content, friendChat[i].created]} />)
   }
   //When a new message arrives, it scrolls down the conversation.
@@ -49,11 +48,9 @@ function ConversationComponent(props) {
     }
   })
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-  
   props.connection.on("ReciveMessage", (message) => {
-    friendChat.push({id: Math.random(), content: message, created: time, sent: false });
-    //setLast(message, time);
-    forceUpdate();
+    friendChat.push({id: 0, content: message, created: time, sent: false });
+    setLast(message,time);
   });
   return (
     <div className="all-conv-board">
