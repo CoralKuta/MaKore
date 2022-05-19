@@ -25,7 +25,8 @@ function Signup() {
     const errors = {
         usernameTaken: "Username already taken", wrongPassword2: "Passwords are not the same",
         emptyName: "Username must contain at least one character",
-        invalidPass: "Password must contain at least eight characters, including digits and letters"
+        invalidPass: "Password must contain at least eight characters, including digits and letters",
+        worngServer: "Internal server error"
     };
 
 
@@ -97,11 +98,11 @@ function Signup() {
                 .catch(error => {
                     console.log('Request failed', error);
                 });
-            if (token != 400) {
+            if (token != 400 && token != undefined) {
                 setIsSubmitted(true);          
                 navigate('../chats', { state: { data: users[users.length - 1] } });
             } else {
-                setErrorMessages({ name: "wrong", message: errors.wrong });
+                setErrorMessages({ name: "wrongPassword2", message: "Internal server error" });
                 setdisplayError('block');
             }
 

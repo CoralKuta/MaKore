@@ -20,7 +20,10 @@ function Signin() {
     // indicate if the form is successfully submitted
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const errors = { wrong: "Invalid details. Not registerd? Sign up now!" };
+    const errors = { wrong: "Invalid details. Not registerd? Sign up now!"};
+    const servererrors = { wrong: "Internal server error"};
+
+    
 
     // to hide the error messages
     const [displayError, setdisplayError] = useState('none');
@@ -59,13 +62,17 @@ function Signin() {
             .catch(error => {
                 console.log('Request failed', error);
         });
-        if (token != 400) {
+        console.log(token);
+        if (token != 400 && token != undefined) {
             setIsSubmitted(true);
             sessionStorage.setItem('myTokenName', token);
             // read from storage
             navigate('../chats', { state: { data: username.value } });
-        } else {
+        } else if (token == 400) {
             setErrorMessages({ name: "wrong", message: errors.wrong });
+            setdisplayError('block');
+        } else {
+            setErrorMessages({ name: "wrong", message: servererrors.wrong });
             setdisplayError('block');
         }
     }

@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import MessageHead from './MessageHead/MessageHead';
+import { useNavigate} from "react-router-dom";
+
 
 
 function Chat() {
@@ -17,6 +19,7 @@ function Chat() {
   const [message, setMessage] = useState(friend.lastMessage);
   const [time, setTime] = useState(friend.lastTime);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   const getAnswer = async () => {
     const requestOptions = {
@@ -35,9 +38,31 @@ function Chat() {
     const data2 = await res2.json();
     setUsers(data2);
   };
+
   useEffect(() => {
     getAnswer();
   }, []);
+
+  const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
+  if (res1.status == 400) {
+    navigate('../', {});
+
+  }
+  const data1 = await res1.json();
+  setUser(data1);
+  const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
+  const data = await res.json();
+  setDisplayFriendsList(data);
+  setFriendsList(data);
+  setFriends(data);
+  const res2 = await fetch('http://localhost:5018/api/Users', requestOptions);
+  const data2 = await res2.json();
+  setUsers(data2);
+};
+useEffect(() => {
+  getAnswer();
+}, []);
+>>>>>>> 5a026e9048c2a8b72c80cab709e2e58fe88b46f3
 
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
