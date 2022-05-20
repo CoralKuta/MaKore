@@ -160,6 +160,15 @@ useEffect(() => {
   }
 
 
+  const immediateSennFriend = async () => {
+    try {
+      await connection.invoke("immediateSennFriend", {userName, remoteUserName})
+    }catch(e) {
+      console.log(e);
+    }
+
+  }
+
 
   const immediateSeenMessage = async (message, remoteUserName, userName, x) => {
       try {
