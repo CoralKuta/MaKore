@@ -164,6 +164,8 @@ useEffect(() => {
         })
       friends.push(newFriend);
       setNameId("");
+      setServer("");
+      setNick("");
       if(isOur === true) {
         immediateSennFriend(user.id, nameId, user.name);
       }
@@ -217,6 +219,8 @@ useEffect(() => {
   const registerToAllGrouop = async (userName) => {
     try {
       await connection.invoke("registerToAllGrouop", {userName})
+      await connection.invoke("registerToListener", {userName});
+
     }catch(e) {
       console.log(e);
     }
