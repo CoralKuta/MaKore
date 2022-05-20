@@ -81,12 +81,13 @@ function Signup() {
                 body: JSON.stringify({ UserName: Username, NickName: Nickname, Password: password })
             };
             // Send the service POST request, get JWT if registartion succeed and 400
-            const token  = await fetch('http://localhost:5018/api/connection/register', requestOptions)
+            const token = await fetch('http://' + consts.myServer + '/api/connection/register', requestOptions)
                 .then(response => {
                     if (response.status == 200) {
                         return response.text();
                     } else {
-                        return response.status;
+                        setErrorMessages({ name: "wrongPassword2", message: errors.usernameTaken });
+                        setdisplayError('block');
                     }
                 })
                 .then(data => {
@@ -107,7 +108,7 @@ function Signup() {
         }
 
     }
-    
+
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>

@@ -2,6 +2,8 @@ import './TypingBoard.css';
 import AttachComponent from './attachComponent/AttachComponent';
 import { useRef } from 'react';
 import { useState } from 'react';
+import consts from '../consts.js';
+
 
 
 function TypingBoard({seenMessages ,user, friendData, setter }) {
@@ -39,6 +41,7 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
     const textarea = document.querySelector("textarea");
     textarea.style.height = "auto";
     userInput = textBoard.current.value.trim();
+
     //send message if it isn't empty
     if (userInput != "") {
       const requestOptions = {
@@ -46,7 +49,7 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
         headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: userInput })
       };
-      const res = await fetch('http://localhost:5018/api/contacts/' + friendData.id + '/messages', requestOptions);
+      const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
       setter([userInput]);
     };

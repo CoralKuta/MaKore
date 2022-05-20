@@ -6,6 +6,8 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 import New from '../images/MKTRAN.png'
 import Talking from '../images/talking1.png'
 import MK from '../images/footer.png'
+import consts from '../consts.js';
+
 
 
 
@@ -47,7 +49,7 @@ function Signin() {
             body: JSON.stringify({ UserName: username.value, Password: password.value })
         };
 
-        const token = await fetch('http://localhost:5018/api/connection/login', requestOptions)
+        const token = await fetch('http://' + consts.myServer + '/api/connection/login', requestOptions)
             .then(response=> {
                 if (response.status == 200) {
                     return response.text();
