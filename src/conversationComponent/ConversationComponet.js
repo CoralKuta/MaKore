@@ -47,6 +47,7 @@ function ConversationComponent(props) {
     }
   })
   const [, forceUpdate] = useReducer(x => x + 1, 0);
+  
   props.connection.on("ReciveMessage", (message, unuiqeId, remoteName) => {
     var isExsits = false;
     for(var i = 0; i < friendChat.length; i++){
@@ -56,9 +57,10 @@ function ConversationComponent(props) {
     }
     if(isExsits === false && friendData.id === remoteName){
       friendChat.push({id: unuiqeId, content: message, created: time, sent: false });
-      setLast(message,time);
     }
+    setLast(message,time);
   });
+  
   return (
     <div className="all-conv-board">
       <div className="messageComp">

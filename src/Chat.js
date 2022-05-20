@@ -242,7 +242,7 @@ useEffect(() => {
         <div className="ContactScreen" >
         <MemberInfo user={user} />
             <Search doSearch={doSearch} />
-          <ContactsListResult friends={displayFriendsList} setFriends ={setDisplayFriendsList} changeFriend={setFriend} user = {user} connection = {connection} registerToAllGrouop = {registerToAllGrouop}/>
+          <ContactsListResult friends={displayFriendsList} setFriends ={setDisplayFriendsList} changeFriend={setFriend} user = {user} connection = {connection} registerToAllGrouop = {registerToAllGrouop} setLast = {setLast} />
         </div>
         <div className="ChatScreen">
           <MessageHead friend={friend} setLast={setLast} user ={user} seenMessages = {immediateSeenMessage} connection = {connection}/>
