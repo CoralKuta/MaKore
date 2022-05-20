@@ -1,11 +1,13 @@
 import React from 'react';
 import './launch.css';
-import users from '../users';
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import New from '../images/MKTRAN.png'
 import Talking from '../images/talking1.png'
 import MK from '../images/footer.png'
+import deafultImg from '../images/avatar.png'
+import consts from '../consts.js';
+
 
 function Signup() {
 
@@ -98,7 +100,7 @@ function Signup() {
                     console.log('Request failed', error);
                 });
             if (token != 400 && token != undefined) {
-                setIsSubmitted(true);          
+                setIsSubmitted(true);
                 navigate('../chats');
             } else {
                 setErrorMessages({ name: "wrongPassword2", message: "Internal server error" });

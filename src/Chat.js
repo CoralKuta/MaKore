@@ -6,11 +6,10 @@ import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import MessageHead from './MessageHead/MessageHead';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import { useNavigate } from 'react-router-dom';
-import consts from './consts.js';
+import {useNavigate} from 'react-router-dom';
+import consts from './consts.js'
 
-
-function Chat() {
+ function Chat() {
   const [friends, setFriends] = useState([]);
   const [displayFriendsList, setDisplayFriendsList] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
@@ -22,32 +21,31 @@ function Chat() {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  const getAnswer = async () => {
-    const requestOptions = {
-      method: 'get',
-      headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
-    };
-    const res1 = await fetch('http://' + consts.myServer + '/api/me', requestOptions);
-    if (res1.status == 400) {
-      navigate('../', {});
-
-    }
-    const data1 = await res1.json();
-    setUser(data1);
-    registerToListener(data1.id);
-    const res = await fetch('http://' + consts.myServer + '/api/contacts', requestOptions);
-    const data = await res.json();
-    setDisplayFriendsList(data);
-    setFriendsList(data);
-    setFriends(data);
-    const res2 = await fetch('http://' + consts.myServer + '/api/Users', requestOptions);
-    const data2 = await res2.json();
-    setUsers(data2);
+const getAnswer = async () => {
+  const requestOptions = {
+    method: 'get',
+    headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
   };
-  useEffect(() => {
-    getAnswer();
-  }, []);
-  //console.log(friends);
+  const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
+  if (res1.status == 400) {
+    navigate('../', {});
+
+  }
+  const data1 = await res1.json();
+  setUser(data1);
+  registerToListener(data1.id);
+  const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
+  const data = await res.json();
+  setDisplayFriendsList(data);
+  setFriendsList(data);
+  setFriends(data);
+  const res2 = await fetch('http://localhost:5018/api/Users', requestOptions);
+  const data2 = await res2.json();
+  setUsers(data2);
+};
+useEffect(() => {
+  getAnswer();
+}, []);
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
     let filtered = [];
@@ -66,6 +64,9 @@ function Chat() {
     setErrorMessages({});
   }
 
+  //the errors that we are displaying when an error occur in the adding contact
+
+  //handle submit function that take care of the adding contact if there is no error
   const [nameId, setNameId] = useState("");
   const [nick, setNick] = useState("");
   const [server, setServer] = useState("");
@@ -96,7 +97,6 @@ function Chat() {
         checkExists = true;
       }
     }
-
 
     var newContactName;
     var newNickName;
@@ -143,8 +143,6 @@ function Chat() {
         })
 
     }
-
-
     // the new friend
     const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
     // get the user name
@@ -165,8 +163,10 @@ function Chat() {
           }
         })
       friends.push(newFriend);
-      setDisplayFriendsList(friendsList);
       setNameId("");
+      if(isOur === true) {
+        immediateSennFriend(user.id, nameId, user.name);
+      }
 
     }//display the appropriate error
     else if (!contactIdentifier) {
@@ -182,40 +182,45 @@ function Chat() {
       setdisplayError('block');
     }
   }
-
   //the setLast function to set the last message the its time
   function setLast(message, time) {
-    friend[0].lastMessage = message;
-    setMessage(message);
-    friend[0].lastTime = time;
-    setTime(time);
+      friend[0].lastMessage = message;
+      setMessage(message);
+      friend[0].lastTime = time;
+      setTime(time);
   }
 
   const [connection, setConnection] = useState();
-  const registerToListener = async (userName) => {
+  const registerToListener = async(userName) => {
     try {
       const connection = new HubConnectionBuilder()
-        .withUrl("http://' + consts.myServer + '/MessagesHub")
+        .withUrl("http://localhost:5018/MessagesHub")
         .configureLogging(LogLevel.Information)
         .build();
-      await connection.start();
-      await connection.invoke("registerToListener", { userName });
-      setConnection(connection);
-    } catch (e) {
+        await connection.start();
+        await connection.invoke("registerToListener", {userName});
+        setConnection(connection);
+    } catch(e) {
       console.log(e);
     }
   }
 
 
-  const immediateSennFriend = async () => {
+  const immediateSennFriend = async (userName, remoteUserName, nickname) => {
     try {
-      await connection.invoke("immediateSennFriend", {userName, remoteUserName})
+      await connection.invoke("immediateSennFriend", {userName, remoteUserName, nickname});
     }catch(e) {
       console.log(e);
     }
-
   }
 
+  const registerToAllGrouop = async (userName) => {
+    try {
+      await connection.invoke("registerToAllGrouop", {userName})
+    }catch(e) {
+      console.log(e);
+    }
+  }
 
   const immediateSeenMessage = async (message, remoteUserName, userName, x) => {
       try {
@@ -226,23 +231,22 @@ function Chat() {
       }
   }
 
-
   return (
 
     <div className="background" >
       <div className="container">
         <div className="ContactScreen" >
-          <MemberInfo user={user} />
-          <Search doSearch={doSearch} />
-          <ContactsListResult friends={displayFriendsList} changeFriend={setFriend} user={user} setOriginFriendsList={setFriend} />
+        <MemberInfo user={user} />
+            <Search doSearch={doSearch} />
+          <ContactsListResult friends={displayFriendsList} setFriends ={setDisplayFriendsList} changeFriend={setFriend} user = {user} connection = {connection} registerToAllGrouop = {registerToAllGrouop}/>
         </div>
         <div className="ChatScreen">
-          <MessageHead friend={friend} setLast={setLast} user={user} seenMessages={immediateSeenMessage} connection={connection} />
+          <MessageHead friend={friend} setLast={setLast} user ={user} seenMessages = {immediateSeenMessage} connection = {connection}/>
         </div>
       </div>
       <PopUp hideErrors={hideErrors} setNameId={setNameId} nameId={nameId} setServer={setServer} server={server}
-        setNick={setNick} nick={nick} displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit} />
-    </div>
+      setNick={setNick} nick={nick} displayError={displayError} errorMessages={errorMessages} handleSubmit={handleSubmit} />
+      </div>
   );
 }
 

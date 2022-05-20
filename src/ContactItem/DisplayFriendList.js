@@ -7,7 +7,6 @@ import consts from '../consts.js';
 //this component display the friends list (the left side of the chat)
 function DisplayFriendList(props) {
     var friendData = props.friend;
-    var originFriend = null;
 
     const [messages, setMessages] = useState([]);
     const getAnswer = async () => {
