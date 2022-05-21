@@ -2,18 +2,19 @@ import DisplayFriendList from "../ContactItem/DisplayFriendList.js";
 import { useState } from 'react'
 //the component that contains the left side of the chat
 function ContactsListResult(props) {
+  console.log(props);
   const friends = props.friends;
   const [renders, setRenders] = useState(true);
   if (typeof props.connection !== "undefined") {
     props.registerToAllGrouop(props.user.id);
-    props.connection.on("ReciveFriend", (remoteUser, NickName) => {
+    props.connection.on("ReciveFriend", (remoteUser, NickName, userName) => {
       var isExsits = false;
       for (var i = 0; i < friends.length; i++) {
         if (friends[i].id === remoteUser) {
           isExsits = true;
         }
       }
-      if (isExsits === false) {
+      if (isExsits === false && userName === props.user.id) {
         friends.push({ id: remoteUser, name: NickName, server: "localhost:5018", last: "", lastDate: "" })
         props.setFriends(friends);
       }
