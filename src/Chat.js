@@ -26,7 +26,7 @@ const getAnswer = async () => {
     method: 'get',
     headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
   };
-  const res1 = await fetch('http://localhost:5018/api/me', requestOptions);
+  const res1 = await fetch('http://' + consts.myServer + '/api/me', requestOptions);
   if (res1.status == 400) {
     navigate('../', {});
 
@@ -34,12 +34,12 @@ const getAnswer = async () => {
   const data1 = await res1.json();
   setUser(data1);
   registerToListener(data1.id);
-  const res = await fetch('http://localhost:5018/api/contacts', requestOptions);
+  const res = await fetch('http://' + consts.myServer + '/api/contacts', requestOptions);
   const data = await res.json();
   setDisplayFriendsList(data);
   setFriendsList(data);
   setFriends(data);
-  const res2 = await fetch('http://localhost:5018/api/Users', requestOptions);
+  const res2 = await fetch('http://' + consts.myServer + '/api/Users', requestOptions);
   const data2 = await res2.json();
   setUsers(data2);
 };
@@ -196,7 +196,7 @@ useEffect(() => {
   const registerToListener = async(userName) => {
     try {
       const connection = new HubConnectionBuilder()
-        .withUrl("http://localhost:5018/MessagesHub")
+        .withUrl("http://" + consts.myServer + "/MessagesHub")
         .configureLogging(LogLevel.Information)
         .build();
         await connection.start();

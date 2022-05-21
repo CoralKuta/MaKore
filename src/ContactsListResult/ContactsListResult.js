@@ -1,5 +1,6 @@
 import DisplayFriendList from "../ContactItem/DisplayFriendList.js";
 import { useState } from 'react'
+import consts from '../consts.js'
 //the component that contains the left side of the chat
 function ContactsListResult(props) {
   const friends = props.friends;
@@ -14,7 +15,7 @@ function ContactsListResult(props) {
         }
       }
       if (isExsits === false) {
-        friends.push({ id: remoteUser, name: NickName, server: "localhost:5018", last: "", lastDate: "" })
+        friends.push({ id: remoteUser, name: NickName, server: consts.myServer, last: "", lastDate: "" })
         props.setFriends(friends);
       }
       setRenders(!renders);

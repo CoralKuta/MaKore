@@ -51,6 +51,16 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       };
       const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
+      // support transfer function
+      if (friendData.server != consts.myServer) {
+        const requestOptionstranfer = {
+          method: 'post',
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from:userName ,to: friendData.id, content: userInput })
+        };
+        const res = await fetch('http://' + friendData.server + '/api/contacts/' + friendData.id + '/messages', requestOptionstranfer);
+      }
+
       setter([userInput]);
     };
 
