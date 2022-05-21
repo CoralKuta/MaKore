@@ -22,6 +22,7 @@ function DisplayFriendList(props) {
                 element.created = element.created.substring(11, 16);
             }
         });
+        setMessages([]);
         setMessages(data);
       };
 
@@ -29,7 +30,6 @@ function DisplayFriendList(props) {
         getAnswer();
       }, []);
       var friend = [friendData, messages];
-      //console.log(messages[messages.length - 1].content);
     //the change method that change the chat we are displaying by clicking and restets the notification(if there are some)
     const change = () => {
         props.changeFriend(friend);

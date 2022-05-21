@@ -17,8 +17,8 @@ function Chat() {
   const [user, setUser] = useState([]);
   const [friend, setFriend] = useState({});
   const [errorMessages, setErrorMessages] = useState({});
-  const [message, setMessage] = useState(friend.lastMessage);
-  const [time, setTime] = useState(friend.lastTime);
+  // const [message, setMessage] = useState(friend.lastMessage);
+  // const [time, setTime] = useState(friend.lastTime);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ function Chat() {
   useEffect(() => {
     getAnswer();
   }, []);
-  //console.log(friends);
+
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
     let filtered = [];
@@ -167,6 +167,8 @@ function Chat() {
       friends.push(newFriend);
       setDisplayFriendsList(friendsList);
       setNameId("");
+      setNick("");
+      setServer("");
 
     }//display the appropriate error
     else if (!contactIdentifier) {
@@ -185,40 +187,36 @@ function Chat() {
 
   //the setLast function to set the last message the its time
   function setLast(message, time) {
-    friend[0].lastMessage = message;
-    setMessage(message);
-    friend[0].lastTime = time;
-    setTime(time);
+    // friend[0].lastMessage = message;
+    // setMessage(message);
+    // friend[0].lastTime = time;
+    // setTime(time);
   }
 
-  const [count, setCount] = useState(0);
-  const [messages, setMessages] = useState("");
   const [connection, setConnection] = useState();
   const registerToListener = async (userName) => {
     try {
+      var url = 'http://' + consts.myServer + '/MessagesHub'
       const connection = new HubConnectionBuilder()
-        .withUrl("http://' + consts.myServer + '/MessagesHub")
+        .withUrl(url)
         .configureLogging(LogLevel.Information)
         .build();
       await connection.start();
       await connection.invoke("registerToListener", { userName });
       setConnection(connection);
     } catch (e) {
-      console.log(e);
+
     }
   }
-
-
 
   const immediateSeenMessage = async (message, remoteUserName, userName) => {
     try {
       await connection.invoke("immediateSeenMessage", { message, remoteUserName, userName });
     }
     catch (e) {
-      console.log(e);
+
     }
   }
-
 
   return (
 

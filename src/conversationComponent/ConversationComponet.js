@@ -28,7 +28,6 @@ function ConversationComponent(props) {
   }
 
   // new message list which will be displayed
-
   for (var i = 0; i < friendChat.length; i++) {
     var type = 0;
     if (friendChat[i].sent !== true) {
@@ -47,10 +46,9 @@ function ConversationComponent(props) {
     }
   })
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-  
   props.connection.on("ReciveMessage", (message) => {
-    friendChat.push({id: 0, contenet: message, created: time, sent: false });
-    setLast(message, time);
+    friendChat.push({id: 0, content: message, created: time, sent: false });
+    setLast(message,time);
   });
   return (
     <div className="all-conv-board">
