@@ -41,16 +41,18 @@ function DisplayFriendList(props) {
             else {
               time1= today1.getHours() + ":" + today1.getMinutes();
             }
-            if(messages !== []) {
             var isExsits = false;
+            if(messages.length !== 0) {
+                console.log("hey")
                 if (messages[messages.length - 1].id === unuiqeId) {
                     isExsits = true;
                 }
+            }
             if (isExsits === false && friendData.id === remoteName) {
                 messages.push({ id: unuiqeId, content: message, created: time1, sent: false });
                 setRenders(!renders);
             }
-     } });
+      });
     
     }
     

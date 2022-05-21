@@ -51,8 +51,9 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       };
       const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
-      // support transfer function
-      if (friendData.server != consts.myServer) {
+      console.log(consts.myServer);
+      console.log(friendData.server)
+      if (friendData.server !== consts.myServer) {
         const requestOptionstranfer = {
           method: 'post',
           headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },

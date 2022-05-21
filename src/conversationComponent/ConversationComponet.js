@@ -45,10 +45,10 @@ function ConversationComponent(props) {
     }
   })
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-  
   props.connection.on("ReciveMessage", (message, unuiqeId, remoteName) => {
     var today1 = new Date();
     var time1;
+    console.log(message);
     if (today1.getMinutes() < 10) {
       time1 = today1.getHours() + ":0" + today1.getMinutes();
     }

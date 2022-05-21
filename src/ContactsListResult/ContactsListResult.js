@@ -7,14 +7,14 @@ function ContactsListResult(props) {
   const [renders, setRenders] = useState(true);
   if (typeof props.connection !== "undefined") {
     props.registerToAllGrouop(props.user.id);
-    props.connection.on("ReciveFriend", (remoteUser, NickName) => {
+    props.connection.on("ReciveFriend", (remoteUser, NickName, userName) => {
       var isExsits = false;
       for (var i = 0; i < friends.length; i++) {
         if (friends[i].id === remoteUser) {
           isExsits = true;
         }
       }
-      if (isExsits === false) {
+      if (isExsits === false && props.user.id === userName) {
         friends.push({ id: remoteUser, name: NickName, server: consts.myServer, last: "", lastDate: "" })
         props.setFriends(friends);
       }
