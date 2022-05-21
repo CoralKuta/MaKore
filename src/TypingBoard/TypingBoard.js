@@ -43,7 +43,7 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
     userInput = textBoard.current.value.trim();
 
     //send message if it isn't empty
-    if (userInput != "") {
+    if (userInput !== "") {
       const requestOptions = {
         method: 'post',
         headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
@@ -51,6 +51,16 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       };
       const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
+      // support transfer function
+      if (friendData.server !== consts.myServer) {
+        const requestOptionstranfer = {
+          method: 'post',
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from:userName ,to: friendData.id, content: userInput })
+        };
+        const res = await fetch('http://' + friendData.server + '/api/contacts/' + friendData.id + '/messages', requestOptionstranfer);
+      }
+      
       setter([userInput]);
     };
 
@@ -66,7 +76,7 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       document.getElementById("attached").style.display = "none"
   }
 
-  const handleKeypress = e => {
+  const handleKeypress = async e => {
     //it triggers by pressing the enter key
     if (e.key == 'Enter' && !e.shiftKey) {
       send();
