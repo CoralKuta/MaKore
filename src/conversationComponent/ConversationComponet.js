@@ -2,7 +2,7 @@ import './ConversationComponent.css';
 import TypingBoard from '../typingBoard/TypingBoard';
 import ConvBoard from '../convBoard/ConvBoard';
 import Message from '../message/Message'
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 //the conversation component
 function ConversationComponent(props) {
