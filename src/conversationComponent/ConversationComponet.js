@@ -16,14 +16,12 @@ function ConversationComponent(props) {
 
   //calculates the current time and maintains the HH::MM format.
   var today = new Date();
-  var time, fullTime;
+  var time;
   if (today.getMinutes() < 10) {
     time = today.getHours() + ":0" + today.getMinutes();
-    fullTime = time + today.getSeconds() + today.getMilliseconds();
   }
   else {
     time = today.getHours() + ":" + today.getMinutes();
-    fullTime = time + today.getSeconds() + today.getMilliseconds();
   }
 
   // new message list which will be displayed
@@ -49,14 +47,21 @@ function ConversationComponent(props) {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
   
   props.connection.on("ReciveMessage", (message, unuiqeId, remoteName) => {
+    var today1 = new Date();
+    var time1;
+    if (today1.getMinutes() < 10) {
+      time1 = today1.getHours() + ":0" + today1.getMinutes();
+    }
+    else {
+      time1= today1.getHours() + ":" + today1.getMinutes();
+    }
     var isExsits = false;
-    for(var i = 0; i < friendChat.length; i++){
-      if(friendChat[i].id === unuiqeId){
+
+      if(friendChat[friendChat.length - 1].id === unuiqeId){
         isExsits = true;
       }
-    }
     if(isExsits === false && friendData.id === remoteName){
-      friendChat.push({id: unuiqeId, content: message, created: time, sent: false });
+      friendChat.push({id: unuiqeId, content: message, created: time1, sent: false });
     }
     setLast(message,time);
   });

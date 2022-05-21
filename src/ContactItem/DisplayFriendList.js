@@ -8,17 +8,6 @@ import consts from '../consts.js';
 function DisplayFriendList(props) {
     const [renders, setRenders] = useState(true);
     var friendData = props.friend;
-    var today = new Date();
-    var time, fullTime;
-    if (today.getMinutes() < 10) {
-        time = today.getHours() + ":0" + today.getMinutes();
-        fullTime = time + today.getSeconds() + today.getMilliseconds();
-    }
-    else {
-        time = today.getHours() + ":" + today.getMinutes();
-        fullTime = time + today.getSeconds() + today.getMilliseconds();
-    }
-
     const [messages, setMessages] = useState([]);
     const getAnswer = async () => {
         const requestOptions = {
@@ -44,15 +33,21 @@ function DisplayFriendList(props) {
     }
     if (typeof props.connection !== "undefined") {
         props.connection.on("ReciveMessage", (message, unuiqeId, remoteName) => {
+            var today1 = new Date();
+            var time1;
+            if (today1.getMinutes() < 10) {
+              time1 = today1.getHours() + ":0" + today1.getMinutes();
+            }
+            else {
+              time1= today1.getHours() + ":" + today1.getMinutes();
+            }
             if(messages !== []) {
             var isExsits = false;
-            for (var i = 0; i < messages.length; i++) {
-                if (messages[i].id === unuiqeId) {
+                if (messages[messages.length - 1].id === unuiqeId) {
                     isExsits = true;
                 }
-            }
             if (isExsits === false && friendData.id === remoteName) {
-                messages.push({ id: unuiqeId, content: message, created: time, sent: false });
+                messages.push({ id: unuiqeId, content: message, created: time1, sent: false });
                 console.log(messages);
                 setRenders(!renders);
             }
