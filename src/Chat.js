@@ -82,7 +82,6 @@ useEffect(() => {
   //handle submit function that take care of the adding contact if there is no error
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const noti = 0;
     var contactIdentifier = false;
     //check if the friend is exists in the users list from the DB
     for (var k = 0; k < users.length; k++) {

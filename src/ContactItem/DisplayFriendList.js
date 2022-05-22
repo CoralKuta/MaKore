@@ -43,7 +43,6 @@ function DisplayFriendList(props) {
             }
             var isExsits = false;
             if(messages.length !== 0) {
-                console.log("hey")
                 if (messages[messages.length - 1].id === unuiqeId) {
                     isExsits = true;
                 }

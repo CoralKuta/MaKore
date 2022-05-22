@@ -60,9 +60,11 @@ function ConversationComponent(props) {
       if(friendChat[friendChat.length - 1].id === unuiqeId){
         isExsits = true;
       }
+      
     if(isExsits === false && friendData.id === remoteName){
       friendChat.push({id: unuiqeId, content: message, created: time1, sent: false });
     }
+    
     setLast(message,time);
   });
   
