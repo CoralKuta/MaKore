@@ -1,10 +1,10 @@
 import './Message.css'
 
 function Message({ content }) {
-  const text = content[0];
-  const time = content[1];
-
-
+  const type = content[0];
+  const text = content[1];
+  const time = content[2];
+  
    // case it is current user send text message
    if (type == 0) {
     return (

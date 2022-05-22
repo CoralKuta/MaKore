@@ -51,9 +51,8 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       };
       const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
-      console.log(consts.myServer);
-      console.log(friendData.server)
-      if (friendData.server !== consts.myServer) {
+      // support transfer function
+      if (friendData.server != consts.myServer) {
         const requestOptionstranfer = {
           method: 'post',
           headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
@@ -71,7 +70,6 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
 
   const attach = function () {
 
-  const attach = function () {
     if (document.getElementById("attached").style.display != "block")
       document.getElementById("attached").style.display = "block"
     else
@@ -94,7 +92,9 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
   const remoteUserName = friendData.id;
   return (
     <div className="gray-low-panel d-flex" id="grayPanel" style={{ 'height': height }}>
-      <div id="attached" className="attached" style={{ 'bottom': topBorderText }}></div>
+      <div id="attached" className="attached" style={{ 'bottom': topBorderText }}>
+        <AttachComponent setter={setter} />
+      </div>
       <svg onClick={attach} xmlns="http://www.w3.org/2000/svg" className="bi bi-paperclip" viewBox="0 0 16 16">
         <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
       </svg>
@@ -108,7 +108,3 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
 }
 
 export default TypingBoard;
-
-
-
-
