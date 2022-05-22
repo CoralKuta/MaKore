@@ -1,15 +1,17 @@
 import './Chat.css';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import MessageHead from './MessageHead/MessageHead';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import {useNavigate} from 'react-router-dom';
 import consts from './consts.js'
+import { useLocation } from 'react-router-dom';
 
  function Chat() {
+
   const [friends, setFriends] = useState([]);
   const [displayFriendsList, setDisplayFriendsList] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
@@ -104,6 +106,7 @@ useEffect(() => {
     var newLastDate;
 
     // we want to add a friend to our user. we find the user in "users" and add the new friend.
+    /*
     var isOur = false;
     for (var i = 0; i < users.length; i++) {
       if (users[i].id === nameId) {
@@ -114,17 +117,17 @@ useEffect(() => {
         newLastMessage = users[i].last;
         newLastDate = users[i].lastDate;
       }
-    }
+    }*/
 
     // not our user -> invitations
-    if (isOur == false) {
+   // if (isOur == false) {
       newContactName = nameId;
       newNickName = nick;
       newServer = server;
       newLastMessage = "";
       newLastDate = "";
 
-
+/*
       const ro = {
         method: 'Post',
         headers: { 'Content-Type': 'application/json' },
@@ -142,12 +145,14 @@ useEffect(() => {
         })
 
     }
+    */
     // the new friend
     const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
     // get the user name
     const friendName = document.getElementById("MemberName");
     // check the the contact that we are adding is exists in the user list, not already in our chat, and we are not trying to add ourself to the chat
-    if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
+    //if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
+      if(1===1) {
       const requestOptions = {
         method: 'Post',
         headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
@@ -160,14 +165,15 @@ useEffect(() => {
           } else {
             return response.status;
           }
+
         })
       friends.push(newFriend);
       setNameId("");
       setServer("");
       setNick("");
-      if(isOur === true) {
+     // if(isOur === true) {
         immediateSennFriend(user.id, nameId, user.name);
-      }
+     // }
 
     }//display the appropriate error
     else if (!contactIdentifier) {
@@ -185,15 +191,20 @@ useEffect(() => {
   }
     const [p, setP] = useState("1")
   //the setLast function to set the last message the its time
-  function setLast(message, time, x) {
+  function setLast(message, time) {
       friend[0].lastMessage = message;
       setMessage(message);
       friend[0].lastTime = time;
       setTime(time);
-      setP(x);
   }
 
   const [connection, setConnection] = useState();
+  var check = useLocation().state
+  var register;
+
+
+
+
   const registerToListener = async(userName) => {
     try {
       const connection = new HubConnectionBuilder()
@@ -208,6 +219,14 @@ useEffect(() => {
     }
   }
 
+
+  const newRegister = async (userName) => {
+    try {
+      await connection.invoke("newRegister", {userName});
+    }catch(e) {
+      console.log(e);
+    }
+  }
 
   const immediateSennFriend = async (userName, remoteUserName, nickname) => {
     try {
@@ -236,6 +255,27 @@ useEffect(() => {
       }
   }
 
+  const addRegister = async (remoteUser) => {
+    try {
+      await connection.invoke("addRegister", remoteUser);
+    }catch(e) {
+      console.log(e);
+    }
+  }
+  if(connection) {
+  connection.on("newRegisterUser", (remoteUser) => {
+    addRegister(remoteUser);
+  })
+  }
+  if(check !== null) {
+    register =check.data;
+    if(register === true) {
+      if(connection) {
+      registerToAllGrouop(user.id);
+      newRegister(user.id);
+      }
+    }
+  }
   return (
 
     <div className="background" >

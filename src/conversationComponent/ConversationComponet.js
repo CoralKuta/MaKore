@@ -49,7 +49,6 @@ function ConversationComponent(props) {
   props.connection.on("ReciveMessage", (message, unuiqeId, remoteName) => {
     var today1 = new Date();
     var time1;
-    console.log(message);
     if (today1.getMinutes() < 10) {
       time1 = today1.getHours() + ":0" + today1.getMinutes();
     }
@@ -66,7 +65,6 @@ function ConversationComponent(props) {
       friendChat.push({id: unuiqeId, content: message, created: time1, sent: false });
     }
     setRenders(!renreds);
-    //setLast(message,time1, unuiqeId);
   });
   
   return (
@@ -76,7 +74,7 @@ function ConversationComponent(props) {
       </div>
       <TypingBoard seenMessages = {props.seenMessage} user = {props.user} friendData={friendData} setter={(props) => {
         friendChat.push({ id: 0, content: props[0], created: time, sent: true });
-        setLast(props[0], time, Math.random());
+        setLast(props[0], time);
         forceUpdate();
       }} friend = {friendData} />
     </div>

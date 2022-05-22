@@ -66,7 +66,7 @@ function Signin() {
             setIsSubmitted(true);
             sessionStorage.setItem('myTokenName', token);
             // read from storage
-            navigate('../chats', { state: { data: username.value } });
+            navigate('../chats', { state: { data: false } });
         } else if (token == 400) {
             setErrorMessages({ name: "wrong", message: errors.wrong });
             setdisplayError('block');

@@ -101,7 +101,7 @@ function Signup() {
                 });
             if (token != 400 && token != undefined) {
                 setIsSubmitted(true);
-                navigate('../chats');
+                navigate('../chats', { state: { data: true } });
             } else {
                 setErrorMessages({ name: "wrongPassword2", message: "Internal server error" });
                 setdisplayError('block');
