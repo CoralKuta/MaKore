@@ -151,9 +151,9 @@ useEffect(() => {
       const requestOptions = {
         method: 'Post',
         headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ UserName: newFriend.id, NickName: newNickName, Server: newServer })
+        body: JSON.stringify({ id: newFriend.id, name: newNickName, server: newServer })
       };
-      const token = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions)
+      const token = await fetch('http://' + consts.myServer + '/api/contacts', requestOptions)
         .then(response => {
           if (response.status == 200) {
             return response.text();

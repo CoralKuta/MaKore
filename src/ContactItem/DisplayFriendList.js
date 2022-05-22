@@ -49,8 +49,8 @@ function DisplayFriendList(props) {
             }
             if (isExsits === false && friendData.id === remoteName) {
                 messages.push({ id: unuiqeId, content: message, created: time1, sent: false });
-                setRenders(!renders);
             }
+            setRenders(!renders);
       });
     
     }

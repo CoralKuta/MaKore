@@ -41,13 +41,12 @@ function Signin() {
         event.preventDefault();
 
         var { username, password } = document.forms[0];
-
+        // get JWT from server
         const requestOptions = {
             method: 'Post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ UserName: username.value, Password: password.value })
         };
-
         const token = await fetch('http://' + consts.myServer + '/api/connection/login', requestOptions)
             .then(response=> {
                 if (response.status == 200) {
