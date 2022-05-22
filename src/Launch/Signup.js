@@ -1,13 +1,13 @@
 import React from 'react';
 import './launch.css';
-import '../users';
-import users from '../users';
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import New from '../images/MKTRAN.png'
 import Talking from '../images/talking1.png'
 import MK from '../images/footer.png'
 import deafultImg from '../images/avatar.png'
+import consts from '../consts.js';
+
 
 function Signup() {
 
@@ -25,7 +25,8 @@ function Signup() {
     const errors = {
         usernameTaken: "Username already taken", wrongPassword2: "Passwords are not the same",
         emptyName: "Username must contain at least one character",
-        invalidPass: "Password must contain at least eight characters, including digits and letters"
+        invalidPass: "Password must contain at least eight characters, including digits and letters",
+        worngServer: "Internal server error"
     };
 
 
@@ -34,77 +35,82 @@ function Signup() {
         setdisplayError('none');
     }
 
-    const register = event => {
+    // When the form is submitted and the user wishes to register
+    const register = async (event) => {
         // prevent the page from refreshing
         event.preventDefault();
 
         var { username, nickname, password1, password2, pic } = document.forms[0];
         var newUsername = username.value.trim();
+        // validate username not empty, and contains letters and digits only
+        var regex = /^[A-Za-z0-9]*$/;
+        var passRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
+        // remove empty spaces from beginning and end
+        var newUsername = username.value.trim();
+        var newPass1 = password1.value.trim();
+        var newPass2 = password2.value.trim();
 
-        // find if the userbame already exists in "users"
-        const userData = users.find((user) => user.Username === newUsername);
+        if ((!regex.test(newUsername)) || (newUsername === '')) {
+            setErrorMessages({ name: "emptyName", message: errors.emptyName });
+            setdisplayError('block');
 
-        // if there is a user with this user name
-        if (userData) {
-            if (userData.Username !== null) {
-                setErrorMessages({ name: "usernameTaken", message: errors.usernameTaken });
-                setdisplayError('block');
-            }
-
-            // new user
-        } else {
-            // validate username not empty, and contains letters and digits only
-            var regex = /^[A-Za-z0-9]*$/;
-            var passRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
-
-            // remove empty spaces from beginning and end
-            var newUsername = username.value.trim();
-            var newPass1 = password1.value.trim();
-            var newPass2 = password2.value.trim();
-
-            if ((!regex.test(newUsername)) || (newUsername === '')) {
-                setErrorMessages({ name: "emptyName", message: errors.emptyName });
-                setdisplayError('block');
-
-                // validate characters of password
-            } else if ((!passRegex.test(newPass1)) || (newPass1.length < 8)) {
-                setErrorMessages({ name: "invalidPass", message: errors.invalidPass });
-                setdisplayError('block');
-            }
-
-            // validate same passwords
-            else if (newPass1 !== newPass2) {
-                setErrorMessages({ name: "wrongPassword2", message: errors.wrongPassword2 });
-                setdisplayError('block');
-
-                // new user, all good
-            } else {
-                var Username = newUsername;
-                var password = newPass1;
-
-                var Nickname;
-                if (nickname.value) {
-                    Nickname = nickname.value;
-                } else {
-                    Nickname = newUsername;
-                }
-
-                var pic;
-                if (pic.value) {
-                    var img = document.getElementById("picture").files[0];
-                    pic = URL.createObjectURL(img);
-                } else {
-                    pic = deafultImg;
-                }
-
-                var friends = [];
-                var noti = 0;
-                users[users.length] = { Username, Nickname, password, pic, friends, noti };
-                setIsSubmitted(true);
-                navigate('../chats', { state: { data: users[users.length - 1] } });
-            }
+            // validate characters of password
+        } else if ((!passRegex.test(newPass1)) || (newPass1.length < 8)) {
+            setErrorMessages({ name: "invalidPass", message: errors.invalidPass });
+            setdisplayError('block');
         }
+
+        // validate same passwords
+        else if (newPass1 !== newPass2) {
+            setErrorMessages({ name: "wrongPassword2", message: errors.wrongPassword2 });
+            setdisplayError('block');
+
+            // new user, all good
+        } else {
+            var Username = newUsername;
+            var password = newPass1;
+
+            var Nickname;
+            if (nickname.value) {
+                Nickname = nickname.value;
+            } else {
+                Nickname = newUsername;
+            }
+
+            const requestOptions = {
+                method: 'Post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ UserName: Username, NickName: Nickname, Password: password })
+            };
+            // Send the service POST request, get JWT if registartion succeed and 400
+            const token = await fetch('http://' + consts.myServer + '/api/connection/register', requestOptions)
+                .then(response => {
+                    if (response.status == 200) {
+                        return response.text();
+                    } else {
+                        setErrorMessages({ name: "wrongPassword2", message: errors.usernameTaken });
+                        setdisplayError('block');
+                    }
+                })
+                .then(data => {
+                    sessionStorage.setItem('myTokenName', data);
+                    return data;
+                })
+                .catch(error => {
+                    console.log('Request failed', error);
+                });
+            if (token != 400 && token != undefined) {
+                setIsSubmitted(true);
+                navigate('../chats');
+            } else {
+                setErrorMessages({ name: "wrongPassword2", message: "Internal server error" });
+                setdisplayError('block');
+            }
+
+        }
+
     }
+
 
     // Generate JSX code for error message
     const renderErrorMessage = (name) =>
@@ -181,6 +187,4 @@ function Signup() {
 
     );
 }
-
 export default Signup;
-

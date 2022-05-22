@@ -1,13 +1,14 @@
 import './TypingBoard.css';
 import AttachComponent from './attachComponent/AttachComponent';
-import React, { Component } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
+import consts from '../consts.js';
 
 
-function TypingBoard({currUser}) {
+
+function TypingBoard({seenMessages ,user, friendData, setter }) {
+
   const textBoard = useRef(null);
-
   // // to change height of grayPanel
   const [height, setHeight] = useState('43px');
   const [topBorderText, settopBorderText] = useState('52px');
@@ -26,8 +27,6 @@ function TypingBoard({currUser}) {
       }
     })
   }
-
-
   const cleanTextarea = function () {
     const textarea = document.querySelector("textarea");
     document.getElementById("attached").style.display = "none"
@@ -37,26 +36,40 @@ function TypingBoard({currUser}) {
     settopBorderText('52px');
   }
 
-  const send = function () {
+  var userInput;
+  const send = async function () {
     const textarea = document.querySelector("textarea");
     textarea.style.height = "auto";
+    userInput = textBoard.current.value.trim();
 
     //send message if it isn't empty
-    var userInput = textBoard.current.value.trim();
     if (userInput != "") {
-
-      // send the new message to the server
       const requestOptions = {
-        method: 'Post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: userInput})
+        method: 'post',
+        headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: userInput })
       };
+      const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
+      const data = await res.text();
+      console.log(consts.myServer);
+      console.log(friendData.server)
+      if (friendData.server !== consts.myServer) {
+        const requestOptionstranfer = {
+          method: 'post',
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from:userName ,to: friendData.id, content: userInput })
+        };
+        const res = await fetch('http://' + friendData.server + '/api/contacts/' + friendData.id + '/messages', requestOptionstranfer);
+      }
 
-      var url = 'http://localhost:5018/api/contacts/' + 'alice' + 'messages'
-      fetch(url, requestOptions).then(response => response.toString())};
-      cleanTextarea();
-    }
-  
+      setter([userInput]);
+    };
+
+    cleanTextarea();
+  }
+
+
+  const attach = function () {
 
   const attach = function () {
     if (document.getElementById("attached").style.display != "block")
@@ -69,10 +82,16 @@ function TypingBoard({currUser}) {
     //it triggers by pressing the enter key
     if (e.key == 'Enter' && !e.shiftKey) {
       send();
+      if(userInput != ""){
+      seenMessages(userInput, remoteUserName, userName, x);
+      }
       document.querySelector("textarea").value = "";
     }
   };
-
+  const unuiqeId = Math.random();
+  const x = unuiqeId.toString(10);
+  const userName = user.id;
+  const remoteUserName = friendData.id;
   return (
     <div className="gray-low-panel d-flex" id="grayPanel" style={{ 'height': height }}>
       <div id="attached" className="attached" style={{ 'bottom': topBorderText }}></div>

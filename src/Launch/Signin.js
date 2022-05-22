@@ -1,18 +1,18 @@
 import React from 'react';
 import './launch.css';
-import '../users';
-import users from '../users';
 import { useState } from 'react';
 import { useNavigate, Link, useParams } from "react-router-dom";
 import New from '../images/MKTRAN.png'
 import Talking from '../images/talking1.png'
 import MK from '../images/footer.png'
+import consts from '../consts.js';
+
 
 
 
 function Signin() {
     const navigate = useNavigate();
-
+    
 
     // if there is an error message - store the name of the field
     const [errorMessages, setErrorMessages] = useState({});
@@ -20,7 +20,10 @@ function Signin() {
     // indicate if the form is successfully submitted
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const errors = { wrong: "Invalid details. Not registerd? Sign up now!" };
+    const errors = { wrong: "Invalid details. Not registerd? Sign up now!"};
+    const servererrors = { wrong: "Internal server error"};
+
+    
 
     // to hide the error messages
     const [displayError, setdisplayError] = useState('none');
@@ -33,7 +36,7 @@ function Signin() {
     }
 
 
-    const validate = event => {
+    const validate = async (event) => {
         // prevent the page from refreshing
         event.preventDefault();
 
@@ -41,22 +44,36 @@ function Signin() {
 
         const requestOptions = {
             method: 'Post',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({UserName:username.value, Password:password.value})
-          };
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ UserName: username.value, Password: password.value })
+        };
 
-          fetch('http://localhost:5018/api/connection',requestOptions)
-          .then(resopne=> {
-            // find if the user exists in "users" - search by Username
-            if (resopne.status==200){
-                setIsSubmitted(true);
-                let userData = users.find((user) => user.Username === username.value);
-                navigate('../chats', { state: { data: userData } });
-            } else {
-                setErrorMessages({ name: "wrong", message: errors.wrong });
-                setdisplayError('block');
-            }
+        const token = await fetch('http://' + consts.myServer + '/api/connection/login', requestOptions)
+            .then(response=> {
+                if (response.status == 200) {
+                    return response.text();
+                } else {
+                    return response.status;
+                }
+            })
+            .then(data=> {
+                return data;
+            })
+            .catch(error => {
+                console.log('Request failed', error);
         });
+        if (token != 400 && token != undefined) {
+            setIsSubmitted(true);
+            sessionStorage.setItem('myTokenName', token);
+            // read from storage
+            navigate('../chats', { state: { data: username.value } });
+        } else if (token == 400) {
+            setErrorMessages({ name: "wrong", message: errors.wrong });
+            setdisplayError('block');
+        } else {
+            setErrorMessages({ name: "wrong", message: servererrors.wrong });
+            setdisplayError('block');
+        }
     }
 
     // Generate JSX code for error message
@@ -65,12 +82,7 @@ function Signin() {
             <div className="errors">{errorMessages.message}</div>
         );
 
-
-
     return (
-
-        
-
         <div className='wrapper'>
             <div className="logo-space"><img className='logo' src={New}></img></div>
             <div className='sign' onClick={hideErrors}>
@@ -111,4 +123,3 @@ function Signin() {
 }
 
 export default Signin;
-
