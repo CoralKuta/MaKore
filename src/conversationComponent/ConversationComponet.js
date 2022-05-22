@@ -2,13 +2,14 @@ import './ConversationComponent.css';
 import TypingBoard from '../typingBoard/TypingBoard';
 import ConvBoard from '../convBoard/ConvBoard';
 import Message from '../message/Message'
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 //the conversation component
 function ConversationComponent(props) {
   var friendData = props.friend[0];
   var friendChat = props.friend[1];
   var NewMessageList = [];
+  const [renreds, setRenders] = useState(true);
   //setting the last massage and time on the appropriate chat
   const setLast = (message, time) => {
     props.setLast(message, time);
@@ -64,8 +65,8 @@ function ConversationComponent(props) {
     if(isExsits === false && friendData.id === remoteName){
       friendChat.push({id: unuiqeId, content: message, created: time1, sent: false });
     }
-    
-    setLast(message,time);
+    setRenders(!renreds);
+    //setLast(message,time1, unuiqeId);
   });
   
   return (
@@ -75,7 +76,7 @@ function ConversationComponent(props) {
       </div>
       <TypingBoard seenMessages = {props.seenMessage} user = {props.user} friendData={friendData} setter={(props) => {
         friendChat.push({ id: 0, content: props[0], created: time, sent: true });
-        setLast(props[0], time);
+        setLast(props[0], time, Math.random());
         forceUpdate();
       }} friend = {friendData} />
     </div>

@@ -183,12 +183,14 @@ useEffect(() => {
       setdisplayError('block');
     }
   }
+    const [p, setP] = useState("1")
   //the setLast function to set the last message the its time
-  function setLast(message, time) {
+  function setLast(message, time, x) {
       friend[0].lastMessage = message;
       setMessage(message);
       friend[0].lastTime = time;
       setTime(time);
+      setP(x);
   }
 
   const [connection, setConnection] = useState();
