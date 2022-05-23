@@ -133,7 +133,7 @@ function Chat() {
           }
         })
     }
-    
+
     // the new friend
     const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
     // get the user name
@@ -145,24 +145,24 @@ function Chat() {
       headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
       body: JSON.stringify({ UserName: newFriend.id, NickName: newNickName, Server: newServer })
     };
-    const token = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions)
-      .then(response => {
-        let res = response.text();
-        if (response.status == 201) {
-          return response.text();
-        } else if (res == "inValid") {
-          setErrorMessages({ name: "uname", message: errors.inValid });
-          setdisplayError('block');
-        } else if (res == "yourself") {
-          setErrorMessages({ name: "uname", message: errors.yourSelf });
-          setdisplayError('block');
-        } else if (res == "alreadyExists") {
-          setErrorMessages({ name: "uname", message: errors.alreadyExists });
-          setdisplayError('block');
-        } else {
-          return response.status;
-        }
-      })
+    const code = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions);
+    let res = code.text();
+    if (code.status == 201) {
+      if (res == "inValid") {
+        setErrorMessages({ name: "uname", message: errors.inValid });
+        setdisplayError('block');
+      } else if (res == "yourself") {
+        setErrorMessages({ name: "uname", message: errors.yourSelf });
+        setdisplayError('block');
+      } else if (res == "alreadyExists") {
+        setErrorMessages({ name: "uname", message: errors.alreadyExists });
+        setdisplayError('block');
+      } else {
+        return code.status;
+      }
+    }
+
+
     friends.push(newFriend);
     setNameId("");
     setServer("");
