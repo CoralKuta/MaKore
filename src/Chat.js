@@ -84,8 +84,6 @@ function Chat() {
   };
 
 
-  let isOur = false;
-
   //handle submit function that take care of the adding contact if there is no error
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -102,7 +100,7 @@ function Chat() {
       headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
     };
     const respp = await fetch('http://' + consts.myServer + '/api/validation/' + nameId + '/' + server, RequestOptions);
-    if ((respp.status == 200 )|| (anotherRes.status == 201)) {
+    if ((respp.status == 200) || (respp.status == 201)) {
       var resStatus = await respp.text();
 
       // the friend is our user - add converastion
@@ -150,7 +148,7 @@ function Chat() {
 
         try {
           const a = await fetch('http://' + server + '/api/invitations', ro);
-          if (a.status == 200) {
+          if (a.status == 201) {
             setErrorMessages({ name: "uname", message: errors.invitations });
             setdisplayError('block');
 
