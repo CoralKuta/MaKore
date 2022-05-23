@@ -14,6 +14,7 @@ function DisplayFriendList(props) {
             method: 'get',
             headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
         };
+        console.log(friendData);
         const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
         const data = await res.json();
         data.forEach(element => {
@@ -21,6 +22,7 @@ function DisplayFriendList(props) {
                 element.created = element.created.substring(11, 16);
             }
         });
+        setMessages([]);
         setMessages(data);
     };
     useEffect(() => {
@@ -49,8 +51,8 @@ function DisplayFriendList(props) {
             }
             if (isExsits === false && friendData.id === remoteName) {
                 messages.push({ id: unuiqeId, content: message, created: time1, sent: false });
-                setRenders(!renders);
             }
+            setRenders(!renders);
       });
     
     }

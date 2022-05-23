@@ -1,15 +1,17 @@
 import './Chat.css';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import MessageHead from './MessageHead/MessageHead';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { useNavigate } from 'react-router-dom';
 import consts from './consts.js'
+import { useLocation } from 'react-router-dom';
 
 function Chat() {
+
   const [friends, setFriends] = useState([]);
   const [displayFriendsList, setDisplayFriendsList] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
@@ -46,8 +48,6 @@ function Chat() {
   useEffect(() => {
     getAnswer();
   }, []);
-
-
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
     let filtered = [];
@@ -78,7 +78,9 @@ function Chat() {
     inValid: "There is no such user! Please try again.",
     yourSelf: "You can't add your self as a user!",
     alreadyExists: "This user already exists!",
-    invitations: "An invitations has been sent to the user!"
+    invitations: "An invitations has been sent to the user!",
+    serverError: "This server could not be reached",
+    wait: "This may take awhile. Please don't Add again"
   };
 
 
@@ -90,98 +92,112 @@ function Chat() {
 
     var newContactName = nameId;
     var newNickName = nick;
-    var newServer;
-    var newLastMessage;
-    var newLastDate;
+    var newServer = server;
+    var newLastMessage = "";
+    var newLastDate = "";
 
-    if (server == consts.myServer) {
-      // we want to add a friend to our user. if we find the friend in "users" he is also our user. else - invitation
-      const RequestOptions = {
-        method: 'get',
-        headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
-      };
-      const res = await fetch('http://' + consts.myServer + '/api/existingUser/' + nameId, RequestOptions);
-      if (res.status == 200) {
-        // the friend is our user !
-        isOur = true;
-        newServer = consts.myServer;
-        newLastMessage = "";
-        newLastDate = "";
-      }
-    }
+    // we want to add a friend to our user. if we find the friend in "users" he is also our user. else - invitation
+    const RequestOptions = {
+      method: 'get',
+      headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+    };
+    const respp = await fetch('http://' + consts.myServer + '/api/validation/' + nameId + '/' + server, RequestOptions);
+    if (respp.status == 200) {
+      var resStatus = await respp.text();
 
-    // not our user -> invitations
-    if (isOur == false) {
-      newServer = server;
-      newLastMessage = "";
-      newLastDate = "";
+      // the friend is our user - add converastion
+      if (resStatus == '1') {
+        const requestOptions = {
+          method: 'post',
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ Id: newContactName, Name: newNickName, Server: newServer })
+        };
+        const anotherRes = await fetch('http://' + consts.myServer + '/api/contacts', requestOptions);
+        
+        if ((anotherRes.status == 200) || (anotherRes.status == 201)) {
+          // the new friend
+          const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
+          friends.push(newFriend);
+          immediateSennFriend(user.id, nameId, user.name);
+        }
 
+        setNameId("");
+        setServer("");
+        setNick("");
 
-      const ro = {
-        method: 'Post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from: user.id, to: newContactName, Server: consts.myServer })
-      };
-      const a = await fetch('http://' + server + '/api/invitations', ro)
-        .then(response => {
-          if (response.status == 200) {
-            return response.text();
-          } else {
-            //return response.status;
+      } else if (resStatus == '2') {
+        setErrorMessages({ name: "uname", message: errors.alreadyExists });
+        setdisplayError('block');
+
+      } else if (resStatus == '3') {
+        setErrorMessages({ name: "uname", message: errors.yourSelf });
+        setdisplayError('block');
+
+      } else if (resStatus == '4') {
+        setErrorMessages({ name: "uname", message: errors.inValid });
+        setdisplayError('block');
+      } else {
+        // INVIATATION
+        // wait. takes awhile
+        setErrorMessages({ name: "uname", message: errors.wait });
+        setdisplayError('block');
+
+        const ro = {
+          method: 'Post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from: user.id, to: newContactName, Server: consts.myServer })
+        };
+
+        try {
+          const a = await fetch('http://' + server + '/api/invitations', ro);
+          if (a.status == 200) {
             setErrorMessages({ name: "uname", message: errors.invitations });
             setdisplayError('block');
-          }
-        })
-    }
-    
-    // the new friend
-    const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
-    // get the user name
-    const friendName = document.getElementById("MemberName");
 
-    // check if the contact we are adding exists in the user's list, not already in our chat, and we are not trying to add ourself to the chat
-    const requestOptions = {
-      method: 'Post',
-      headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ UserName: newFriend.id, NickName: newNickName, Server: newServer })
-    };
-    const token = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions)
-      .then(response => {
-        let res = response.text();
-        if (response.status == 201) {
-          return response.text();
-        } else if (res == "inValid") {
-          setErrorMessages({ name: "uname", message: errors.inValid });
+            const requestOptions = {
+              method: 'Post',
+              headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+              body: JSON.stringify({ UserName: newContactName, NickName: newNickName, Server: newServer })
+            };
+            const anotherRes = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions);
+            if ((anotherRes.status == 200) || (anotherRes.status == 201)) {
+              // the new friend
+              const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
+              friends.push(newFriend);
+              setNameId("");
+              setServer("");
+              setNick("");
+            }
+          }
+        } catch (e) {
+          console.log(e);
+          setErrorMessages({ name: "uname", message: errors.serverError });
           setdisplayError('block');
-        } else if (res == "yourself") {
-          setErrorMessages({ name: "uname", message: errors.yourSelf });
-          setdisplayError('block');
-        } else if (res == "alreadyExists") {
-          setErrorMessages({ name: "uname", message: errors.alreadyExists });
-          setdisplayError('block');
-        } else {
-          return response.status;
+          setNameId("");
+          setServer("");
+          setNick("");
+          return;
         }
-      })
-    friends.push(newFriend);
-    setNameId("");
-    setServer("");
-    setNick("");
-    if (isOur === true) {
-      immediateSennFriend(user.id, nameId, user.name);
+      }
     }
   }
-  const [p, setP] = useState("1")
+
+
   //the setLast function to set the last message the its time
-  function setLast(message, time, x) {
+  function setLast(message, time) {
     friend[0].lastMessage = message;
     setMessage(message);
     friend[0].lastTime = time;
     setTime(time);
-    setP(x);
   }
 
   const [connection, setConnection] = useState();
+  var check = useLocation().state
+  var register;
+
+
+
+
   const registerToListener = async (userName) => {
     try {
       const connection = new HubConnectionBuilder()
@@ -196,6 +212,14 @@ function Chat() {
     }
   }
 
+
+  const newRegister = async (userName) => {
+    try {
+      await connection.invoke("newRegister", { userName });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const immediateSennFriend = async (userName, remoteUserName, nickname) => {
     try {
@@ -224,6 +248,27 @@ function Chat() {
     }
   }
 
+  const addRegister = async (remoteUser) => {
+    try {
+      await connection.invoke("addRegister", remoteUser);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  if (connection) {
+    connection.on("newRegisterUser", (remoteUser) => {
+      addRegister(remoteUser);
+    })
+  }
+  if (check !== null) {
+    register = check.data;
+    if (register === true) {
+      if (connection) {
+        registerToAllGrouop(user.id);
+        newRegister(user.id);
+      }
+    }
+  }
   return (
 
     <div className="background" >

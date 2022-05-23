@@ -18,7 +18,7 @@ function PopUp(props) {
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">Add Contact</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => { props.setNameId(""); }}></button>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => { props.setNameId(""); props.setNick(""); props.setServer("") }}></button>
                     </div>
                     <div className="modal-body">
                         <form className="form" onSubmit={props.handleSubmit}>
