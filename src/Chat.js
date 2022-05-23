@@ -102,7 +102,7 @@ function Chat() {
       headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
     };
     const respp = await fetch('http://' + consts.myServer + '/api/validation/' + nameId + '/' + server, RequestOptions);
-    if (respp.status == 200) {
+    if ((respp.status == 200 )|| (anotherRes.status == 201)) {
       var resStatus = await respp.text();
 
       // the friend is our user - add converastion
