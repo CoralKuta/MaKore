@@ -14,6 +14,7 @@ function DisplayFriendList(props) {
             method: 'get',
             headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
         };
+        console.log(friendData);
         const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
         const data = await res.json();
         data.forEach(element => {

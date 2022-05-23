@@ -6,7 +6,7 @@ import consts from '../consts.js';
 
 
 
-function TypingBoard({seenMessages ,user, friendData, setter }) {
+function TypingBoard({ seenMessages, user, friendData, setter }) {
 
   const textBoard = useRef(null);
   // // to change height of grayPanel
@@ -44,6 +44,7 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
 
     //send message if it isn't empty
     if (userInput != "") {
+      setter([userInput]);
       const requestOptions = {
         method: 'post',
         headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
@@ -51,18 +52,19 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       };
       const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
-      console.log(consts.myServer);
-      console.log(friendData.server)
+
       if (friendData.server !== consts.myServer) {
         const requestOptionstranfer = {
           method: 'post',
-          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
-          body: JSON.stringify({ from:userName ,to: friendData.id, content: userInput })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from: userName, to: friendData.id, content: userInput })
         };
-        const res = await fetch('http://' + friendData.server + '/api/contacts/' + friendData.id + '/messages', requestOptionstranfer);
+        try {
+          const res = await fetch('http://' + friendData.server + '/api/transfer', requestOptionstranfer);
+        } catch (e) {
+          console.log(e);
+        }
       }
-
-      setter([userInput]);
     };
 
     cleanTextarea();
@@ -81,8 +83,8 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
     //it triggers by pressing the enter key
     if (e.key == 'Enter' && !e.shiftKey) {
       send();
-      if(userInput != ""){
-      seenMessages(userInput, remoteUserName, userName, x);
+      if (userInput != "") {
+        seenMessages(userInput, remoteUserName, userName, x);
       }
       document.querySelector("textarea").value = "";
     }
