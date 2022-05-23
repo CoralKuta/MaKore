@@ -82,52 +82,41 @@ useEffect(() => {
   };
 
   //handle submit function that take care of the adding contact if there is no error
+  let isOur = false;
+
+  //handle submit function that take care of the adding contact if there is no error
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var contactIdentifier = false;
-    //check if the friend is exists in the users list from the DB
-    for (var k = 0; k < users.length; k++) {
-      if (users[k].id === nameId) {
-        contactIdentifier = true;
-      }
-    }
-    //check if the friend is already exists in my chat
-    var checkExists = false;
-    for (var j = 0; j < friends.length; j++) {
-      if (friends[j].id === nameId) {
-        checkExists = true;
-      }
-    }
 
-    var newContactName;
-    var newNickName;
+    var newContactName = nameId;
+    var newNickName = nick;
     var newServer;
     var newLastMessage;
     var newLastDate;
 
-    // we want to add a friend to our user. we find the user in "users" and add the new friend.
-    /*
-    var isOur = false;
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].id === nameId) {
+    if (server == consts.myServer) {
+      // we want to add a friend to our user. if we find the friend in "users" he is also our user. else - invitation
+      const RequestOptions = {
+        method: 'get',
+        headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+      };
+      const res = await fetch('http://' + consts.myServer + '/api/existingUser/' + nameId, RequestOptions);
+      if (res.status == 200) {
+        // the friend is our user !
         isOur = true;
-        newContactName = users[i].id;
-        newNickName = nick;
-        newServer = users[i].server;
-        newLastMessage = users[i].last;
-        newLastDate = users[i].lastDate;
+        newServer = consts.myServer;
+        newLastMessage = "";
+        newLastDate = "";
       }
-    }*/
+    }
 
     // not our user -> invitations
-   // if (isOur == false) {
-      newContactName = nameId;
-      newNickName = nick;
+    if (isOur == false) {
       newServer = server;
       newLastMessage = "";
       newLastDate = "";
 
-/*
+
       const ro = {
         method: 'Post',
         headers: { 'Content-Type': 'application/json' },
@@ -143,53 +132,45 @@ useEffect(() => {
             setdisplayError('block');
           }
         })
-
     }
-    */
+    
     // the new friend
     const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
     // get the user name
     const friendName = document.getElementById("MemberName");
-    // check the the contact that we are adding is exists in the user list, not already in our chat, and we are not trying to add ourself to the chat
-    //if (contactIdentifier && !checkExists && (friendName.innerText !== nameId)) {
-      if(1===1) {
-      const requestOptions = {
-        method: 'Post',
-        headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: newFriend.id, name: newNickName, server: newServer })
-      };
-      const token = await fetch('http://' + consts.myServer + '/api/contacts', requestOptions)
-        .then(response => {
-          if (response.status == 200) {
-            return response.text();
-          } else {
-            return response.status;
-          }
 
-        })
-      friends.push(newFriend);
-      setNameId("");
-      setServer("");
-      setNick("");
-     // if(isOur === true) {
-        immediateSennFriend(user.id, nameId, user.name);
-     // }
-
-    }//display the appropriate error
-    else if (!contactIdentifier) {
-      setErrorMessages({ name: "uname", message: errors.inValid });
-      setdisplayError('block');
-    } //display the appropriate error
-    else if (checkExists) {
-      setErrorMessages({ name: "uname", message: errors.alreadyExists });
-      setdisplayError('block');
-    }//display the appropriate error
-    else {
-      setErrorMessages({ name: "uname", message: errors.yourSelf });
-      setdisplayError('block');
+    // check if the contact we are adding exists in the user's list, not already in our chat, and we are not trying to add ourself to the chat
+    const requestOptions = {
+      method: 'Post',
+      headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ UserName: newFriend.id, NickName: newNickName, Server: newServer })
+    };
+    const token = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions)
+      .then(response => {
+        let res = response.text();
+        if (response.status == 201) {
+          return response.text();
+        } else if (res == "inValid") {
+          setErrorMessages({ name: "uname", message: errors.inValid });
+          setdisplayError('block');
+        } else if (res == "yourself") {
+          setErrorMessages({ name: "uname", message: errors.yourSelf });
+          setdisplayError('block');
+        } else if (res == "alreadyExists") {
+          setErrorMessages({ name: "uname", message: errors.alreadyExists });
+          setdisplayError('block');
+        } else {
+          return response.status;
+        }
+      })
+    friends.push(newFriend);
+    setNameId("");
+    setServer("");
+    setNick("");
+    if (isOur === true) {
+      immediateSennFriend(user.id, nameId, user.name);
     }
   }
-    const [p, setP] = useState("1")
   //the setLast function to set the last message the its time
   function setLast(message, time) {
       friend[0].lastMessage = message;
