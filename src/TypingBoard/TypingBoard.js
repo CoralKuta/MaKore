@@ -51,6 +51,17 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
       };
       const res = await fetch('http://' + consts.myServer + '/api/contacts/' + friendData.id + '/messages', requestOptions);
       const data = await res.text();
+      console.log(consts.myServer);
+      console.log(friendData.server)
+      if (friendData.server !== consts.myServer) {
+        const requestOptionstranfer = {
+          method: 'post',
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from:userName ,to: friendData.id, content: userInput })
+        };
+        const res = await fetch('http://' + friendData.server + '/api/contacts/' + friendData.id + '/messages', requestOptionstranfer);
+      }
+
       setter([userInput]);
     };
 
@@ -71,12 +82,13 @@ function TypingBoard({seenMessages ,user, friendData, setter }) {
     if (e.key == 'Enter' && !e.shiftKey) {
       send();
       if(userInput != ""){
-      seenMessages(userInput, remoteUserName, userName);
-      
+      seenMessages(userInput, remoteUserName, userName, x);
       }
       document.querySelector("textarea").value = "";
     }
   };
+  const unuiqeId = Math.random();
+  const x = unuiqeId.toString(10);
   const userName = user.id;
   const remoteUserName = friendData.id;
   return (

@@ -381,6 +381,10 @@ div .details {
 
   }
 
+  .chat-background {
+    justify-content: flex-end;
+  }
+
   #another-wrap {
     height: 92% !important;
   }

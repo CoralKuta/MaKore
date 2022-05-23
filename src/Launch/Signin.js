@@ -41,13 +41,12 @@ function Signin() {
         event.preventDefault();
 
         var { username, password } = document.forms[0];
-
+        // get JWT from server
         const requestOptions = {
             method: 'Post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ UserName: username.value, Password: password.value })
         };
-
         const token = await fetch('http://' + consts.myServer + '/api/connection/login', requestOptions)
             .then(response=> {
                 if (response.status == 200) {
@@ -66,7 +65,7 @@ function Signin() {
             setIsSubmitted(true);
             sessionStorage.setItem('myTokenName', token);
             // read from storage
-            navigate('../chats', { state: { data: username.value } });
+            navigate('../chats', { state: { data: false } });
         } else if (token == 400) {
             setErrorMessages({ name: "wrong", message: errors.wrong });
             setdisplayError('block');
@@ -123,4 +122,3 @@ function Signin() {
 }
 
 export default Signin;
-

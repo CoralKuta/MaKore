@@ -1,15 +1,17 @@
 import './Chat.css';
 import Search from './Search/Search.js'
 import MemberInfo from './MemberInfo/memberInfo';
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useState } from 'react';
 import ContactsListResult from './ContactsListResult/ContactsListResult';
 import PopUp from './PopUpComponent/PopUp';
 import MessageHead from './MessageHead/MessageHead';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { useNavigate } from 'react-router-dom';
 import consts from './consts.js'
+import { useLocation } from 'react-router-dom';
 
 function Chat() {
+
   const [friends, setFriends] = useState([]);
   const [displayFriendsList, setDisplayFriendsList] = useState([]);
   const [friendsList, setFriendsList] = useState([]);
@@ -46,8 +48,6 @@ function Chat() {
   useEffect(() => {
     getAnswer();
   }, []);
-
-
   //this is the search method we are going all over the friends list to find the chat that includes the search name
   const doSearch = function (searchName) {
     let filtered = [];
@@ -78,10 +78,12 @@ function Chat() {
     inValid: "There is no such user! Please try again.",
     yourSelf: "You can't add your self as a user!",
     alreadyExists: "This user already exists!",
-    invitations: "An invitations has been sent to the user!"
+    invitations: "An invitations has been sent to the user!",
+    serverError: "This server could not be reached",
+    wait: "This may take awhile. Please don't Add again"
   };
 
-
+  //handle submit function that take care of the adding contact if there is no error
   let isOur = false;
 
   //handle submit function that take care of the adding contact if there is no error
@@ -112,6 +114,8 @@ function Chat() {
 
     // not our user -> invitations
     if (isOur == false) {
+      setErrorMessages({ name: "uname", message: errors.wait });
+      setdisplayError('block');
       newServer = server;
       newLastMessage = "";
       newLastDate = "";
@@ -122,17 +126,25 @@ function Chat() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ from: user.id, to: newContactName, Server: consts.myServer })
       };
-      const a = await fetch('http://' + server + '/api/invitations', ro)
-        .then(response => {
-          if (response.status == 200) {
-            return response.text();
-          } else {
-            //return response.status;
-            setErrorMessages({ name: "uname", message: errors.invitations });
-            setdisplayError('block');
-          }
-        })
+
+      try {
+        const a = await fetch('http://' + server + '/api/invitations', ro);
+        if (a.status == 200) {
+          setErrorMessages({ name: "uname", message: errors.invitations });
+          setdisplayError('block');
+        }
+      } catch (e) {
+        console.log(e);
+        setErrorMessages({ name: "uname", message: errors.serverError });
+        setdisplayError('block');
+        setNameId("");
+        setServer("");
+        setNick("");
+        return;
+      }
     }
+
+
 
     // the new friend
     const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
@@ -145,9 +157,9 @@ function Chat() {
       headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('myTokenName'), 'Content-Type': 'application/json' },
       body: JSON.stringify({ UserName: newFriend.id, NickName: newNickName, Server: newServer })
     };
-    const code = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions);
-    let res = code.text();
-    if (code.status == 201) {
+    const anotherRes = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions);
+    let res = anotherRes.text();
+    if (anotherRes.status == 201) {
       if (res == "inValid") {
         setErrorMessages({ name: "uname", message: errors.inValid });
         setdisplayError('block');
@@ -157,8 +169,6 @@ function Chat() {
       } else if (res == "alreadyExists") {
         setErrorMessages({ name: "uname", message: errors.alreadyExists });
         setdisplayError('block');
-      } else {
-        return code.status;
       }
     }
 
@@ -171,17 +181,21 @@ function Chat() {
       immediateSennFriend(user.id, nameId, user.name);
     }
   }
-  const [p, setP] = useState("1")
   //the setLast function to set the last message the its time
-  function setLast(message, time, x) {
+  function setLast(message, time) {
     friend[0].lastMessage = message;
     setMessage(message);
     friend[0].lastTime = time;
     setTime(time);
-    setP(x);
   }
 
   const [connection, setConnection] = useState();
+  var check = useLocation().state
+  var register;
+
+
+
+
   const registerToListener = async (userName) => {
     try {
       const connection = new HubConnectionBuilder()
@@ -196,6 +210,14 @@ function Chat() {
     }
   }
 
+
+  const newRegister = async (userName) => {
+    try {
+      await connection.invoke("newRegister", { userName });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const immediateSennFriend = async (userName, remoteUserName, nickname) => {
     try {
@@ -224,6 +246,27 @@ function Chat() {
     }
   }
 
+  const addRegister = async (remoteUser) => {
+    try {
+      await connection.invoke("addRegister", remoteUser);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  if (connection) {
+    connection.on("newRegisterUser", (remoteUser) => {
+      addRegister(remoteUser);
+    })
+  }
+  if (check !== null) {
+    register = check.data;
+    if (register === true) {
+      if (connection) {
+        registerToAllGrouop(user.id);
+        newRegister(user.id);
+      }
+    }
+  }
   return (
 
     <div className="background" >
