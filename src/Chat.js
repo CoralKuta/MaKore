@@ -91,8 +91,8 @@ function Chat() {
     var newContactName = nameId;
     var newNickName = nick;
     var newServer = server;
-    var newLastMessage = "";
-    var newLastDate = "";
+    var newLastMessage = null;
+    var newLastDate = null
 
     // we want to add a friend to our user. if we find the friend in "users" he is also our user. else - invitation
     const RequestOptions = {
@@ -114,7 +114,7 @@ function Chat() {
         
         if ((anotherRes.status == 200) || (anotherRes.status == 201)) {
           // the new friend
-          const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
+          const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastdate: newLastDate };
           friends.push(newFriend);
           immediateSennFriend(user.id, nameId, user.name);
         }
@@ -160,7 +160,7 @@ function Chat() {
             const anotherRes = await fetch('http://' + consts.myServer + '/api/addConversation', requestOptions);
             if ((anotherRes.status == 200) || (anotherRes.status == 201)) {
               // the new friend
-              const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastDate: newLastDate };
+              const newFriend = { id: newContactName, name: newNickName, server: newServer, last: newLastMessage, lastdate: newLastDate };
               friends.push(newFriend);
               setNameId("");
               setServer("");
@@ -227,9 +227,9 @@ function Chat() {
     }
   }
 
-  const registerToAllGrouop = async (userName) => {
+  const registerToAllGroup = async (userName) => {
     try {
-      await connection.invoke("registerToAllGrouop", { userName })
+      await connection.invoke("registerToAllGroup", { userName })
       await connection.invoke("registerToListener", { userName });
 
     } catch (e) {
@@ -262,7 +262,7 @@ function Chat() {
     register = check.data;
     if (register === true) {
       if (connection) {
-        registerToAllGrouop(user.id);
+        registerToAllGroup(user.id);
         newRegister(user.id);
       }
     }
@@ -274,7 +274,7 @@ function Chat() {
         <div className="ContactScreen" >
           <MemberInfo user={user} />
           <Search doSearch={doSearch} />
-          <ContactsListResult friends={displayFriendsList} setFriends={setDisplayFriendsList} changeFriend={setFriend} user={user} connection={connection} registerToAllGrouop={registerToAllGrouop} setLast={setLast} />
+          <ContactsListResult friends={displayFriendsList} setFriends={setDisplayFriendsList} changeFriend={setFriend} user={user} connection={connection} registerToAllGroup={registerToAllGroup} setLast={setLast} />
         </div>
         <div className="ChatScreen">
           <MessageHead friend={friend} setLast={setLast} user={user} seenMessages={immediateSeenMessage} connection={connection} />
